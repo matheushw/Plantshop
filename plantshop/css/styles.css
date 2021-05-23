@@ -1,0 +1,39 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    background-color: #B5E550;
+}
+
+header button{
+    padding: 9px 15px;
+    background-color: rgb(92, 182, 3);
+    border: none;
+    border-radius: 20px;
+}
+
+.logo{
+    width: 60px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.inline li{
+    display: inline-block;
+    padding: 10px;
+}
+
+.products_display img{
+    width: 300px;
+}
+
+.content{
+    padding: 30px;
+}
