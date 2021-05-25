@@ -1,10 +1,10 @@
 # Web Development Project 
-## Professor Dilvan de Abreu Moreira
+Professor Dilvan de Abreu Moreira
 
 ## Group 12
-### Frederico Bulhões de Souza Ribeiro - 11208440 
-### Maria Eduarda Kawakami Moreira - 11218751
-### Matheus Barcellos de Castro Cunha - 11208238
+Frederico Bulhões de Souza Ribeiro - **11208440**   
+Maria Eduarda Kawakami Moreira - **11218751**  
+Matheus Barcellos de Castro Cunha - **11208238**
 
 # Plant Shop
 The website was designed to be a plant e-commerce. Here users will be able to find any plant they want, being it flowers or house plants. It's also possible to rent flowers for a special ocasion and get a decoration service. 
