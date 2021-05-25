@@ -2,9 +2,14 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'Bitter', serif;
+    color: black;
 }
 
+h2{color: rgb(92, 182, 3)}
+
 header{
+    font-family: 'Bitter', serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,10 +24,18 @@ header button{
     border-radius: 20px;
 }
 
+header h1{
+    font-family: 'Indie Flower', cursive;
+}
+
 .logo{
     width: 60px;
     margin: 10px;
     cursor: pointer;
+}
+
+.material-icons-outlined{
+    vertical-align: middle;
 }
 
 .inline li{
@@ -31,9 +44,12 @@ header button{
 }
 
 .products_display img{
-    width: 300px;
+    width: 200px;
 }
 
 .content{
     padding: 30px;
+}
+
+form{  border: 3px solid #f1f1f1; padding: 10px; font-size: medium;
 }
