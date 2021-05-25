@@ -60,3 +60,7 @@ header h1{
 form{
     padding: 10px; font-size: medium;
 }
+
+.vazio{
+    color: red;
+}
