@@ -24,16 +24,21 @@ The website was designed to be a plant e-commerce. Here users will be able to fi
 ## Project Description
 
 ### Flow Diagram
+**This is more about our expectations of how our project will be in its final phase. Just reminding that our project is in a mock phase, so it is not functional what means that some flows are not working**
+
 ![Diagrama de fluxo](https://i.imgur.com/3aJ9TJu.png)
 
 ### Data storage
 Our project will store users data such as password and email in a specific database. The products info will also be stored in an dedicated database.
 
+
+### Limitations
+- Our website is fully mocked, **what means that our website is not functional** 
+- We are linking all products to the same product description page **because our website is mocked**
+
 ### Screens
 #### Homepage
 This page contains an overview of our products. There we can check out the products on sale and some product categories.
-
-**Today's limitations:** Today admins can't access admins page directly by the home page. Admins can only access admins page only by login in.
 
 #### Profile Page
 This page shows user's infos as so as its orders. Here users will be able to edit its infos (not available now).
