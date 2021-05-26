@@ -28,7 +28,7 @@ Our website is running at https://fredbr.com/plantshop
 ### Flow Diagram
 **This is more about our expectations of how our project will be in its final phase. Just reminding that our project is in a mock phase, so it is not functional what means that some flows are not working**
 
-![Diagrama de fluxo](https://i.imgur.com/3aJ9TJu.png)
+![Diagrama de fluxo](https://i.imgur.com/mlaWlqZ.png)
 
 ### Data storage
 Our project will store users data such as password and email in a specific database. The products info will also be stored in an dedicated database.
