@@ -37,10 +37,11 @@ Our project will store users data such as password and email in a specific datab
 ### Limitations
 - Our website is fully mocked, **what means that our website is not functional** 
 - We are linking all products to the same product description page **because our website is mocked**
+- The sliders are not working, **it's just a mock**.
 
 ### Screens
 #### Homepage
-This page contains an overview of our products. There we can check out the products on sale and some product categories.
+This page contains an overview of our products. There we can check out the products on sale and some product categories. In the top, we have a slider showing the products on sale. 
 
 #### Profile Page
 This page shows user's infos as so as its orders. Here users will be able to edit its infos (not available now).
