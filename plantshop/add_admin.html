@@ -2,7 +2,7 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="css/styles.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet"> 
@@ -29,22 +29,23 @@
         </div>
       </header>
       <div class="content login">
-        <h1> Cadastro </h1>
+        <h1> Adicionar novo administrador </h1>
         <br>
-        <h2> Já tem conta? <a href="login.html"> Faça login</a></h2>
         <form>
             Nome: <br>
             <input type="text" name="nome" placeholder="Jose da Silva Souza" required> <br><br>
             Email: <br>
             <input type="email" name="email" autocomplete="off" placeholder="seuemail@email.com" required><br>
             <br>
+            Telefone: <br>
+            <input type="tel" name="tel" required><br>
+            <br>
             Senha: <br>
             <input type="password" name="senha"><br><br>
-            Repita sua senha: <br>
+            Repita a senha: <br>
             <input type="password" name="senha"><br><br>
-            <input type="submit" name="btn-enviar" value="Cadastrar">
+            <input type="submit" name="btn-enviar" value="Adicionar administrador">
         </form>  
-           
       </div>
     </body>
 </html>
