@@ -135,10 +135,7 @@ button{
 
 .center {
     width: 80%;
-    position: absolute;
-    left: 50%;
-    top: 90%;
-    transform: translate(-50%, -50%);
+    margin-left: 10%;
     padding: 10px;
 }
 
