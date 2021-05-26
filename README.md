@@ -60,6 +60,9 @@ The page of sign up has a form, that requires the name, email and the password. 
 #### Rent Flower (Special Feature)
 In this page users will be able to schedule a flower rent.
 
+#### Inventory
+In the Admin Page, there is the option to manage the inventory. In this page, all the products will be displayed and some funcionionalities will be available (add, update and remove products). 
+
 ## Comments About the Code
 Our entire website is curentily built using HTML5 and CSS3.
 
