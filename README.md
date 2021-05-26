@@ -24,14 +24,17 @@ The website was designed to be a plant e-commerce. Here users will be able to fi
 ## Project Description
 
 ### Data storage
-Our project will store users data such as password and email in a specific database.
-The products info will also be stored in an dedicated database.
+Our project will store users data such as password and email in a specific database. The products info will also be stored in an dedicated database.
 
 ### Screens
 #### Homepage
-This page contains a brief 
+This page contains an overview of our products. There we can check out the products on sale and some product categories.
 
-#### Profile Account
+#### Profile Page
+This page shows user's infos as so as its orders. Here users will be able to edit its infos (not available now).
+
+#### Admin Page
+This page shows admin's infos. Here admins will be able to go to the inventory management page, and also will be able to go the admin register page, to register another admin. 
 
 #### Cart
 The page contains all the current products the customer put in the cart. For each product, there is the option to delete it and to increase the amount (the former is not included in the mockup).
@@ -39,13 +42,13 @@ The page contains all the current products the customer put in the cart. For eac
 #### Product Description
 This spage cointains the description of the product and its price, also the option to add to the cart. The customer can go to the page by clicking in the product.
 
-### Category Page
+#### Category Page
 There are four pages of categories of plants: plants (in general), flowers, bouquets and pots. In this pages, we have all of the plants in the store that fit into that category. 
 
-### Login
+#### Login
 The page of login has a form, that requires the email and the password. There is also the option to go to the sign up page, if the user doesn't have an account. 
 
-### Sign up
+#### Sign up
 The page of sign up has a form, that requires the name, email and the password. There is also the option to go to the login page, if the user already has an account. 
 
 
