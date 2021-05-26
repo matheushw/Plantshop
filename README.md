@@ -45,6 +45,9 @@ The page contains all the current products the customer put in the cart. For eac
 #### Product Description
 This spage cointains the description of the product and its price, also the option to add to the cart. The customer can go to the page by clicking in the product.
 
+#### Register Admin
+In this page, an admin will be able to register another store admin.
+
 #### Category Page
 There are four pages of categories of plants: plants (in general), flowers, bouquets and pots. In this pages, we have all of the plants in the store that fit into that category. 
 
