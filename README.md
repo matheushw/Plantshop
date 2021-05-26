@@ -33,6 +33,8 @@ Our project will store users data such as password and email in a specific datab
 #### Homepage
 This page contains an overview of our products. There we can check out the products on sale and some product categories.
 
+**Today's limitations:** Today admins can't access admins page directly by the home page. Admins can only access admins page only by login in.
+
 #### Profile Page
 This page shows user's infos as so as its orders. Here users will be able to edit its infos (not available now).
 
