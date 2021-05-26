@@ -34,8 +34,20 @@ This page contains a brief
 #### Profile Account
 
 #### Cart
+The page contains all the current products the customer put in the cart. For each product, there is the option to delete it and to increase the amount (the former is not included in the mockup).
 
 #### Product Description
+This spage cointains the description of the product and its price, also the option to add to the cart. The customer can go to the page by clicking in the product.
+
+### Category Page
+There are four pages of categories of plants: plants (in general), flowers, bouquets and pots. In this pages, we have all of the plants in the store that fit into that category. 
+
+### Login
+The page of login has a form, that requires the email and the password. There is also the option to go to the sign up page, if the user doesn't have an account. 
+
+### Sign up
+The page of sign up has a form, that requires the name, email and the password. There is also the option to go to the login page, if the user already has an account. 
+
 
 ## Comments About the Code
 
