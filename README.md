@@ -23,6 +23,8 @@ The website was designed to be a plant e-commerce. Here users will be able to fi
 
 ## Project Description
 
+Our website is running at https://fredbr.com/plantshop
+
 ### Flow Diagram
 **This is more about our expectations of how our project will be in its final phase. Just reminding that our project is in a mock phase, so it is not functional what means that some flows are not working**
 
