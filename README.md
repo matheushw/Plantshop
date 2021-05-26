@@ -22,9 +22,14 @@ The website was designed to be a plant e-commerce. Here users will be able to fi
 * One service provided is a flower decoration rent, where the customer can check all the available time for decoration and rent of a specific theme (for example, a wedding or a birthday party) for the period of time needed.  
 
 ## Project Description
+
+### Data storage
+Our project will store users data such as password and email in a specific database.
+The products info will also be stored in an dedicated database.
+
 ### Screens
 #### Homepage
-
+This page contains a brief 
 
 #### Profile Account
 
