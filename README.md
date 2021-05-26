@@ -54,7 +54,7 @@ The page of login has a form, that requires the email and the password. There is
 #### Sign up
 The page of sign up has a form, that requires the name, email and the password. There is also the option to go to the login page, if the user already has an account. 
 
-#### Rent Flower **(Special Feature)**
+#### Rent Flower (Special Feature)
 In this page users will be able to schedule a flower rent.
 
 ## Comments About the Code
