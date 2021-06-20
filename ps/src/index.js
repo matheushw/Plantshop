@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 
 export { default as Navigation } from "./base-components/Navigation/Navigation";
-export { default as Home } from "./pages/Home/Home";
+export { default as HomePage } from "./packages/home/src/components/HomePage/HomePage";
 export { default as About } from "./pages/About/About";
 export { default as Contact } from "./pages/Contact/Contact";
 
