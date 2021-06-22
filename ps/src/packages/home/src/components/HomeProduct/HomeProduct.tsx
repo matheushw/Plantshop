@@ -11,9 +11,9 @@ export interface HomeProductProps {
 const HomeProduct: React.FC<HomeProductProps> = ({ img, name, price }) => {
   return (
     <div>
-      <img className={styles.homeProductImage} src={img}/>
-      <h3>{name}</h3>
-      <h2>R${price}</h2>
+      <img className={styles.homeProductImage} src={img} alt=""/>
+      <h3 className={styles.title}>{name}</h3>
+      <h2 className={styles.price}>R${price}</h2>
     </div>
   );
 };
