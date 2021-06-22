@@ -1,9 +1,8 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navigation from "./base-components/Navigation/Navigation";
+import Navigation from "./base-components/navigation/Navigation";
 import About from "./pages/About/About";
-import Contact from "./pages/Contact/Contact";
 import HomePage from "./packages/home/src/components/HomePage/HomePage";
+import RentPage from "./packages/rent-page/src/components/RentPage";
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={() => <HomePage />} />
           <Route path="/about" exact component={() => <About />} />
-          <Route path="/contact" exact component={() => <Contact />} />
+          <Route path="/rent-page" exact component={() => <RentPage />} />
         </Switch>
       </Router>
     </div>

@@ -18,7 +18,7 @@ const Navigation: React.FC<NavigationProps> = () => {
               <li><Link to="/">Flores</Link></li>
               <li><Link to="/">Buquês</Link></li>
               <li><Link to="/">Vasos</Link></li>
-              <li><Link to="/">Aluguel de Planta</Link></li>
+              <li><Link to="/rent-page">Aluguel de Planta</Link></li>
             </ul>
           </div>
 
