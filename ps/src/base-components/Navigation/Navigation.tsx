@@ -25,7 +25,7 @@ const Navigation: React.FC<NavigationProps> = () => {
           <div>
             <Link to="/chart-page"><span className="material-icons-outlined"> shopping_cart </span></Link>
             <Link to="/"><span className="material-icons-outlined"> account_circle </span> </Link>
-            <Link to="/"><button>Login/Cadastro</button></Link>
+            <Link to="/login-page"><button>Login/Cadastro</button></Link>
           </div>
 
         </div>
