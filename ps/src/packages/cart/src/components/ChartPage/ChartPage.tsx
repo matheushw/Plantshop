@@ -24,7 +24,7 @@ const ChartPage: React.FC<ChartPageProps> = ({ finalPrice }) => {
   }
 
   return(
-    <div>
+    <div className={styles.productDisplay}>
       <h1>Seus Produtos</h1>
 
       <div className={styles.productList}>
