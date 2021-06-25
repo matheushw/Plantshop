@@ -1,21 +1,25 @@
-import React from 'react';
+import React  from 'react';
+import { Link } from "react-router-dom";
 
 import * as styles from './styles';
 
-export interface HomeProductProps {
+export interface ProductProps {
   img: string;
   name: string;
   price: string;
 }
 
-const HomeProduct: React.FC<HomeProductProps> = ({ img, name, price }) => {
+const Product: React.FC<ProductProps> = (props) => {
+       
   return (
-    <div>
-      <img className={styles.homeProductImage} src={img} alt=""/>
-      <h3 className={styles.title}>{name}</h3>
-      <h2 className={styles.price}>R${price}</h2>
+    <div className={styles.product}> 
+    <Link to={{pathname:"/detail-product-page"}} >
+    <img className={styles.productImage} src={props.img} alt=""/>
+      <h3 className={styles.title}>{props.name}</h3>
+      <h2 className={styles.price}>R${props.price}</h2>
+      </Link>
     </div>
   );
 };
 
-export default HomeProduct;
+export default Product;

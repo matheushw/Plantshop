@@ -35,7 +35,7 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
       state={"SP"}
       country={"Brasil"}/>
       <div className={styles.purchaseList}>
-        <h1>Meus Pedidos</h1>
+        <h1> Meus pedidos</h1>
         {mockPurchases(1, "02/02/2020", "19.99")}
       </div>
     </div>

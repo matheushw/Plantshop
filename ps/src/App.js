@@ -7,6 +7,7 @@ import ChartPage from "./packages/cart/src/components/ChartPage";
 import LoginPage from "./packages/authentication/src/components/LoginPage";
 import RegisterPage from "./packages/authentication/src/components/RegisterPage";
 import ProfilePage from "./packages/profile/src/components/ProfilePage";
+import DetailProductPage from "./base-components/product/src/components/DetailProductPage/DetailProductPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login-page" exact component={() => <LoginPage />} />
           <Route path="/register-page" exact component={() => <RegisterPage />} />
           <Route path="/profile" exact component={() => <ProfilePage />} />
+          <Route path="/detail-product-page/:name/:img/:price" exact component={(props) => <DetailProductPage/>} />
         </Switch>
       </Router>
     </div>

@@ -1,6 +1,12 @@
 import { css } from "@emotion/css";
 
-export const homeProductImage = css`
+export const product = css`
+  a{
+    text-decoration: none;
+  }
+`;
+
+export const productImage = css`
   height: 200px;
 `;
 
@@ -11,4 +17,5 @@ export const price = css`
 
 export const title = css `
   margin-bottom: 0px;
+  color: black;
 `;
