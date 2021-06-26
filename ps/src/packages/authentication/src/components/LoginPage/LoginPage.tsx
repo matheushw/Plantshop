@@ -9,7 +9,7 @@ const LoginPage: React.FC<LoginPageProps> = () => {
     <div className={styles.loginForm}>
         <h1> Login </h1>
         <br/>
-        <h2> Não tem conta? <Link to="">Cadastre-se</Link></h2>
+        <h2> Não tem conta? <Link to='/register-page'>Cadastre-se</Link></h2>
         <form>
             <br/>
             Email: <br/> 

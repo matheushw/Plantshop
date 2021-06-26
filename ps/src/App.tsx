@@ -22,7 +22,7 @@ function App() {
               <Route path="/register-page" exact component={() => <RegisterPage />} />
               <Route path="/profile" exact component={() => <ProfilePage />} />
               <Route path="/detail-product-page/:name/:price/:img" exact component={() => <DetailProductPage/>} />
-        	</Switch>
+          </Switch>
       	</Router>
     	</div>
   );
