@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navigation from "./base-components/Navigation/Navigation";
+import Navigation from './base-components/navigation';
 import About from "./pages/About/About";
 import HomePage from "./packages/home/src/components/HomePage/HomePage";
 import RentPage from "./packages/rent-page/src/components/RentPage";
@@ -22,7 +22,7 @@ function App() {
           <Route path="/login-page" exact component={() => <LoginPage />} />
           <Route path="/register-page" exact component={() => <RegisterPage />} />
           <Route path="/profile" exact component={() => <ProfilePage />} />
-          <Route path="/detail-product-page/:name/:img/:price" exact component={(props) => <DetailProductPage/>} />
+          <Route path="/detail-product-page/:name/:price/:img" exact component={() => <DetailProductPage/>} />
         </Switch>
       </Router>
     </div>

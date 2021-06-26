@@ -10,13 +10,12 @@ export interface ProductProps {
 }
 
 const Product: React.FC<ProductProps> = (props) => {
-       
   return (
     <div className={styles.product}> 
-    <Link to={{pathname:"/detail-product-page"}} >
-    <img className={styles.productImage} src={props.img} alt=""/>
-      <h3 className={styles.title}>{props.name}</h3>
-      <h2 className={styles.price}>R${props.price}</h2>
+      <Link to={"/detail-product-page/" + props.name + "/" + props.price + "/" + props.img.split("/").join("*")  } >
+        <img className={styles.productImage} src={props.img} alt=""/>
+        <h3 className={styles.title}>{props.name}</h3>
+        <h2 className={styles.price}>R${props.price}</h2>
       </Link>
     </div>
   );
