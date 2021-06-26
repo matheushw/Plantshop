@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import { Dispatch } from 'redux';
+import { ApplicationState, User } from '../../store/types';
 import * as styles from './styles';
+export interface NavigationProps{
+  user: User | null,
+}
 
-export interface NavigationProps{}
-
-const Navigation: React.FC<NavigationProps> = () => {
+const Navigation: React.FC<NavigationProps> = (props) => {
   return(
 
     <div>
@@ -24,7 +28,7 @@ const Navigation: React.FC<NavigationProps> = () => {
           <div>
             <Link to="/chart-page"><span className="material-icons-outlined"> shopping_cart </span></Link>
             <Link to="/profile"><span className="material-icons-outlined"> account_circle </span> </Link>
-            <Link to="/login-page"><button>Login/Cadastro</button></Link>
+            {props.user === null && <Link to="/login-page"><button>Login/Cadastro</button></Link>}
           </div>
 
         </div>
@@ -33,4 +37,13 @@ const Navigation: React.FC<NavigationProps> = () => {
   );
 }
 
-export default Navigation;
+interface DispatchProps {}
+
+const mapStateToProps = (state: ApplicationState): NavigationProps => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+// export default Navigation;

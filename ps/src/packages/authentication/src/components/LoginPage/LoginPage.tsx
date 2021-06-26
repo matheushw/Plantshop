@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import * as styles from './styles'
-//import { useSelector } from 'react-redux';
 
 export interface LoginPageProps{}
 

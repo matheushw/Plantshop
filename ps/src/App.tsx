@@ -9,11 +9,12 @@ import RegisterPage from "./packages/authentication/src/components/RegisterPage"
 import ProfilePage from "./packages/profile/src/components/ProfilePage";
 import DetailProductPage from "./base-components/product/src/components/DetailProductPage/DetailProductPage";
 
+
 function App() {
   return (
     <div className="App">
       	<Router>
-        	<Navigation />
+          <Navigation />
         	<Switch>
           		<Route path="/" exact component={() => <HomePage />} />
               <Route path="/about" exact component={() => <About />} />
