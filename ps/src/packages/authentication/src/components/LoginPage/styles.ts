@@ -28,4 +28,9 @@ export const loginForm = css`
     border: none;
     border-radius: 10px;
   }
+  form{
+    padding: 10px 0 10px 0;
+    font-size: medium;
+}
+
 `;
