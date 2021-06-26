@@ -11,7 +11,6 @@ const Navigation: React.FC<NavigationProps> = () => {
       <nav>
         <div className={styles.navHeader}>
           <Link to="/"><h1 className={styles.logo}>Plant Shop</h1></Link>
-
           <div>
             <ul className={styles.navbar}>
               <li><Link to="/about">Plantas</Link></li>

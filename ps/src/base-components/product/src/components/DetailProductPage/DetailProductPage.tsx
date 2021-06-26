@@ -1,19 +1,13 @@
 import React from 'react';
-//import Product from '../Product/Product'
 import * as styles from '../Product/styles';
 import { useParams } from "react-router-dom";
-// import { ProductProps } from '../Product/Product';
+import { ProductProps } from '../Product/Product';
+//import { ProductProps } from '../Product/Product';
 
 export interface DetailProductPageProps {}
 
-interface fodasse {
-  name: string;
-  price: string;
-  img: string;
-}
-
 const DetailProductPage: React.FC<DetailProductPageProps> = () => {
-  const productProps  = useParams<fodasse>();
+  const productProps  = useParams<ProductProps>();
 
   console.log("Params = " + productProps.name + " " + productProps.price + " " + productProps.img);
   return (
