@@ -13,7 +13,7 @@ export const productImage = css`
 `;
 
 export const price = css`
-  margin: 0px;
+  margin-bottom: 5px;
   color: rgb(92, 182, 3);
 `;
 
@@ -23,5 +23,5 @@ export const title = css `
 `;
 
 export const cartIcon = css `
-  margin-top: 10px;
+  margin-top: 0px;
 `;

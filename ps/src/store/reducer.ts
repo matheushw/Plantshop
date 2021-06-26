@@ -1,4 +1,5 @@
 import produce from 'immer';
+import { products } from '../mock-objects/products';
 import { ApplicationState, ApplicationAction } from './types';
 
 export const initialState: ApplicationState = {
@@ -6,6 +7,7 @@ export const initialState: ApplicationState = {
     user: false,
   },
   user: null,
+  products: products,
 }
 
 const reducer = (state = initialState, action: ApplicationAction) => {

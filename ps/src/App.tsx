@@ -21,7 +21,7 @@ function App() {
               <Route path="/login-page" exact component={() => <LoginPage />} />
               <Route path="/register-page" exact component={() => <RegisterPage />} />
               <Route path="/profile" exact component={() => <ProfilePage />} />
-              <Route path="/detail-product-page/:name/:price/:img" exact component={() => <DetailProductPage/>} />
+              <Route path="/detail-product-page/:id" exact component={() => <DetailProductPage/>} />
           </Switch>
       	</Router>
     	</div>

@@ -2,6 +2,14 @@ import { Action } from 'redux';
 
 // Login
 
+export interface ProductModel {
+  id: string;
+  img: string;
+  name: string;
+  price: string;
+  description: string;
+}
+
 export interface User {
   name: string;
   address: string;
@@ -16,6 +24,7 @@ export interface LoadingState {
 export interface ApplicationState {
   loading: LoadingState;
   user: User | null;
+  products: ProductModel[];
 }
 
 export interface LoadUsersRequest extends Action {

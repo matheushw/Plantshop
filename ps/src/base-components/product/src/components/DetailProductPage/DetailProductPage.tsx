@@ -1,23 +1,40 @@
 import React from 'react';
 import * as styles from './styles';
 import { useParams } from "react-router-dom";
-import { ProductProps } from '../Product/Product';
+import { ApplicationState, ProductModel } from '../../../../../store/types';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
-export interface DetailProductPageProps {}
+export interface DetailProductPageProps {
+  products: ProductModel[];
+}
 
-const DetailProductPage: React.FC<DetailProductPageProps> = () => {
-  const productProps  = useParams<ProductProps>();
+interface ReceivedProps{
+  id: string;
+}
 
-  console.log("Params = " + productProps.name + " " + productProps.price + " " + productProps.img);
+const DetailProductPage: React.FC<DetailProductPageProps> = (props) => {
+  const productProps  = useParams<ReceivedProps>();
+  const selectedProduct = props.products.find((product) => product.id === productProps.id);
+
   return (
     <div className={styles.product}>
-      <h1>{productProps.name}</h1>
-      <img className={styles.productImage} src={productProps.img.split("*").join("/")} alt=""/>
-      <h3 className={styles.title}>{productProps.name}</h3>
-      <h2 className={styles.price}>R${productProps.price}</h2>
+      <h1>{selectedProduct?.name}</h1>
+      <img className={styles.productImage} src={selectedProduct?.img} alt=""/>
+      <h3 className={styles.title}>{selectedProduct?.name}</h3>
+      {selectedProduct?.description}
+      <h2 className={styles.price}>R${selectedProduct?.price}</h2>
       <span className={"material-icons-outlined " + styles.cartIcon}> add_shopping_cart </span>
     </div>
   );
 };
 
-export default DetailProductPage;
+interface DispatchProps {}
+
+const mapStateToProps = (state: ApplicationState): DetailProductPageProps => ({
+  products: state.products,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailProductPage);
