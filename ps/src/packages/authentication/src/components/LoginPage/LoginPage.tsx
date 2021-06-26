@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import * as styles from './styles'
+//import { useSelector } from 'react-redux';
 
 export interface LoginPageProps{}
 
@@ -25,7 +26,6 @@ const LoginPage: React.FC<LoginPageProps> = () => {
 
         <Link to="/"><button>Entrar como usuário</button></Link>
         <Link to="/"><button>Entrar como adm</button></Link>
-        <br/>
     </div>
   );
 }

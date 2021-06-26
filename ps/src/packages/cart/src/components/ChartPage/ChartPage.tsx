@@ -3,7 +3,7 @@ import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
 
 export interface ChartPageProps{
-  finalPrice: string;
+  finalPrice?: string
 }
 
 const ChartPage: React.FC<ChartPageProps> = ({ finalPrice }) => {

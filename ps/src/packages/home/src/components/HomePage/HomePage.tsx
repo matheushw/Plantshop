@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import HomeProduct from '../../../../../base-components/product/src/components/Product/Product';
+import Product from '../../../../../base-components/product/src/components/Product/Product';
 import ProductList from '../../../../../base-components/product-list/src/components/ProductList/ProductList';
 
 export interface HomePageProps {}
@@ -10,7 +10,7 @@ const HomePage: React.FC<HomePageProps> = () => {
     var products: ReactElement[] = [];
     for(var i=0;i<6;i++){
       products.push(
-        <HomeProduct 
+        <Product 
           img = "https://multimidia.gazetadopovo.com.br/media/info/2017/201710/plantas-problemas-saudavel.png"
           name = {name}
           price = {price}
