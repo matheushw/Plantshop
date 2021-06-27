@@ -5,7 +5,7 @@ import { ApplicationState, User } from '../../../../../store/types';
 import { logInUser } from '../../../../../store/actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { useForm } from '../useForm';
+import { useForm } from '../../../../useForm';
 import {useHistory} from 'react-router';
 import ReactNotification, { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
@@ -24,12 +24,11 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 	};
 	
 	async function loginUserCallback(){
-		const input = JSON.parse(JSON.stringify(values))
-		props.addUser(input.email, input.password)
-
+		const input = JSON.parse(JSON.stringify(values))	
 		let check = false
 		props.allUsers.forEach(u => {
 			if (u.email === input.email && u.password === input.password) {
+				props.addUser(input.email, input.password)
 				store.addNotification({
 					title: "Você fez login!",
 					message: " ",

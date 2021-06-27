@@ -5,7 +5,7 @@ import { ApplicationState, User } from '../../../../../store/types';
 import { signUpUser} from '../../../../../store/actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { useForm } from '../useForm';
+import { useForm } from '../../../../useForm';
 import {useHistory} from 'react-router';
 
 export interface RegisterPageProps {
