@@ -2,6 +2,7 @@ import { User } from "../store/types";
 
 export const mockedUsers: User[] = [
   {
+    id: "0",
     address: "USP São Carlos",
     name: "Dilvan",
     email: "dilvan@gmail.com",
