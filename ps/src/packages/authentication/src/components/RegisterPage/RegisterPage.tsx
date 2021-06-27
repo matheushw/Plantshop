@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import * as styles from './styles'
-import { ApplicationState, SignUpUser, User } from '../../../../../store/types';
+import { ApplicationState, User } from '../../../../../store/types';
 import { signUpUser} from '../../../../../store/actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';

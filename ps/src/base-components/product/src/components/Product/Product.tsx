@@ -9,6 +9,7 @@ export interface ProductProps {
   name: string;
   price: string;
   description: string;
+  //category: string;
 }
 
 const Product: React.FC<ProductProps> = (props) => {
