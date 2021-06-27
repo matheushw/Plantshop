@@ -25,6 +25,7 @@ export interface Order {
 }
 
 export interface User {
+  id: string;
   name: string;
   address: string;
   phoneNumber: string;

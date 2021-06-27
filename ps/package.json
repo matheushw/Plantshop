@@ -13,6 +13,7 @@
     "history-router": "^2.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-easy-edit": "^1.13.2",
     "react-hook-form": "^7.9.0",
     "react-notifications": "^1.7.2",
     "react-notifications-component": "^3.1.0",

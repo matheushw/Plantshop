@@ -95,6 +95,7 @@ const reducer = (state = initialState, action: ApplicationAction) => {
     case "signUpUser":
       return produce(state, draft => {
         const user: User = {
+            id: (state.usersList.length + 1).toString(),
             email: action.email,
             password: action.password,
             name: action.name,
