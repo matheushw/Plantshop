@@ -6,6 +6,7 @@ import { logInUser } from '../../../../../store/actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../useForm';
+import {useHistory} from 'react-router';
 
 export interface LoginPageProps{
 	user: User | null,
@@ -14,24 +15,30 @@ export interface LoginPageProps{
 }
 
 const LoginPage: React.FC<LoginPageProps> = (props) => {
-	
+	const history = useHistory();
 	const initialState = {
 		email: '',
 		password: '',
 	};
-	/*
-	props.allUsers.forEach(u => {
-		if (u.email === props.user?.email && u.password === props.user?.password) {
-			
-		} else 
-	});
-	*/
+	
 	async function loginUserCallback(){
+		//history.push('/')
 		const input = JSON.parse(JSON.stringify(values))
 		props.addUser(input.email, input.password)
+
+		let check = false
+		props.allUsers.forEach(u => {
+			if (u.email === input.email && u.password === input.password) {
+				history.push('/')
+				check = true
+			} 
+		})
+		if (check === false){
+			history.push('/login-page')
+		}
 		console.log(input.email + input.password)
 		// go to home
-	}
+	};
 
 	const { onChange, onSubmit, values} = useForm(loginUserCallback, initialState); 
 

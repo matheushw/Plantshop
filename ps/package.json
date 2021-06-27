@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.8.3",
     "@types/react-notifications-component": "^3.1.0",
     "@types/react-redux": "^7.1.16",
+    "history-router": "^2.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.9.0",

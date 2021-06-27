@@ -6,6 +6,7 @@ import { signUpUser} from '../../../../../store/actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../useForm';
+import {useHistory} from 'react-router';
 
 export interface RegisterPageProps {
   	user: User | null,
@@ -14,7 +15,9 @@ export interface RegisterPageProps {
 }
 
 const RegisterPage: React.FC<RegisterPageProps> = (props) => {
-  	const initialState = {
+	const history = useHistory();
+	  
+	const initialState = {
 		name: '',
 		address: '',
 		phoneNumber: '',
@@ -23,6 +26,7 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 	};
 
 	async function registerUserCallback(){
+		history.push('/login-page')
 		const input = JSON.parse(JSON.stringify(values))
 		props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password)
 		console.log(input.email + input.password)

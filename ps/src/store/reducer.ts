@@ -55,7 +55,7 @@ const reducer = (state = initialState, action: ApplicationAction) => {
             phoneNumber: '',
         }
         draft.user = user;
-        draft.usersList.push(draft.user); 
+        //draft.usersList.push(draft.user); 
       });
     case "signUpUser":
       return produce(state, draft => {
