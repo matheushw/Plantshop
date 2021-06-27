@@ -25,6 +25,7 @@ export interface ApplicationState {
   loading: LoadingState;
   user: User | null;
   products: ProductModel[];
+  cartProducts: ProductModel[];
 }
 
 export interface LoadUsersRequest extends Action {
@@ -40,4 +41,13 @@ export interface LoadUsersError extends Action {
   type: 'loadUsersError';
 }
 
-export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError;
+export interface AddProductToChart extends Action {
+  type: 'addProductToChart';
+  product: ProductModel;
+}
+export interface RemoveProductToChart extends Action {
+  type: 'removeProductToChart';
+  id: string;
+}
+
+export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart;

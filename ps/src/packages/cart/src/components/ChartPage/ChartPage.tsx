@@ -1,26 +1,32 @@
-import React, { ReactElement } from 'react'
+import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
+import { removeProductToChart } from '../../../../../store/actions'
+import { ApplicationState, ProductModel } from '../../../../../store/types'
 import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
 
 export interface ChartPageProps{
-  finalPrice?: string
+  cartProducts: ProductModel[];
+  removeProduct: (id: string) => void;
 }
 
-const ChartPage: React.FC<ChartPageProps> = ({ finalPrice }) => {
+const ChartPage: React.FC<ChartPageProps> = (props) => {
 
-  const mockProducts = (name: string, price: string) =>{
-    var products: ReactElement[] = [];
-    for(var i=0;i<3;i++){
-      products.push(
-        <ChartProduct 
-          img = "https://multimidia.gazetadopovo.com.br/media/info/2017/201710/plantas-problemas-saudavel.png"
-          name = {name}
-          price = {price}
-        />
-      );
-    }
+  const getFinalPrice = () => {
+    let finalPrice: number = 0.0;
 
-    return products;
+    props.cartProducts.forEach((product) => {
+      finalPrice += parseFloat(product.price);
+    });
+
+    return finalPrice;
+  }
+  
+
+  const renderProduts = (cartProduct: ProductModel) =>{
+    return(
+      <ChartProduct img={cartProduct.img} name={cartProduct.name} price={cartProduct.price} id={cartProduct.id} removeProduct={props.removeProduct} />
+    );
   }
 
   return(
@@ -28,17 +34,35 @@ const ChartPage: React.FC<ChartPageProps> = ({ finalPrice }) => {
       <h1>Seus Produtos</h1>
 
       <div className={styles.productList}>
-        {mockProducts("Planta X", "19.99")}
+        {props.cartProducts.length !== 0 && props.cartProducts.map(renderProduts)}
+        {props.cartProducts.length === 0 && <h2>Você não tem nenhum produto no carrinho :(</h2>}
       </div>
 
-      <h1>Total: {finalPrice}</h1>
+      {props.cartProducts.length !== 0 && <h1>Total: {"R$ " + getFinalPrice().toFixed(2)}</h1>}
     
-      <div>
-        <button>Continuar comprando</button>
-        <button>Finalizar compra</button>
-      </div>
+      {props.cartProducts.length !== 0 && 
+        <div>
+          <button>Continuar comprando</button>
+          <button>Finalizar compra</button>
+        </div>
+      }
     </div>
   );
 }
 
-export default ChartPage;
+interface DispatchProps {
+  removeProduct: (id: string) => void;
+}
+interface StateProps{
+  cartProducts: ProductModel[];
+}
+
+const mapStateToProps = (state: ApplicationState): StateProps => ({
+  cartProducts: state.cartProducts
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  removeProduct:(id) => {dispatch(removeProductToChart(id))},
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChartPage);
