@@ -15,6 +15,7 @@ export interface User {
   address: string;
   phoneNumber: string;
   email: string;
+  password: string;
 }
 
 export interface LoadingState {
@@ -26,6 +27,7 @@ export interface ApplicationState {
   user: User | null;
   products: ProductModel[];
   cartProducts: ProductModel[];
+  usersList: User[];
 }
 
 export interface LoadUsersRequest extends Action {
@@ -50,4 +52,19 @@ export interface RemoveProductToChart extends Action {
   id: string;
 }
 
-export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart;
+export interface LogInUser extends Action {
+  type: 'logInUser';
+  email: User["email"];
+  password: User["password"];
+}
+
+export interface SignUpUser extends Action {
+  type: 'signUpUser';
+  name: User["name"];
+	address: User["address"];
+  phoneNumber: User["phoneNumber"];
+	email: User["email"];
+  password: User["password"];
+}
+
+export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart | LogInUser | SignUpUser;

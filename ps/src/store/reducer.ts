@@ -1,6 +1,7 @@
+import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import produce from 'immer';
 import { products } from '../mock-objects/products';
-import { ApplicationState, ApplicationAction } from './types';
+import { ApplicationState, ApplicationAction, User } from './types';
 
 export const initialState: ApplicationState = {
   loading: {
@@ -9,6 +10,7 @@ export const initialState: ApplicationState = {
   user: null,
   products: products,
   cartProducts: [],
+  usersList: [],
 }
 
 const reducer = (state = initialState, action: ApplicationAction) => {
@@ -41,7 +43,31 @@ const reducer = (state = initialState, action: ApplicationAction) => {
           } else {
             draft.cartProducts.push(product);
           }
-        });
+        })
+      });
+    case "logInUser":
+      return produce(state, draft => {
+        const user: User = {
+            email: action.email,
+            password: action.password,
+            name: '',
+            address: '',
+            phoneNumber: '',
+        }
+        draft.user = user;
+        draft.usersList.push(draft.user); 
+      });
+    case "signUpUser":
+      return produce(state, draft => {
+        const user: User = {
+            email: action.email,
+            password: action.password,
+            name: action.name,
+            address: action.address,
+            phoneNumber: action.phoneNumber,
+        }
+        draft.user = user;
+        draft.usersList.push(draft.user); 
       });
     default:
       return state;

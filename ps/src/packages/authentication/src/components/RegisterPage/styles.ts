@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 
-export const loginForm = css`
+export const registerForm = css`
   width: 33vw;
   margin: 20px auto;
   border: 3px solid #B5E550;

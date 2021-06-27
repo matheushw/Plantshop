@@ -1,29 +1,119 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import * as styles from './styles'
+import { ApplicationState, SignUpUser, User } from '../../../../../store/types';
+import { signUpUser} from '../../../../../store/actions';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { useForm } from '../useForm';
 
-export interface RegisterPageProps {}
+export interface RegisterPageProps {
+  	user: User | null,
+	allUsers: User[],
+	registerUser: (name: string, address: string, phoneNumber: string, email: string, password: string) => void,
+}
 
-const RegisterPage: React.FC<RegisterPageProps> = () => {
-  return (
-    <div className={styles.loginForm}>
-      <h1> Cadastro </h1>
+const RegisterPage: React.FC<RegisterPageProps> = (props) => {
+  	const initialState = {
+		name: '',
+		address: '',
+		phoneNumber: '',
+		email: '',
+		password: '',
+	};
+
+	async function registerUserCallback(){
+		const input = JSON.parse(JSON.stringify(values))
+		props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password)
+		console.log(input.email + input.password)
+		// go to home
+	}
+
+	const { onChange, onSubmit, values} = useForm(registerUserCallback, initialState); 
+
+  	return (
+      <div className={styles.registerForm}>
+        <h1> Cadastro </h1>
         <br/>
         <h2> Já tem conta?<Link to='/login-page'>Faça login</Link></h2>
-        <form>
-            Nome: <br/>
-            <input type="text" name="nome" placeholder="Jose da Silva Souza" required/> <br/><br/>
-            Email: <br/>
-            <input type="email" name="email" placeholder="seuemail@email.com" required/><br/>
-            <br/>
-            Senha: <br/>
-            <input type="password" name="senha"/><br/><br/>
-            Repita sua senha: <br/>
-            <input type="password" name="senha"/><br/><br/>
+        <form onSubmit={onSubmit}>
+			<div>
+				<label>
+					Nome: <br/> <input 
+					type="text"
+					name="name"
+					id="name" 
+					placeholder="Jose da Silva Souza"
+					onChange={onChange} 
+					required/> 
+					<br/><br/>
+				</label>
+				<label>
+					Endereço: <br/> <input 
+					type="text" 
+					name="address" 
+					id="address"
+					placeholder="Rua 1, 123, São Paulo, SP" 
+					onChange={onChange}
+					required/><br/>
+            		<br/>
+				</label>
+				<label>
+					Telefone: <br/> <input 
+					type="text" 
+					name="phoneNumber" 
+					id="phoneNumber"
+					placeholder="(11)987456932" 
+					onChange={onChange}
+					required/><br/>
+            		<br/>
+				</label>
+				<label>
+					Email: <br/> <input 
+					type="email" 
+					name="email" 
+					id="email"
+					placeholder="seuemail@email.com" 
+					onChange={onChange}
+					required/><br/>
+            		<br/>
+				</label>
+				<label>
+					Senha: <br/> <input 
+					type="password" 
+					name="password"
+					id="password"
+					onChange={onChange}
+					required/><br/><br/>
+				</label>
+				<label>
+					<button type="submit">Cadastrar</button>
+				</label>
+			</div>
         </form>
-        <Link to="/"><button>Cadastrar</button></Link>
-    </div>    
+    </div>
   );
 }
 
-export default RegisterPage;
+interface DispatchProps {
+	registerUser: (
+		name: string, address: string, phoneNumber: string, email: string, password: string
+		) 
+		=> void;
+}
+
+interface StateProps {
+	user: User | null;
+	allUsers: User[],
+}
+
+const mapStateToProps = (state: ApplicationState): StateProps => ({
+  user: state.user,
+  allUsers: state.usersList,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+	registerUser:(name, address, phoneNumber, email, password) => {dispatch(signUpUser(name, address, phoneNumber, email, password))}
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
