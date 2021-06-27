@@ -1,13 +1,17 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { removeProductToChart } from '../../../../../store/actions'
+import { clearCart, placeOrder, removeProductToChart } from '../../../../../store/actions'
 import { ApplicationState, ProductModel } from '../../../../../store/types'
 import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
+import ReactNotification, { store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
 
 export interface ChartPageProps{
   cartProducts: ProductModel[];
   removeProduct: (id: string) => void;
+  placeOrder: (products: ProductModel[]) => void;
+  clearCart: () => void;
 }
 
 const ChartPage: React.FC<ChartPageProps> = (props) => {
@@ -21,6 +25,26 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
 
     return finalPrice;
   }
+
+  const placeOrder = () => {
+
+    props.placeOrder(props.cartProducts);
+    props.clearCart();
+
+    store.addNotification({
+      title: "Pedido feito com sucesso!",
+      message: " ",
+      type: "success",
+      insert: "top",
+      container: "top-left",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 2000,
+        onScreen: false
+      }
+      });
+  }
   
 
   const renderProduts = (cartProduct: ProductModel) =>{
@@ -31,6 +55,7 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
 
   return(
     <div className={styles.productDisplay}>
+      <ReactNotification/>
       <h1>Seus Produtos</h1>
 
       <div className={styles.productList}>
@@ -43,7 +68,7 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
       {props.cartProducts.length !== 0 && 
         <div>
           <button>Continuar comprando</button>
-          <button>Finalizar compra</button>
+          <button onClick={placeOrder}>Finalizar compra</button>
         </div>
       }
     </div>
@@ -52,6 +77,8 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
 
 interface DispatchProps {
   removeProduct: (id: string) => void;
+  placeOrder: (products: ProductModel[]) => void;
+  clearCart: () => void;
 }
 interface StateProps{
   cartProducts: ProductModel[];
@@ -63,6 +90,8 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   removeProduct:(id) => {dispatch(removeProductToChart(id))},
+  placeOrder:(products) => {dispatch(placeOrder(products))},
+  clearCart: () => (dispatch(clearCart())),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartPage);

@@ -13,7 +13,7 @@ import 'react-notifications-component/dist/theme.css';
 export interface LoginPageProps{
 	user: User | null,
 	allUsers: User[],
-	addUser: (email: string, password: string) => void,
+	addUser: (user: User) => void,
 }
 
 const LoginPage: React.FC<LoginPageProps> = (props) => {
@@ -23,26 +23,32 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 		password: '',
 	};
 	
+	const renderMessage = (title: string, type: string) => {
+		return (
+			store.addNotification({
+				title: "Você fez login!",
+				message: " ",
+				type: "success",
+				insert: "top",
+				container: "top-left",
+				animationIn: ["animate__animated", "animate__fadeIn"],
+				animationOut: ["animate__animated", "animate__fadeOut"],
+				dismiss: {
+					duration: 2000,
+					onScreen: false
+				}
+				})
+		);
+	}
+
 	async function loginUserCallback(){
 		const input = JSON.parse(JSON.stringify(values))
-		props.addUser(input.email, input.password)
-
+		
 		let check = false
-		props.allUsers.forEach(u => {
-			if (u.email === input.email && u.password === input.password) {
-				store.addNotification({
-					title: "Você fez login!",
-					message: " ",
-					type: "success",
-					insert: "top",
-					container: "top-left",
-					animationIn: ["animate__animated", "animate__fadeIn"],
-					animationOut: ["animate__animated", "animate__fadeOut"],
-					dismiss: {
-					  duration: 2000,
-					  onScreen: false
-					}
-				  });
+		props.allUsers.forEach(user => {
+			if (user.email === input.email && user.password === input.password) {
+				props.addUser(user);
+				renderMessage("Você fez login!", "success");
 				setTimeout(function (){
 					history.push('/')
 				}, 2000);
@@ -50,19 +56,7 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 			} 
 		})
 		if (!check){
-			store.addNotification({
-				title: "Email ou senha errados!",
-				message: " ",
-				type: "danger",
-				insert: "top",
-				container: "top-left",
-				animationIn: ["animate__animated", "animate__fadeIn"],
-				animationOut: ["animate__animated", "animate__fadeOut"],
-				dismiss: {
-				  duration: 2000,
-				  onScreen: false
-				}
-			  });
+			renderMessage("Email ou senha errados!", "danger");
 			history.push('/login-page')
 		}
 		console.log(input.email + input.password)
@@ -103,8 +97,7 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 				</label> 
 				<br/><br/>
 				<label>
-					<button type="submit">Entrar como usuário</button>
-					<button type="submit">Entrar como adm</button>
+					<button type="submit">Login</button>
 				</label>
 			</div>
         </form>
@@ -113,7 +106,7 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 }
 
 interface DispatchProps {
-	addUser: (email: string, password: string) => void;
+	addUser: (user: User) => void;
 }
 
 interface StateProps {
@@ -123,11 +116,11 @@ interface StateProps {
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
   user: state.user,
-  allUsers: state.usersList,
+	allUsers: state.usersList
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	addUser:(email, password) => {dispatch(logInUser(email, password))}
+	addUser:(user) => {dispatch(logInUser(user))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

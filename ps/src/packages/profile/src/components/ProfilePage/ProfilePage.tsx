@@ -1,25 +1,21 @@
-import React, { ReactElement } from 'react'
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { ApplicationState, Order } from '../../../../../store/types';
 import ProfileInfo from '../ProfileInfo';
 import PurchaseInfo from '../PurchaseInfo';
 import * as styles from './styles'
 
 
-export interface ProfilePageProps{}
+export interface ProfilePageProps{
+  orders: Order[]
+}
 
-const ProfilePage: React.FC<ProfilePageProps> = () => {
-  const mockPurchases = (number: number, date: string, price: string) =>{
-    var purchases: ReactElement[] = [];
-    for(var i=0;i<3;i++){
-      purchases.push(
-        <PurchaseInfo 
-          number = {(number+i)}
-          date = {date}
-          price = {price}
-        />
-      );
-    }
+const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 
-    return purchases;
+  const renderOrders = (order: Order, idx: number) =>{
+    return(
+      <PurchaseInfo number = {(idx+1)} date = {order.date} price = {order.total} productsOrders={order.productsOrders} status={order.status} />
+    );
   }
 
   return (
@@ -36,11 +32,22 @@ const ProfilePage: React.FC<ProfilePageProps> = () => {
       country={"Brasil"}/>
       <div className={styles.purchaseList}>
         <h1> Meus pedidos</h1>
-        {mockPurchases(1, "02/02/2020", "19.99")}
+        {props.orders.map(renderOrders)}
       </div>
     </div>
     
   );
 }
 
-export default ProfilePage;
+interface DispatchProps {}
+interface StateProps{
+  orders: Order[];
+}
+
+const mapStateToProps = (state: ApplicationState): StateProps => ({
+  orders: state.orders
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
