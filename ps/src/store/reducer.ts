@@ -138,6 +138,30 @@ const reducer = (state = initialState, action: ApplicationAction) => {
 
         draft.products = newProductsArray;
       });
+      case "editUser":
+        return produce(state, draft => {
+          draft.usersList = [];
+          let edited: boolean = false;
+          state.usersList.forEach((user) => {
+            if(!edited && user.id === action.id){
+              const newUser: User = {
+                id: action.id,
+                email: action.email,
+                password: user.password,
+                name: action.name,
+                address: action.address,
+                phoneNumber: action.phoneNumber,
+                role: user.role,
+              }
+              edited = true;
+              draft.user = newUser;
+              draft.usersList.push(newUser);
+              
+            } else {
+              draft.usersList.push(user);
+            }
+          });
+        });
     default:
       return state;
   }

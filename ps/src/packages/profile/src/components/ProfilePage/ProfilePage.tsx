@@ -1,44 +1,144 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ApplicationState, Order } from '../../../../../store/types';
-import ProfileInfo from '../ProfileInfo';
+import { ApplicationState, Order , User} from '../../../../../store/types';
 import PurchaseInfo from '../PurchaseInfo';
 import * as styles from './styles'
-
+import { editUser } from '../../../../../store/actions';
+import { useForm } from '../../../../useForm';
+import {useHistory} from 'react-router';
+//import userEvent from '@testing-library/user-event';
 
 export interface ProfilePageProps{
-  orders: Order[]
+  orders: Order[],
+  user: User,
+  allUsers: User[],
+  editUserInfo: (name: string, address: string, phoneNumber: string, email: string, id: string
+    ) => void,
 }
 
 const ProfilePage: React.FC<ProfilePageProps> = (props) => {
-
+  //Purchase
   const renderOrders = (order: Order, idx: number) =>{
     return(
       <PurchaseInfo number = {(idx+1)} date = {order.date} price = {order.total} productsOrders={order.productsOrders} status={order.status} />
     );
   }
+  //Edit Profile
+  const history = useHistory();
+	
+	const initialState = {
+	  	user: props.user,
+	}
+
+  async function editProfileCallback(){
+    const input = JSON.parse(JSON.stringify(values))
+    let fs = document.getElementsByTagName("fieldset")[0];
+	let eb = document.getElementById("editButton");
+	if(eb !== null && fs !== null){
+		if(eb.innerHTML === "Editar"){
+			eb.innerHTML = "Salvar mudanças"
+			fs.disabled = false	
+		}else{
+			eb.innerHTML = "Editar"
+			props.editUserInfo(input.name ? input.name : props.user.name , input.address ? input.address:props.user.address, input.phoneNumber ? input.phoneNumber:props.user.phoneNumber, input.email ? input.email:props.user.email, props.user.id)
+			fs.disabled = true
+		}
+		history.push('./profile')
+	}
+	//props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password)
+    //console.log(input.email + input.password)
+    // go to home
+  }
+
+  const { onChange, onSubmit, values} = useForm(editProfileCallback, initialState); 
+
 
   return (
     <div>
-      {/* <ProfileInfo /> */}
-      <div className={styles.purchaseList}>
+	<div className={styles.infoDisplay}>
+      <h1>Perfil</h1>
+      <h2> Dados da conta de {props.user.name}</h2>
+      <form onSubmit={onSubmit}>
+			<fieldset disabled={true}>
+        		<div>
+				<label>
+					<br/>
+					Nome: <br/> <input 
+					type="text"
+					name="name"
+					id="name" 
+					onChange={onChange} 
+					defaultValue={props.user.name}
+          			required/> 
+					<br/><br/>
+				</label>
+				<label>
+					Endereço: <br/> <input 
+					type="text" 
+					name="address" 
+					id="address"
+					defaultValue={props.user.address}
+					onChange={onChange}
+					required/><br/>
+            		<br/>
+				</label>
+				<label>
+					Telefone: <br/> <input 
+					type="text" 
+					name="phoneNumber" 
+					id="phoneNumber"
+					defaultValue={props.user.phoneNumber}
+					onChange={onChange}
+					required/><br/>
+            		<br/>
+				</label>
+				<label>
+					Email: <br/> <input 
+					type="email" 
+					name="email" 
+					id="email"
+					defaultValue={props.user.email}
+					onChange={onChange}
+					required/><br/>
+            		<br/>
+				</label>
+				</div>
+      			</fieldset>
+		  	<label>
+			<button id="editButton" type="submit">Editar</button>
+			</label>
+        </form>
+    </div>
+
+	<div className={styles.purchaseList}>
         <h1> Meus pedidos</h1>
-        {props.orders.map(renderOrders)}
-      </div>
+    </div>
+    {props.orders.map(renderOrders)}
+      
     </div>
     
   );
 }
 
-interface DispatchProps {}
+interface DispatchProps {
+  editUserInfo: (name: string, address: string, phoneNumber: string, email: string, id: string
+    ) => void,
+}
+
 interface StateProps{
   orders: Order[];
+  user: User;
+  allUsers: User[];
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
-  orders: state.orders
+  orders: state.orders,
+  user: state.user!,
+  allUsers: state.usersList
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  editUserInfo:(name, address, phoneNumber, email, id) => {dispatch(editUser(name, address, phoneNumber, email, id))}
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

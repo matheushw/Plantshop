@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { ApplicationState, ApplicationAction } from './types';
-import { loadUsersRequest, loadUsersSuccess, loadUsersError } from './actions';
+import { loadUsersRequest } from './actions';
 // import * as userService from '../services/userService';
 
 type Effect = ThunkAction<any, ApplicationState, any, ApplicationAction>;

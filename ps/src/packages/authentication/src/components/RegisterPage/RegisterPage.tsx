@@ -39,7 +39,7 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
       <div className={styles.registerForm}>
         <h1> Cadastro </h1>
         <br/>
-        <h2> Já tem conta?<Link to='/login-page'>Faça login</Link></h2>
+        <h2> Já tem conta? <Link to='/login-page'>Faça login</Link></h2>
         <form onSubmit={onSubmit}>
 			<div>
 				<label>
