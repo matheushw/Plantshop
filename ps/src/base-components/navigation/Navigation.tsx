@@ -26,9 +26,10 @@ const Navigation: React.FC<NavigationProps> = (props) => {
           </div>
 
           <div>
-            <Link to="/chart-page"><span className="material-icons-outlined"> shopping_cart </span></Link>
-            <Link to="/admin-page"><span className="material-icons-outlined"> account_circle </span> </Link>
-            {props.user === null && <Link to="/login-page"><button>Login/Cadastro</button></Link>}
+            <Link className={styles.iconButton} to="/chart-page"><span className="material-icons-outlined" > shopping_cart </span></Link>
+            {props.user?.role === "admin" && <Link className={styles.iconButton} to="/admin-page"><span className="material-icons-outlined"> account_circle </span> </Link>}
+            {props.user?.role === "user" && <Link className={styles.iconButton} to="/profile"><span className="material-icons-outlined"> account_circle </span> </Link>}
+            {props.user === null && <Link to="/login-page"><button className={styles.loginButton}>Login/Cadastro</button></Link>}
           </div>
 
         </div>

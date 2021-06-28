@@ -39,3 +39,11 @@ export const logo = css `
   font-size: 32px;
   margin: 0px;
 `;
+
+export const iconButton = css`
+  margin-left: 8px;
+`;
+
+export const loginButton = css`
+  margin-left: 8px;
+`;
