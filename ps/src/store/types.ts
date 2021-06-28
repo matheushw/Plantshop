@@ -7,6 +7,8 @@ export interface ProductModel {
   img: string;
   name: string;
   price: string;
+  quantity: number;
+  type: string;
   description: string;
 }
 
@@ -82,6 +84,21 @@ export interface LogInUser extends Action {
   user: User;
 }
 
+export interface AddInventory extends Action {
+  type: 'addInventory';
+  productId: string;
+}
+
+export interface RemoveInventory extends Action {
+  type: 'removeInventory';
+  productId: string;
+}
+
+export interface RemoveProduct extends Action {
+  type: 'removeProduct';
+  productId: string;
+}
+
 export interface SignUpUser extends Action {
   type: 'signUpUser';
   name: User["name"];
@@ -91,4 +108,4 @@ export interface SignUpUser extends Action {
   password: User["password"];
 }
 
-export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart | LogInUser | SignUpUser | PlaceOrder | ClearCart;
+export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart | LogInUser | SignUpUser | PlaceOrder | ClearCart | AddInventory | RemoveInventory | RemoveProduct;

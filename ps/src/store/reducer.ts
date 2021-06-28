@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { mockedUsers } from '../mock-objects/usersList';
 import { products } from '../mock-objects/products';
-import { ApplicationState, ApplicationAction, User, Order, ProductOrder } from './types';
+import { ApplicationState, ApplicationAction, User, Order, ProductOrder, ProductModel } from './types';
 
 export const initialState: ApplicationState = {
   loading: {
@@ -105,6 +105,35 @@ const reducer = (state = initialState, action: ApplicationAction) => {
         }
         draft.user = user;
         draft.usersList.push(draft.user); 
+      });
+    case "addInventory":
+      return produce(state, draft => {
+        draft.products.forEach((product, index) => {
+          if(product.id === action.productId){
+            draft.products[index].quantity++;
+          }
+        })
+      });
+
+    case "removeInventory":
+      return produce(state, draft => {
+        draft.products.forEach((product, index) => {
+          if(product.id === action.productId){
+            draft.products[index].quantity--;
+          }
+        })
+      });
+      
+    case "removeProduct":
+      const newProductsArray: ProductModel[] = [];
+      return produce(state, draft => {
+        draft.products.forEach((product, index) => {
+          if(product.id !== action.productId){
+            newProductsArray.push(product);
+          }
+        })
+
+        draft.products = newProductsArray;
       });
     default:
       return state;

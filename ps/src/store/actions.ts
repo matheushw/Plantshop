@@ -1,4 +1,4 @@
-import { User, LoadUsersRequest, LogInUser, SignUpUser, LoadUsersSuccess, LoadUsersError, AddProductToChart, ProductModel, RemoveProductToChart, PlaceOrder, ClearCart } from './types';
+import { User, LoadUsersRequest, LogInUser, SignUpUser, LoadUsersSuccess, LoadUsersError, AddProductToChart, ProductModel, RemoveProductToChart, PlaceOrder, ClearCart, AddInventory, RemoveInventory, RemoveProduct } from './types';
 
 export const loadUsersRequest = (): LoadUsersRequest => ({
   type: 'loadUsersRequest',
@@ -35,6 +35,21 @@ export const clearCart = (): ClearCart => ({
 export const logInUser = (user: User): LogInUser => ({
   type: 'logInUser',
   user
+});
+
+export const addInventory = (productId: string): AddInventory => ({
+  type: 'addInventory',
+  productId
+});
+
+export const removeInventory = (productId: string): RemoveInventory => ({
+  type: 'removeInventory',
+  productId
+});
+
+export const removeProduct = (productId: string): RemoveProduct => ({
+  type: 'removeProduct',
+  productId
 });
 
 export const signUpUser = (

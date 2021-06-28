@@ -20,16 +20,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 
   return (
     <div>
-      <ProfileInfo
-      customerName={"Madu"}
-      email={"seuemail"}
-      cellphone={"12345678"}
-      street={"Rua 1"}
-      number={"1940"}
-      cep={"12345678"}
-      city={"São Paulo"}
-      state={"SP"}
-      country={"Brasil"}/>
+      {/* <ProfileInfo /> */}
       <div className={styles.purchaseList}>
         <h1> Meus pedidos</h1>
         {props.orders.map(renderOrders)}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { ApplicationState, User } from '../../store/types';
 import * as styles from './styles';
@@ -27,7 +27,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
 
           <div>
             <Link to="/chart-page"><span className="material-icons-outlined"> shopping_cart </span></Link>
-            <Link to="/profile"><span className="material-icons-outlined"> account_circle </span> </Link>
+            <Link to="/admin-page"><span className="material-icons-outlined"> account_circle </span> </Link>
             {props.user === null && <Link to="/login-page"><button>Login/Cadastro</button></Link>}
           </div>
 

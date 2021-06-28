@@ -24,10 +24,6 @@ export interface ProfileInfoProps {
 }*/
 
 
-
-
-
-
 const ProfileInfo: React.FC<ProfileInfoProps> = ( props ) => {
   const initialState = {
     name: '',

@@ -7,6 +7,8 @@ import LoginPage from "./packages/authentication/src/components/LoginPage";
 import RegisterPage from "./packages/authentication/src/components/RegisterPage";
 import ProfilePage from "./packages/profile/src/components/ProfilePage";
 import DetailProductPage from "./base-components/product/src/components/DetailProductPage/DetailProductPage";
+import AdminPage from "./packages/admin/src/components/AdminPage";
+import InventoryPage from "./packages/admin/src/components/InventoryPage";
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
               <Route path="/register-page" exact component={() => <RegisterPage />} />
               <Route path="/profile" exact component={() => <ProfilePage />} />
               <Route path="/detail-product-page/:id" exact component={() => <DetailProductPage/>} />
+              <Route path="/admin-page" exact component={() => <AdminPage/>} />
+              <Route path="/inventory" exact component={() => <InventoryPage/>} />
           </Switch>
       	</Router>
     	</div>
