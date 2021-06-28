@@ -9,6 +9,10 @@ export const productName = css`
   margin-bottom: 0px;
 `;
 
+export const productQuantity = css`
+  margin: 0px;
+`;
+
 export const productImage = css`
   width: 200px;
 `;

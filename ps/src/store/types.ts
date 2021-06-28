@@ -44,7 +44,7 @@ export interface ApplicationState {
   loading: LoadingState;
   user: User | null;
   products: ProductModel[];
-  cartProducts: ProductModel[];
+  cartProducts: Map<string, ProductModel>;
   usersList: User[];
   orders: Order[];
 }
@@ -72,7 +72,6 @@ export interface RemoveProductToChart extends Action {
 }
 export interface PlaceOrder extends Action {
   type: 'placeOrder';
-  products: ProductModel[];
 }
 
 export interface ClearCart extends Action {

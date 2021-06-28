@@ -6,14 +6,16 @@ export interface ChartProductProps{
   price: string;
   img: string;
   id: string;
+  quantity: number;
   removeProduct: (id: string) => void;
 }
 
-const ChartProduct: React.FC<ChartProductProps> = ({ name, price, img, id, removeProduct }) => {
+const ChartProduct: React.FC<ChartProductProps> = ({ name, price, img, id, quantity, removeProduct }) => {
   return(
    <div>
      <img src={img} alt="" className={styles.productImage}/>
      <h3 className={styles.productName}>{name}</h3>
+     <h3 className={styles.productQuantity}>{"Quantidade: " + quantity}</h3>
      <h2 className={styles.price}>R${price}</h2>
      <button className="material-icons-outlined" onClick={() => removeProduct(id)}>delete</button>
    </div> 

@@ -23,9 +23,8 @@ export const removeProductToChart = (id: string): RemoveProductToChart => ({
   id,
 });
 
-export const placeOrder = (products: ProductModel[]): PlaceOrder => ({
+export const placeOrder = (): PlaceOrder => ({
   type: 'placeOrder',
-  products,
 });
 
 export const clearCart = (): ClearCart => ({

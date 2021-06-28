@@ -6,11 +6,12 @@ import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
 import ReactNotification, { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
+import { ReactNode } from 'react'
 
 export interface ChartPageProps{
-  cartProducts: ProductModel[];
+  cartProducts: Map<string, ProductModel>;
   removeProduct: (id: string) => void;
-  placeOrder: (products: ProductModel[]) => void;
+  placeOrder: () => void;
   clearCart: () => void;
 }
 
@@ -20,7 +21,7 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
     let finalPrice: number = 0.0;
 
     props.cartProducts.forEach((product) => {
-      finalPrice += parseFloat(product.price);
+      finalPrice += parseFloat(product.price) * product.quantity;
     });
 
     return finalPrice;
@@ -28,7 +29,7 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
 
   const placeOrder = () => {
 
-    props.placeOrder(props.cartProducts);
+    props.placeOrder();
     props.clearCart();
 
     store.addNotification({
@@ -47,10 +48,23 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
   }
   
 
-  const renderProduts = (cartProduct: ProductModel) =>{
-    return(
-      <ChartProduct img={cartProduct.img} name={cartProduct.name} price={cartProduct.price} id={cartProduct.id} removeProduct={props.removeProduct} />
-    );
+  const renderProduts = (cartProducts: Map<string, ProductModel>) =>{
+
+    const cartProductElements: ReactNode[] = [];
+
+    cartProducts.forEach((cartProduct) => {
+      cartProductElements.push(
+        <ChartProduct 
+          img={cartProduct.img} 
+          name={cartProduct.name} 
+          price={cartProduct.price} 
+          quantity={cartProduct.quantity}
+          id={cartProduct.id} 
+          removeProduct={props.removeProduct} 
+        />);
+    });
+
+    return(cartProductElements);
   }
 
   return(
@@ -59,13 +73,13 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
       <h1>Seus Produtos</h1>
 
       <div className={styles.productList}>
-        {props.cartProducts.length !== 0 && props.cartProducts.map(renderProduts)}
-        {props.cartProducts.length === 0 && <h2>Você não tem nenhum produto no carrinho :(</h2>}
+        {props.cartProducts.size !== 0 && renderProduts(props.cartProducts)}
+        {props.cartProducts.size === 0 && <h2>Você não tem nenhum produto no carrinho :(</h2>}
       </div>
 
-      {props.cartProducts.length !== 0 && <h1>Total: {"R$ " + getFinalPrice().toFixed(2)}</h1>}
+      {props.cartProducts.size !== 0 && <h1>Total: {"R$ " + getFinalPrice().toFixed(2)}</h1>}
     
-      {props.cartProducts.length !== 0 && 
+      {props.cartProducts.size !== 0 && 
         <div>
           <button>Continuar comprando</button>
           <button onClick={placeOrder}>Finalizar compra</button>
@@ -77,11 +91,11 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
 
 interface DispatchProps {
   removeProduct: (id: string) => void;
-  placeOrder: (products: ProductModel[]) => void;
+  placeOrder: () => void;
   clearCart: () => void;
 }
 interface StateProps{
-  cartProducts: ProductModel[];
+  cartProducts: Map<string, ProductModel>;
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
@@ -90,7 +104,7 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   removeProduct:(id) => {dispatch(removeProductToChart(id))},
-  placeOrder:(products) => {dispatch(placeOrder(products))},
+  placeOrder:() => {dispatch(placeOrder())},
   clearCart: () => (dispatch(clearCart())),
 });
 

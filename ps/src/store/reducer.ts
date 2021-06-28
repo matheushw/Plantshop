@@ -1,4 +1,4 @@
-import produce from 'immer';
+import produce, { enableMapSet } from 'immer';
 import { mockedUsers } from '../mock-objects/usersList';
 import { products } from '../mock-objects/products';
 import { ApplicationState, ApplicationAction, User, Order, ProductOrder, ProductModel } from './types';
@@ -9,12 +9,14 @@ export const initialState: ApplicationState = {
   },
   user: null,
   products: products,
-  cartProducts: [],
+  cartProducts: new Map(),
   usersList: mockedUsers,
   orders: [],
 }
 
 const reducer = (state = initialState, action: ApplicationAction) => {
+  enableMapSet();
+  
   switch (action.type) {
     case "loadUsersRequest":
       return produce(state, draft => {
@@ -31,49 +33,49 @@ const reducer = (state = initialState, action: ApplicationAction) => {
       });
     case "addProductToChart":
       return produce(state, draft => {
-        draft.cartProducts = state.cartProducts.concat([action.product]);
+        if(state.cartProducts.has(action.product.id)){
+          const selectedProduct = state.cartProducts.get(action.product.id)!;
+          draft.cartProducts.set(action.product.id, {...selectedProduct, quantity: selectedProduct.quantity + 1})
+        } else {
+          draft.cartProducts.set(action.product.id, action.product);
+        }
       });
     case "removeProductToChart":
       return produce(state, draft => {
-        // draft.cartProducts = state.cartProducts.filter((value) => value.id !== action.id);
-        draft.cartProducts = [];
-        let removed: boolean = false;
-        state.cartProducts.forEach((product) => {
-          if(!removed && product.id === action.id){
-            removed = true;
+        if(state.cartProducts.has(action.id)){
+          const selectedProduct = state.cartProducts.get(action.id)!;
+          if(selectedProduct.quantity === 1) {
+            draft.cartProducts.delete(action.id);
           } else {
-            draft.cartProducts.push(product);
+            draft.cartProducts.set(action.id, {...selectedProduct, quantity: selectedProduct.quantity - 1})
           }
-        })
+        }
       });
     case "placeOrder":
       return produce(state, draft => {
 
         const date = new Date();
         let totalPrice: number = 0;
-        let products: Map<string, ProductOrder> = new Map<string, ProductOrder>();
+        let productsOrders: ProductOrder[] = [];
+        
+        state.cartProducts.forEach((product) => {
+          totalPrice += parseFloat(product.price) * product.quantity;
 
-        action.products.forEach((product) => {
-          totalPrice += parseFloat(product.price);
-
-          if (products.has(product.id)){
-            const auxProduct = products.get(product.id)!;
-            products.set(product.id, {...auxProduct, quantity: auxProduct.quantity + 1});
-          } else {
-            const newProductOrder: ProductOrder = {
-              id: product.id, 
-              name: product.name, 
-              price: product.price, 
-              quantity: 1 
-            };
-            products.set(product.id, newProductOrder);
+          const newProductOrder: ProductOrder = {
+            id: product.id, 
+            name: product.name, 
+            price: product.price, 
+            quantity: product.quantity
           }
 
+          draft.products.forEach((value, idx) => {
+            if(value.id === product.id){
+              draft.products[idx].quantity -= product.quantity;
+            }
+          })
+
+          productsOrders.push(newProductOrder);
         });
-
-        let productsOrders: ProductOrder[] = [];
-
-        products.forEach((productOrder) => productsOrders.push(productOrder));
         
         const newOrder: Order ={
           productsOrders: productsOrders,
@@ -81,12 +83,13 @@ const reducer = (state = initialState, action: ApplicationAction) => {
           total: totalPrice.toFixed(2),
           status: "Preparando para envio!",
         }
+
         draft.orders = state.orders;
         draft.orders.push(newOrder);
       });
     case "clearCart":
       return produce(state, draft => {
-        draft.cartProducts = [];
+        draft.cartProducts = new Map();
       });
     case "logInUser":
       return produce(state, draft => {
