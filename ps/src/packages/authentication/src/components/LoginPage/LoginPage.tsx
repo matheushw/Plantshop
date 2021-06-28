@@ -22,24 +22,6 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 		email: '',
 		password: '',
 	};
-	
-	const renderMessage = (title: string, type: string) => {
-		return (
-			store.addNotification({
-				title: "Você fez login!",
-				message: " ",
-				type: "success",
-				insert: "top",
-				container: "top-left",
-				animationIn: ["animate__animated", "animate__fadeIn"],
-				animationOut: ["animate__animated", "animate__fadeOut"],
-				dismiss: {
-					duration: 2000,
-					onScreen: false
-				}
-				})
-		);
-	}
 
 	async function loginUserCallback(){
 		const input = JSON.parse(JSON.stringify(values))
@@ -48,7 +30,19 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 		props.allUsers.forEach(user => {
 			if (user.email === input.email && user.password === input.password) {
 				props.addUser(user);
-				renderMessage("Você fez login!", "success");
+				store.addNotification({
+					title: "Você fez login",
+					message: " ",
+					type: "success",
+					insert: "top",
+					container: "top-left",
+					animationIn: ["animate__animated", "animate__fadeIn"],
+					animationOut: ["animate__animated", "animate__fadeOut"],
+					dismiss: {
+						duration: 2000,
+						onScreen: false
+					}
+				})
 				setTimeout(function (){
 					history.push('/')
 				}, 2000);
@@ -56,8 +50,22 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 			} 
 		})
 		if (!check){
-			renderMessage("Email ou senha errados!", "danger");
-			history.push('/login-page')
+			store.addNotification({
+				title: "Email ou senha errados!",
+				message: " ",
+				type: "danger",
+				insert: "top",
+				container: "top-left",
+				animationIn: ["animate__animated", "animate__fadeIn"],
+				animationOut: ["animate__animated", "animate__fadeOut"],
+				dismiss: {
+					duration: 2000,
+					onScreen: false
+				}
+			});
+			setTimeout(function (){
+				history.push('/login-page')
+			}, 2000);
 		}
 		console.log(input.email + input.password)
 		// go to home

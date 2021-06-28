@@ -9,7 +9,11 @@ import ProfilePage from "./packages/profile/src/components/ProfilePage";
 import DetailProductPage from "./base-components/product/src/components/DetailProductPage/DetailProductPage";
 import AdminPage from "./packages/admin/src/components/AdminPage";
 import InventoryPage from "./packages/admin/src/components/InventoryPage";
-
+import AddAdminPage from "./packages/admin/src/components/AddAdminPage";
+import PlantPage from "./packages/category/src/components/plantPage/PlantPage";
+import FlowerPage from "./packages/category/src/components/flowerPage/FlowerPage";
+import BouquetPage from "./packages/category/src/components/bouquetPage/BouquetPage";
+import VasePage from "./packages/category/src/components/vasePage/VasePage";
 
 function App() {
   return (
@@ -25,7 +29,12 @@ function App() {
               <Route path="/profile" exact component={() => <ProfilePage />} />
               <Route path="/detail-product-page/:id" exact component={() => <DetailProductPage/>} />
               <Route path="/admin-page" exact component={() => <AdminPage/>} />
+              <Route path="/add-admin-page" exact component={() => <AddAdminPage/>} />
               <Route path="/inventory" exact component={() => <InventoryPage/>} />
+              <Route path="/plant-page" exact component={() => <PlantPage/>} />
+              <Route path="/flower-page" exact component={() => <FlowerPage/>} />
+              <Route path="/bouquet-page" exact component={() => <BouquetPage/>} />
+              <Route path="/vase-page" exact component={() => <VasePage/>} />
           </Switch>
       	</Router>
     	</div>

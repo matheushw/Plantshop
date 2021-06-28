@@ -116,4 +116,13 @@ export interface EditUser extends Action {
   id: User["id"];
 }
 
-export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart | LogInUser | SignUpUser | PlaceOrder | ClearCart | EditUser | AddInventory | RemoveInventory | RemoveProduct;
+export interface AddAdmin extends Action {
+  type: 'addAdmin';
+  name: User["name"];
+	address: User["address"];
+  phoneNumber: User["phoneNumber"];
+	email: User["email"];
+  password: User["password"];
+}
+
+export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart | LogInUser | SignUpUser | PlaceOrder | ClearCart | EditUser | AddInventory | RemoveInventory | RemoveProduct | AddAdmin;

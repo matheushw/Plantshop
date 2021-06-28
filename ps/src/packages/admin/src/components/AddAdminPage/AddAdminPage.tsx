@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from "react-router-dom"
+//import { Link } from "react-router-dom"
 import * as styles from './styles'
 import { ApplicationState, User } from '../../../../../store/types';
-import { signUpUser} from '../../../../../store/actions';
+import { addAdmin} from '../../../../../store/actions';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
@@ -11,15 +11,15 @@ import ReactNotification, { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 
 
-export interface RegisterPageProps {
+export interface AddAdminPageProps {
   	user: User | null,
 	allUsers: User[],
-	registerUser: (name: string, address: string, phoneNumber: string, email: string, password: string) => void,
+	registerAdmin: (name: string, address: string, phoneNumber: string, email: string, password: string) => void,
 }
 
-const RegisterPage: React.FC<RegisterPageProps> = (props) => {
+const AddAdminPage: React.FC<AddAdminPageProps> = (props) => {
 	const history = useHistory();
-  
+	  
 	const initialState = {
 		name: '',
 		address: '',
@@ -28,11 +28,11 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 		password: '',
 	};
 
-	async function registerUserCallback(){
+	async function addAdminCallback(){
 		const input = JSON.parse(JSON.stringify(values))
-		props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password)
+		props.registerAdmin(input.name, input.address, input.phoneNumber, input.email, input.password)
 		store.addNotification({
-			title: "Registrado com sucesso! Por favor, faça login.",
+			title: "Administrador adicionado com sucesso!",
 			message: " ",
 			type: "success",
 			insert: "top",
@@ -43,21 +43,19 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 				duration: 2000,
 				onScreen: false
 			}
-		});
+		})
 		setTimeout(function (){
-			history.push('/login-page')
+			history.push('admin-page')
 		}, 2000);
-		
-	};
+	}
 
-	const { onChange, onSubmit, values} = useForm(registerUserCallback, initialState); 
+	const { onChange, onSubmit, values} = useForm(addAdminCallback, initialState); 
 
   	return (
       <div className={styles.registerForm}>
         <ReactNotification/>
-		<h1> Cadastro </h1>
+		<h1> Adicionar novo administrador </h1>
         <br/>
-        <h2> Já tem conta? <Link to='/login-page'>Faça login</Link></h2>
         <form onSubmit={onSubmit}>
 			<div>
 				<label>
@@ -118,7 +116,7 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 }
 
 interface DispatchProps {
-	registerUser: (
+	registerAdmin: (
 		name: string, address: string, phoneNumber: string, email: string, password: string
 		) 
 		=> void;
@@ -130,12 +128,12 @@ interface StateProps {
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
-  user: state.user,
-  allUsers: state.usersList,
+  	user: state.user,
+  	allUsers: state.usersList,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	registerUser:(name, address, phoneNumber, email, password) => {dispatch(signUpUser(name, address, phoneNumber, email, password))}
+	registerAdmin:(name, address, phoneNumber, email, password) => {dispatch(addAdmin(name, address, phoneNumber, email, password))}
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAdminPage);

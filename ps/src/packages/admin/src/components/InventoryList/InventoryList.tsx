@@ -4,6 +4,7 @@ import InventoryItem from '../InventoryItem';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import Arrow from './Arrow';
 import * as styles from './styles'
+import ManageArrow from '../../../../../base-components/ManageArrow';
 
 export interface InventoryListProps{
   title: string;
@@ -22,8 +23,8 @@ const InventoryList: React.FC <InventoryListProps> = (props) => {
       <ul className={styles.productList}>
         <ScrollMenu
           data={props.products.map(renderProduct)}
-          arrowLeft={<Arrow text="<" />}
-          arrowRight={<Arrow text=">" />}
+          arrowLeft={<ManageArrow direction="left" />}
+          arrowRight={<ManageArrow direction="right" />}
           alignCenter={false}
         />
       </ul>

@@ -2,23 +2,20 @@ import React  from 'react';
 import { Link } from "react-router-dom";
 
 import * as styles from './styles';
+import { ApplicationState, ProductModel } from '../../../../../store/types';
 
 export interface ProductProps {
-  id: string;
-  img: string;
-  name: string;
-  price: string;
-  description: string;
-  //category: string;
+    product: ProductModel;
+    //category: string;
 }
 
 const Product: React.FC<ProductProps> = (props) => {
   return (
     <div className={styles.product}> 
-      <Link to={"/detail-product-page/" + props.id  } >
-        <img className={styles.productImage} src={props.img} alt=""/>
-        <h3 className={styles.title}>{props.name}</h3>
-        <h2 className={styles.price}>R${props.price}</h2>
+      <Link to={"/detail-product-page/" + props.product.id  } >
+        <img className={styles.productImage} src={props.product.img} alt=""/>
+        <h3 className={styles.title}>{props.product.name}</h3>
+        <h2 className={styles.price}>R${props.product.price}</h2>
       </Link>
     </div>
   );

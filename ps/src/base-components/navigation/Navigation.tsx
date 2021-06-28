@@ -17,10 +17,10 @@ const Navigation: React.FC<NavigationProps> = (props) => {
           <Link to="/"><h1 className={styles.logo}>Plant Shop</h1></Link>
           <div>
             <ul className={styles.navbar}>
-              <li><Link to="/about">Plantas</Link></li>
-              <li><Link to="/">Flores</Link></li>
-              <li><Link to="/">Buquês</Link></li>
-              <li><Link to="/">Vasos</Link></li>
+              <li><Link to="/plant-page">Plantas</Link></li>
+              <li><Link to="/flower-page">Flores</Link></li>
+              <li><Link to="/bouquet-page">Buquês</Link></li>
+              <li><Link to="/vase-page">Vasos</Link></li>
               <li><Link to="/rent-page">Aluguel de Planta</Link></li>
             </ul>
           </div>

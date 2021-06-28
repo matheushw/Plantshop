@@ -162,6 +162,19 @@ const reducer = (state = initialState, action: ApplicationAction) => {
             }
           });
         });
+      case "addAdmin":
+          return produce(state, draft => {
+            const admin: User = {
+                id: (state.usersList.length).toString(),
+                email: action.email,
+                password: action.password,
+                name: action.name,
+                address: action.address,
+                phoneNumber: action.phoneNumber,
+                role: 'admin',
+            }
+            draft.usersList.push(admin); 
+          });
     default:
       return state;
   }

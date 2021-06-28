@@ -1,4 +1,4 @@
-import { User, LoadUsersRequest, LogInUser, SignUpUser, EditUser, LoadUsersSuccess, LoadUsersError, AddProductToChart, ProductModel, RemoveProductToChart, PlaceOrder, ClearCart, AddInventory, RemoveInventory, RemoveProduct } from './types';
+import { User, LoadUsersRequest, LogInUser, SignUpUser, EditUser, LoadUsersSuccess, LoadUsersError, AddProductToChart, ProductModel, RemoveProductToChart, PlaceOrder, ClearCart, AddInventory, RemoveInventory, RemoveProduct, AddAdmin } from './types';
 
 export const loadUsersRequest = (): LoadUsersRequest => ({
   type: 'loadUsersRequest',
@@ -79,4 +79,19 @@ export const editUser = (
 	phoneNumber,
 	email,
   id
+});
+
+export const addAdmin = (
+	name: User["name"], 
+	address: User["address"],
+	phoneNumber: User["phoneNumber"], 
+	email: User["email"], 
+	password: User["password"]
+): AddAdmin => ({
+	type: 'addAdmin',
+	name,
+	address,
+	phoneNumber,
+	email,
+	password
 });

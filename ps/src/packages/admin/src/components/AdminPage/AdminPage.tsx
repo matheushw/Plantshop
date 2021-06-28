@@ -20,7 +20,7 @@ const AdminPage: React.FC<AdminPageProps> = (props) => {
       <div className={styles.center}>
         <ul>
           <Card img={"https://www.exansoftware.com/wp-content/uploads/2019/03/inventory-icon4.png"} title={"Gerenciar inventario"} link={"/inventory"}/>
-          <Card img={"https://image.flaticon.com/icons/png/512/1721/1721923.png"} title={"Cadastrar novo administrador"} link={"/inventory"}/>
+          <Card img={"https://image.flaticon.com/icons/png/512/1721/1721923.png"} title={"Cadastrar novo administrador"} link={"/add-admin-page"}/>
         </ul>
       </div>
     </div>

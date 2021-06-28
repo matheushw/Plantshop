@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 export { default as Navigation } from "./base-components/navigation";
 export { default as HomePage } from "./packages/home/src/components/HomePage/HomePage";
 
-const composeEnhancers = composeWithDevTools({});
+const composeEnhancers = composeWithDevTools({trace: true, traceLimit: 25});
 const store = createStore(reducer, initialState, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(

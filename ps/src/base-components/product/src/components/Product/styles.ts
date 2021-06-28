@@ -4,6 +4,7 @@ export const product = css`
   a{
     text-decoration: none;
   }
+  padding: 10px;
 `;
 
 export const productImage = css`
