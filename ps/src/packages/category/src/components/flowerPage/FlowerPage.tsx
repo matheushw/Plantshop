@@ -4,7 +4,7 @@ import ProductList from '../../../../../base-components/product-list/src/compone
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { ApplicationState, ProductModel } from '../../../../../store/types';
-import * as styles from '../modelPage/styles';
+import * as styles from '../styles';
 
 export interface FlowerPageProps {
   products: ProductModel[]

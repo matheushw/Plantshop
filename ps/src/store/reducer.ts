@@ -175,6 +175,19 @@ const reducer = (state = initialState, action: ApplicationAction) => {
             }
             draft.usersList.push(admin); 
           });
+      case "registerProduct":
+        return produce(state, draft => {
+          const product: ProductModel = {
+            id: (state.products.length+1).toString(),
+            img: action.img,
+            name: action.name,
+            price: action.price,
+            quantity: action.quantity,
+            type: action.category,
+            description: action.description,
+          }
+          draft.products.push(product);
+        });
     default:
       return state;
   }

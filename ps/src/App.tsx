@@ -14,6 +14,7 @@ import PlantPage from "./packages/category/src/components/plantPage/PlantPage";
 import FlowerPage from "./packages/category/src/components/flowerPage/FlowerPage";
 import BouquetPage from "./packages/category/src/components/bouquetPage/BouquetPage";
 import VasePage from "./packages/category/src/components/vasePage/VasePage";
+import AddProductPage from "./packages/admin/src/components/AddProductPage";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/flower-page" exact component={() => <FlowerPage/>} />
               <Route path="/bouquet-page" exact component={() => <BouquetPage/>} />
               <Route path="/vase-page" exact component={() => <VasePage/>} />
+              <Route path="/add-product-page" exact component={() => <AddProductPage/>} />
           </Switch>
       	</Router>
     	</div>

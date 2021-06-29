@@ -1,5 +1,4 @@
 import React from 'react'
-//import { Link } from "react-router-dom"
 import * as styles from './styles'
 import { ApplicationState, User } from '../../../../../store/types';
 import { addAdmin} from '../../../../../store/actions';
@@ -123,8 +122,8 @@ interface DispatchProps {
 }
 
 interface StateProps {
-	user: User | null;
-	allUsers: User[],
+	user: User | null
+	allUsers: User[]
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({

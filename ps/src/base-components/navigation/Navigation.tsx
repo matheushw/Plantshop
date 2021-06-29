@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Dispatch } from 'redux';
 import { ApplicationState, User } from '../../store/types';
 import * as styles from './styles';
+import ManageButton from '../ManageButton';
+
 export interface NavigationProps{
   user: User | null,
 }
@@ -29,7 +31,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
             <Link className={styles.iconButton} to="/chart-page"><span className="material-icons-outlined" > shopping_cart </span></Link>
             {props.user?.role === "admin" && <Link className={styles.iconButton} to="/admin-page"><span className="material-icons-outlined"> account_circle </span> </Link>}
             {props.user?.role === "user" && <Link className={styles.iconButton} to="/profile"><span className="material-icons-outlined"> account_circle </span> </Link>}
-            {props.user === null && <Link to="/login-page"><button className={styles.loginButton}>Login/Cadastro</button></Link>}
+            {props.user === null && <Link to="/login-page"><ManageButton text={"Login/Cadastro"} /> </Link>}
           </div>
 
         </div>
@@ -47,4 +49,3 @@ const mapStateToProps = (state: ApplicationState): NavigationProps => ({
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
-// export default Navigation;

@@ -105,6 +105,7 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 					type="password" 
 					name="password"
 					id="password"
+					minLength={6}
 					onChange={onChange}
 					required/><br/><br/>
 				</label>

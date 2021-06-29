@@ -43,7 +43,3 @@ export const logo = css `
 export const iconButton = css`
   margin-left: 8px;
 `;
-
-export const loginButton = css`
-  margin-left: 8px;
-`;

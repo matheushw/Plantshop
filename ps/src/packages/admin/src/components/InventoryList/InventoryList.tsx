@@ -2,7 +2,6 @@ import React from 'react';
 import { ProductModel } from '../../../../../store/types';
 import InventoryItem from '../InventoryItem';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
-import Arrow from './Arrow';
 import * as styles from './styles'
 import ManageArrow from '../../../../../base-components/ManageArrow';
 

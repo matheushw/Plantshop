@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { Link } from 'react-router-dom';
 import ManageButton from '../../../../../base-components/ManageButton';
 import InventoryList from '../InventoryList';
 import { ApplicationState, ProductModel } from '../../../../../store/types';
@@ -45,7 +46,7 @@ const InventoryPage: React.FC <InventoryPageProps> = (props) => {
   return(
     <div className={styles.mainPage}>
       <h1>Estoque</h1>
-      <ManageButton text={"Adicionar novo produto"} />
+      <Link to="/add-product-page"><ManageButton text={"Adicionar novo produto"} /> </Link>
       {renderProductTypeList(splitProducts(props.products))}
     </div>
   );

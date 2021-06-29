@@ -1,12 +1,10 @@
 import React  from 'react';
 import { Link } from "react-router-dom";
-
 import * as styles from './styles';
-import { ApplicationState, ProductModel } from '../../../../../store/types';
+import { ProductModel } from '../../../../../store/types';
 
 export interface ProductProps {
     product: ProductModel;
-    //category: string;
 }
 
 const Product: React.FC<ProductProps> = (props) => {

@@ -125,4 +125,14 @@ export interface AddAdmin extends Action {
   password: User["password"];
 }
 
-export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart | LogInUser | SignUpUser | PlaceOrder | ClearCart | EditUser | AddInventory | RemoveInventory | RemoveProduct | AddAdmin;
+export interface RegisterProduct extends Action {
+  type: 'registerProduct';
+  img: string;
+  name: string;
+  price: string;
+  quantity: number;
+  category: string;
+  description: string;
+}
+
+export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart | LogInUser | SignUpUser | PlaceOrder | ClearCart | EditUser | AddInventory | RemoveInventory | RemoveProduct | AddAdmin | RegisterProduct;

@@ -8,6 +8,14 @@ export const useForm = (callback: any, initialState = {}) => {
         setValues({...values, [event.target.name]: event.target.value});
     };
 
+    const onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setValues({...values, [event.target.name]: event.target.value});
+    };
+
+    const onChangeTextArea = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setValues({...values, [event.target.name]: event.target.value});
+    };
+
     //on Submit
     const onSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -16,6 +24,8 @@ export const useForm = (callback: any, initialState = {}) => {
     
     return {
         onChange,
+        onChangeSelect,
+        onChangeTextArea,
         onSubmit,
         values,
     };
