@@ -1,14 +1,16 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
+import { Link } from 'react-router-dom'
 import { clearCart, placeOrder, removeProductToChart } from '../../../../../store/actions'
-import { ApplicationState, ProductModel } from '../../../../../store/types'
+import { ApplicationState, ProductModel, User} from '../../../../../store/types'
 import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
-import ReactNotification, { store } from 'react-notifications-component';
-import 'react-notifications-component/dist/theme.css';
+import ReactNotification, { store } from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 import { ReactNode } from 'react'
 
 export interface ChartPageProps{
+  user: User | null;
   cartProducts: Map<string, ProductModel>;
   removeProduct: (id: string) => void;
   placeOrder: () => void;
@@ -46,7 +48,21 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
       }
       });
   }
-  
+  const notifyLogin = () => {
+      store.addNotification({
+        title: "Por favor faça login antes de finalizar a compra.",
+        message: " ",
+        type: "warning",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false
+        }
+      });
+  }
 
   const renderProduts = (cartProducts: Map<string, ProductModel>) =>{
 
@@ -76,13 +92,13 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
         {props.cartProducts.size !== 0 && renderProduts(props.cartProducts)}
         {props.cartProducts.size === 0 && <h2>Você não tem nenhum produto no carrinho :(</h2>}
       </div>
-
+      
       {props.cartProducts.size !== 0 && <h1>Total: {"R$ " + getFinalPrice().toFixed(2)}</h1>}
-    
       {props.cartProducts.size !== 0 && 
         <div>
-          <button>Continuar comprando</button>
-          <button onClick={placeOrder}>Finalizar compra</button>
+          <Link to="/"><button>Continuar comprando</button></Link>
+          {props.user !== null && <button onClick={placeOrder}>Finalizar compra</button>}
+          {props.user === null && <button onClick={notifyLogin}>Finalizar compra</button>}
         </div>
       }
     </div>
@@ -94,12 +110,16 @@ interface DispatchProps {
   placeOrder: () => void;
   clearCart: () => void;
 }
+
 interface StateProps{
   cartProducts: Map<string, ProductModel>;
+  user: User | null;
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
-  cartProducts: state.cartProducts
+  cartProducts: state.cartProducts,
+  user: state.user
+  
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({

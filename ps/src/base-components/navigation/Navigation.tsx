@@ -1,18 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Dispatch } from 'redux';
-import { ApplicationState, User } from '../../store/types';
-import * as styles from './styles';
-import ManageButton from '../ManageButton';
+import React from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Dispatch } from 'redux'
+import { ApplicationState, User } from '../../store/types'
+import * as styles from './styles'
+import ManageButton from '../ManageButton'
 
 export interface NavigationProps{
   user: User | null,
 }
 
 const Navigation: React.FC<NavigationProps> = (props) => {
-  return(
-
+  return (
     <div>
       <nav>
         <div className={styles.navHeader}>
