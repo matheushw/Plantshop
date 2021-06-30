@@ -6,11 +6,11 @@ import { Dispatch } from 'redux';
 import { ApplicationState, ProductModel } from '../../../../../store/types';
 import * as styles from '../styles';
 
-export interface VasePageProps {
+export interface PotPageProps {
   products: ProductModel[]
 }
 
-const VasePage: React.FC<VasePageProps> = (props) => {
+const PotPage: React.FC<PotPageProps> = (props) => {
 
   const splitProducts = (products: ProductModel[]) => {
     const productsMap: Map<string, ProductModel[]> = new Map();
@@ -59,10 +59,10 @@ const VasePage: React.FC<VasePageProps> = (props) => {
 
 interface DispatchProps {}
 
-const mapStateToProps = (state: ApplicationState): VasePageProps => ({
+const mapStateToProps = (state: ApplicationState): PotPageProps => ({
   products: state.products,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(VasePage);
+export default connect(mapStateToProps, mapDispatchToProps)(PotPage);

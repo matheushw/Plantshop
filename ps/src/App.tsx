@@ -13,7 +13,7 @@ import AddAdminPage from "./packages/admin/src/components/AddAdminPage";
 import PlantPage from "./packages/category/src/components/plantPage/PlantPage";
 import FlowerPage from "./packages/category/src/components/flowerPage/FlowerPage";
 import BouquetPage from "./packages/category/src/components/bouquetPage/BouquetPage";
-import VasePage from "./packages/category/src/components/vasePage/VasePage";
+import VasePage from "./packages/category/src/components/potPage/PotPage";
 import AddProductPage from "./packages/admin/src/components/AddProductPage";
 
 function App() {
