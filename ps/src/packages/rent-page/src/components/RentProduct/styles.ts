@@ -12,11 +12,3 @@ export const price = css`
 export const productImage = css `
   width: 200px;
 `;
-
-export const rentButton = css `
-  padding: 9px 15px;
-  margin: 10px 10px 10px 0;
-  background-color: rgb(92, 182, 3);
-  border: none;
-  border-radius: 10px;
-`;

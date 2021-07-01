@@ -14,5 +14,5 @@ export const productQuantity = css`
 `;
 
 export const productImage = css`
-  width: 200px;
+  height: 200px;
 `;

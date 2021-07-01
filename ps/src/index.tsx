@@ -15,9 +15,9 @@ const composeEnhancers = composeWithDevTools({trace: true, traceLimit: 25});
 const store = createStore(reducer, initialState, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root')
 );
 

@@ -8,15 +8,15 @@ export interface ProductProps {
 }
 
 const Product: React.FC<ProductProps> = (props) => {
-  return (
-    <div className={styles.product}> 
-      <Link to={"/detail-product-page/" + props.product.id  } >
-        <img className={styles.productImage} src={props.product.img} alt=""/>
-        <h3 className={styles.title}>{props.product.name}</h3>
-        <h2 className={styles.price}>R${props.product.price}</h2>
-      </Link>
-    </div>
-  );
+	return (
+		<div className={styles.product}> 
+		<Link to={"/detail-product-page/" + props.product.id  } >
+			<img className={styles.productImage} src={props.product.img} alt=""/>
+			<h3 className={styles.title}>{props.product.name}</h3>
+			<h2 className={styles.price}>R${props.product.price}</h2>
+		</Link>
+		</div>
+	);
 };
 
 export default Product;

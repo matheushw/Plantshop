@@ -1,54 +1,64 @@
-import { User, LoadUsersRequest, LogInUser, SignUpUser, EditUser, LoadUsersSuccess, LoadUsersError, AddProductToChart, ProductModel, RemoveProductToChart, PlaceOrder, ClearCart, AddInventory, RemoveInventory, RemoveProduct, AddAdmin, RegisterProduct } from './types';
+import { User, LoadUsersRequest, LogInUser, SignUpUser, EditUser, LoadUsersSuccess, LoadUsersError, AddProductToChart, ProductModel, RemoveProductToChart, PlusProductInCart, MinusProductInCart, PlaceOrder, ClearCart, AddInventory, RemoveInventory, RemoveProduct, AddAdmin, RegisterProduct, LogOut } from './types';
 
 export const loadUsersRequest = (): LoadUsersRequest => ({
-  type: 'loadUsersRequest',
+  	type: 'loadUsersRequest',
 });
 
 export const loadUsersSuccess = (user: User): LoadUsersSuccess => ({
-  type: 'loadUsersSuccess',
-  user,
+	type: 'loadUsersSuccess',
+	user,
 });
 
 export const loadUsersError = (): LoadUsersError => ({
-  type: 'loadUsersError',
+  	type: 'loadUsersError',
 });
 
 export const addProductToChart = (product: ProductModel): AddProductToChart => ({
-  type: 'addProductToChart',
-  product,
+	type: 'addProductToChart',
+	product,
 });
 
 export const removeProductToChart = (id: string): RemoveProductToChart => ({
-  type: 'removeProductToChart',
-  id,
+	type: 'removeProductToChart',
+	id,
+});
+
+export const minusProductInCart = (id: string) : MinusProductInCart => ({
+	type: 'minusProductInCart',
+	id,
+});
+
+export const plusProductInCart = (id: string) : PlusProductInCart => ({
+	type: 'plusProductInCart',
+	id,
 });
 
 export const placeOrder = (): PlaceOrder => ({
-  type: 'placeOrder',
+  	type: 'placeOrder',
 });
 
 export const clearCart = (): ClearCart => ({
-  type: 'clearCart',
+  	type: 'clearCart',
 });
 
 export const logInUser = (user: User): LogInUser => ({
-  type: 'logInUser',
-  user
+	type: 'logInUser',
+	user
 });
 
 export const addInventory = (productId: string): AddInventory => ({
-  type: 'addInventory',
-  productId
+	type: 'addInventory',
+	productId
 });
 
 export const removeInventory = (productId: string): RemoveInventory => ({
-  type: 'removeInventory',
-  productId
+	type: 'removeInventory',
+	productId
 });
 
 export const removeProduct = (productId: string): RemoveProduct => ({
-  type: 'removeProduct',
-  productId
+	type: 'removeProduct',
+	productId
 });
 
 export const signUpUser = (
@@ -111,4 +121,8 @@ export const registerProduct = (
 	quantity,
 	category,
 	description
+});
+
+export const logOut = () : LogOut => ({
+	type: 'logOut',
 });
