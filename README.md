@@ -75,9 +75,72 @@ Our entire website is curentily built using HTML5, CSS3 and React.
 
 ## Test Plan
 
+We plant to test the all user pages, including:
+
+- Home page
+- Product pages
+  - Flowers page
+  - Bouquets page
+  - Pots page
+- Rent page
+- Login page
+- Register page
+- User profile page
+- Shopping cart page
+- Administrator page
+
+Besides that, we will test all major functionalities, including:
+
+- General actions:
+  - Log in
+  - Log out
+- User actions:
+  - Adding product to cart
+  - Removing product from cart
+  - Creating new user
+  - Scheduling rent
+- Admin actions:
+  - Adding items to stock 
+  - Adding new item to stock 
+  - Removing items from stock
+  - Adding new administrator
+
 ## Test Results
 
 ## Build Procedures
+
+### Software
+
+We're using the following versions of node and npm:
+
+    $ node -v
+    v10.24.1
+    $ npm -v
+    6.14.12
+
+Install them using your favorite software, like nvm or your package manager.
+
+### Installation
+
+To install, run the following:
+
+    $ cd ps
+    $ npm install
+    $ npm run-script build
+
+Make sure the version of node and npm are the exact same as mentioned above.
+
+To run the server you will also need the serve package. To install it, run:
+
+    $ npm install -g serve
+
+### Running
+
+After running the installation procedures, run the following inside the ps folder:
+
+    $ serve build
+
+Now you will have a node instance running at http://localhost:5000!
 
 ## Problems
 
