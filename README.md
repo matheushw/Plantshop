@@ -121,7 +121,6 @@ Besides that, we will test all major functionalities, including:
 ![Página de Sucesso em Login](https://imgur.com/LowlzLK.png)
 
 ### Register Page
-
 ![Página de Cadastro](https://imgur.com/8tar1t1.png)
 
 #### Success in Register
@@ -143,33 +142,53 @@ After logged in, an icon for loggin out will appear in the far right in the nav 
 
 ### Cart
 
-![Cart](https://imgur.com/jEnT49R.png)
+![Cart](https://imgur.com/fSII8Z1.png)
 
-![No Products](https://imgur.com/iNvifB2.png)
+#### Cart with no products
+![No Products](https://imgur.com/PE8NAjW.png)
 
-![Finish purchase](https://imgur.com/einyceZ.png)
+#### Page after finishing purchase
+![Finish purchase](https://imgur.com/E8R4Rtt.png)
 
 ### Category Pages
 
-![Plant Page](https://imgur.com/S01mSnS.png)
+#### Plant Page
+![Plant Page](https://imgur.com/e2frTQd.png)
 
-![Flower Page](https://imgur.com/A0sK0fm.png)
+#### Flower Page
+![Flower Page](https://imgur.com/tJlPl26.png)
 
-![Bouquet Page](https://imgur.com/zLRfEf3.png)
+#### Bouquet Page
+![Bouquet Page](https://imgur.com/rLEvvHc.png)
 
-![Pot Page](https://imgur.com/Ir8c2lo.png)
+#### Pot Page
+![Pot Page](https://imgur.com/qHCwHqZ.png)
+
+### User Profile
+
+![User Profile](https://imgur.com/Uu6BmNT.png)
+
+#### Editing User Profile
+![Editing User Profile](https://imgur.com/d0C5N0q.png)
+
+#### Edited User Profile
+![Edited User Profile](https://imgur.com/7W6W6L4.png)
 
 ### Admin Profile
 
-![Admin Page 1](https://imgur.com/atemSCO.png)
+![Admin Page 1](https://imgur.com/YZtKM1H.png)
 
-![Admin Page 2](https://imgur.com/88ukveD.png)
+![Admin Page 2](https://imgur.com/BNn5SrD.png)
 
+#### Inventory
 ![Inventory](https://imgur.com/4mhjkCP.png)
 
-![Add Product](https://imgur.com/qaDbezQ.png)
 
-![Add admin](https://imgur.com/b2vWgLS.png)
+#### Add new product to the inventory
+![Add Product](https://imgur.com/DqEKqEX.png)
+
+#### Register new administrator
+![Add admin](https://imgur.com/TItgmfX.png)
 
 ## Build Procedures
 
