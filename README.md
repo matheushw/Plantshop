@@ -2,12 +2,12 @@
 Professor Dilvan de Abreu Moreira
 SCC0219 - Intro to Web Development
 
-## Group 12
+## Group 12 
 Frederico Bulhões de Souza Ribeiro - **11208440**   
 Maria Eduarda Kawakami Moreira - **11218751**  
 Matheus Barcellos de Castro Cunha - **11208238**
 
-# Plant Shop
+# Plant Shop 🌱🌼💐 
 The website was designed to be a plant e-commerce. Here users will be able to find any plant they want, being it flowers, vases, bouquets or house plants. It's also possible to rent flowers for a special ocasion. 
 ## Requirements
 * The system will have 2 types of users: Clients and Administrators:
@@ -40,7 +40,7 @@ In this phase of the project, the application is being saved **locally** so it's
 #### Homepage
 This page contains an overview of our products. There we can check out the products on sale and some product categories. In the top, we have a slider showing the products on sale. 
 
-#### Profile Page
+#### Profile Page :
 This page shows user's infos in the left and its previous and current orders in the right. Users will be able to edit its infos, except password.
 
 #### Admin Page
@@ -56,7 +56,7 @@ This page cointains the description of the product, its price and the quantity a
 In this page, an admin will be able to register another store admin.
 
 #### Category Page
-There are four pages of categories of plants: plants (in general), flowers, bouquets and pots. In this pages, we have all of the plants in the store that fit into that category. 
+There are four pages of categories of plants: plants (in general) 🌱, flowers 🌷, bouquets 💐 and pots 🌳. In this pages, we have all of the plants in the store that fit into that category. 
 
 #### Login
 The page of login has a form, that requires the email and the password. There is also the option to go to the sign up page, if the user doesn't have an account. 
