@@ -38,7 +38,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
 			  	{props.user?.role === "admin" && <Link className={styles.iconButton} to="/admin-page"><span className="material-icons-outlined"> account_circle </span> </Link>}
 			  	{props.user?.role === "user" && <Link className={styles.iconButton} to="/profile"><span className="material-icons-outlined"> account_circle </span> </Link>}
 			  	{props.user === null && <Link to="/login-page"><ManageButton text={"Login/Cadastro"} /> </Link>}
-			  	{props.user !== null && <span onClick={logOut} className="material-icons-outlined"> logout </span>}
+			  	{props.user !== null && <Link to="/login-page"><span onClick={logOut} className="material-icons-outlined"> logout </span></Link>}
 			  </div>
 			</div>
 		  </nav>
