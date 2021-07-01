@@ -26,6 +26,18 @@ export interface Order {
   status: string;
 }
 
+export interface RentOrder {
+  orderId: number;
+  id: string;
+  name: string;
+  pricePerDay: string;
+  date: string;
+  img: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  total: string;
+}
+
 export interface User {
   id: string;
   name: string;
@@ -45,6 +57,8 @@ export interface ApplicationState {
   user: User | null;
   products: ProductModel[];
   cartProducts: Map<string, ProductModel>;
+  rentOrders: RentOrder[];
+  rentedProducts: RentOrder[];
   usersList: User[];
   orders: Order[];
 }
@@ -78,6 +92,11 @@ export interface ClearCart extends Action {
   type: 'clearCart';
 }
 
+export interface RemoveRentOrder extends Action {
+  type: 'removeRentOrder';
+  orderId: number;
+}
+
 export interface LogInUser extends Action {
   type: 'logInUser';
   user: User;
@@ -96,6 +115,11 @@ export interface RemoveInventory extends Action {
 export interface RemoveProduct extends Action {
   type: 'removeProduct';
   productId: string;
+}
+
+export interface RentProduct extends Action {
+  type: 'rentProduct';
+  rentOrder: RentOrder;
 }
 
 export interface SignUpUser extends Action {
@@ -135,4 +159,21 @@ export interface RegisterProduct extends Action {
   description: string;
 }
 
-export type ApplicationAction = LoadUsersRequest | LoadUsersSuccess | LoadUsersError | AddProductToChart | RemoveProductToChart | LogInUser | SignUpUser | PlaceOrder | ClearCart | EditUser | AddInventory | RemoveInventory | RemoveProduct | AddAdmin | RegisterProduct;
+export type ApplicationAction = 
+| LoadUsersRequest 
+| LoadUsersSuccess 
+| LoadUsersError 
+| AddProductToChart 
+| RemoveProductToChart 
+| LogInUser 
+| SignUpUser 
+| PlaceOrder 
+| ClearCart 
+| EditUser 
+| AddInventory 
+| RemoveInventory 
+| RemoveProduct 
+| RentProduct
+| AddAdmin 
+| RegisterProduct
+| RemoveRentOrder;

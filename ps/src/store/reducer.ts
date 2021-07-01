@@ -10,6 +10,8 @@ export const initialState: ApplicationState = {
   user: null,
   products: products,
   cartProducts: new Map(),
+  rentOrders: [],
+  rentedProducts: [],
   usersList: mockedUsers,
   orders: [],
 }
@@ -53,43 +55,68 @@ const reducer = (state = initialState, action: ApplicationAction) => {
       });
     case "placeOrder":
       return produce(state, draft => {
+        if(state.cartProducts.size !== 0){
+          let totalPrice: number = 0;
+          let productsOrders: ProductOrder[] = [];
+          
+          state.cartProducts.forEach((product) => {
+            totalPrice += parseFloat(product.price) * product.quantity;
 
-        const date = new Date();
-        let totalPrice: number = 0;
-        let productsOrders: ProductOrder[] = [];
-        
-        state.cartProducts.forEach((product) => {
-          totalPrice += parseFloat(product.price) * product.quantity;
+            const newProductOrder: ProductOrder = {
+              id: product.id, 
+              name: product.name, 
+              price: product.price, 
+              quantity: product.quantity
+            }
 
-          const newProductOrder: ProductOrder = {
-            id: product.id, 
-            name: product.name, 
-            price: product.price, 
-            quantity: product.quantity
+            draft.products.forEach((value, idx) => {
+              if(value.id === product.id){
+                draft.products[idx].quantity -= product.quantity;
+              }
+            })
+
+            productsOrders.push(newProductOrder);
+          });
+          
+          var day = new Date();
+          var dd = day.getDate().toString();
+          var mm = (day.getMonth()+1).toString();
+          var yyyy = (day.getFullYear()).toString();
+          if(parseInt(dd) < 10){
+            dd = '0' + dd;
+          } 
+          if(parseInt(mm)<10){
+            mm = '0' + mm;
+          } 
+
+          const newOrder: Order = {
+            productsOrders: productsOrders,
+            date: dd + "/" + mm + "/" + yyyy,
+            total: totalPrice.toFixed(2),
+            status: "Preparando para envio!",
           }
 
-          draft.products.forEach((value, idx) => {
-            if(value.id === product.id){
-              draft.products[idx].quantity -= product.quantity;
-            }
-          })
-
-          productsOrders.push(newProductOrder);
-        });
-        
-        const newOrder: Order ={
-          productsOrders: productsOrders,
-          date: date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear(),
-          total: totalPrice.toFixed(2),
-          status: "Preparando para envio!",
+          draft.orders = state.orders;
+          draft.orders.push(newOrder);
         }
 
-        draft.orders = state.orders;
-        draft.orders.push(newOrder);
+        if(state.rentOrders.length !== 0) {
+          draft.rentedProducts = draft.rentedProducts.concat(draft.rentOrders);
+        }
       });
     case "clearCart":
       return produce(state, draft => {
         draft.cartProducts = new Map();
+        draft.rentOrders = [];
+      });
+    case "removeRentOrder":
+      return produce(state, draft => {
+        draft.rentOrders = [];
+        state.rentOrders.forEach((order) => {
+          if(order.orderId !== action.orderId) {
+            draft.rentOrders.push(order);
+          }
+        });
       });
     case "logInUser":
       return produce(state, draft => {
@@ -126,7 +153,10 @@ const reducer = (state = initialState, action: ApplicationAction) => {
           }
         })
       });
-      
+    case "rentProduct":
+      return produce(state, draft => {
+        draft.rentOrders.push(action.rentOrder);
+      });
     case "removeProduct":
       const newProductsArray: ProductModel[] = [];
       return produce(state, draft => {
@@ -138,56 +168,57 @@ const reducer = (state = initialState, action: ApplicationAction) => {
 
         draft.products = newProductsArray;
       });
-      case "editUser":
-        return produce(state, draft => {
-          draft.usersList = [];
-          let edited: boolean = false;
-          state.usersList.forEach((user) => {
-            if(!edited && user.id === action.id){
-              const newUser: User = {
-                id: action.id,
-                email: action.email,
-                password: user.password,
-                name: action.name,
-                address: action.address,
-                phoneNumber: action.phoneNumber,
-                role: user.role,
-              }
-              edited = true;
-              draft.user = newUser;
-              draft.usersList.push(newUser);
-              
-            } else {
-              draft.usersList.push(user);
+      
+    case "editUser":
+      return produce(state, draft => {
+        draft.usersList = [];
+        let edited: boolean = false;
+        state.usersList.forEach((user) => {
+          if(!edited && user.id === action.id){
+            const newUser: User = {
+              id: action.id,
+              email: action.email,
+              password: user.password,
+              name: action.name,
+              address: action.address,
+              phoneNumber: action.phoneNumber,
+              role: user.role,
             }
-          });
-        });
-      case "addAdmin":
-          return produce(state, draft => {
-            const admin: User = {
-                id: (state.usersList.length).toString(),
-                email: action.email,
-                password: action.password,
-                name: action.name,
-                address: action.address,
-                phoneNumber: action.phoneNumber,
-                role: 'admin',
-            }
-            draft.usersList.push(admin); 
-          });
-      case "registerProduct":
-        return produce(state, draft => {
-          const product: ProductModel = {
-            id: (state.products.length+1).toString(),
-            img: action.img,
-            name: action.name,
-            price: action.price,
-            quantity: action.quantity,
-            type: action.category,
-            description: action.description,
+            edited = true;
+            draft.user = newUser;
+            draft.usersList.push(newUser);
+            
+          } else {
+            draft.usersList.push(user);
           }
-          draft.products.push(product);
         });
+      });
+    case "addAdmin":
+        return produce(state, draft => {
+          const admin: User = {
+              id: (state.usersList.length).toString(),
+              email: action.email,
+              password: action.password,
+              name: action.name,
+              address: action.address,
+              phoneNumber: action.phoneNumber,
+              role: 'admin',
+          }
+          draft.usersList.push(admin); 
+        });
+    case "registerProduct":
+      return produce(state, draft => {
+        const product: ProductModel = {
+          id: (state.products.length+1).toString(),
+          img: action.img,
+          name: action.name,
+          price: action.price,
+          quantity: action.quantity,
+          type: action.category,
+          description: action.description,
+        }
+        draft.products.push(product);
+      });
     default:
       return state;
   }

@@ -1,18 +1,22 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Link } from 'react-router-dom'
-import { clearCart, placeOrder, removeProductToChart } from '../../../../../store/actions'
-import { ApplicationState, ProductModel, User} from '../../../../../store/types'
+import { clearCart, placeOrder, removeProductToChart, removeRentOrder } from '../../../../../store/actions'
+import { ApplicationState, ProductModel, RentOrder, User} from '../../../../../store/types'
 import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
 import ReactNotification, { store } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
-import { ReactNode } from 'react'
+import ChartRent from '../ChartRent/ChartRent'
+import ProductList from '../ProductList'
+import { ReactElement } from 'react'
 
 export interface ChartPageProps{
   user: User | null;
   cartProducts: Map<string, ProductModel>;
+  rentOrders: RentOrder[];
   removeProduct: (id: string) => void;
+  removeRentOrder: (rentOrderId: number) => void;
   placeOrder: () => void;
   clearCart: () => void;
 }
@@ -25,6 +29,8 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
     props.cartProducts.forEach((product) => {
       finalPrice += parseFloat(product.price) * product.quantity;
     });
+
+    props.rentOrders.forEach((rentOrder) => finalPrice += parseFloat(rentOrder.total));
 
     return finalPrice;
   }
@@ -64,9 +70,13 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
       });
   }
 
+  const renderRentOrder = (rentOrder: RentOrder, idx: number) => {
+    return (<ChartRent removeRentOrder={props.removeRentOrder} rentOrder={rentOrder}/>);
+  }
+
   const renderProduts = (cartProducts: Map<string, ProductModel>) =>{
 
-    const cartProductElements: ReactNode[] = [];
+    const cartProductElements: ReactElement[] = [];
 
     cartProducts.forEach((cartProduct) => {
       cartProductElements.push(
@@ -88,13 +98,18 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
       <ReactNotification/>
       <h1>Seus Produtos</h1>
 
+      
       <div className={styles.productList}>
-        {props.cartProducts.size !== 0 && renderProduts(props.cartProducts)}
-        {props.cartProducts.size === 0 && <h2>Você não tem nenhum produto no carrinho :(</h2>}
+        {/* {props.cartProducts.size !== 0 && renderProduts(props.cartProducts)} */}
+        {props.cartProducts.size !== 0 && <ProductList products={renderProduts(props.cartProducts)} title={"Compras"} />}
+        {/* {props.rentOrders.length !== 0 && props.rentOrders.map(renderRentOrder)} */}
+
+        {props.rentOrders.length !== 0 && <ProductList products={props.rentOrders.map(renderRentOrder)} title={"Alugueis"}/>}
+        {props.cartProducts.size === 0 && props.rentOrders.length === 0 && <h2>Você não tem nenhum produto no carrinho :(</h2>}
       </div>
       
-      {props.cartProducts.size !== 0 && <h1>Total: {"R$ " + getFinalPrice().toFixed(2)}</h1>}
-      {props.cartProducts.size !== 0 && 
+      {(props.cartProducts.size !== 0 || props.rentOrders.length !== 0) && <h1>Total: {"R$ " + getFinalPrice().toFixed(2)}</h1>}
+      {(props.cartProducts.size !== 0 || props.rentOrders.length !== 0) &&
         <div>
           <Link to="/"><button>Continuar comprando</button></Link>
           {props.user !== null && <button onClick={placeOrder}>Finalizar compra</button>}
@@ -107,17 +122,20 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
 
 interface DispatchProps {
   removeProduct: (id: string) => void;
+  removeRentOrder: (rentOrderId: number) => void;
   placeOrder: () => void;
   clearCart: () => void;
 }
 
 interface StateProps{
   cartProducts: Map<string, ProductModel>;
+  rentOrders: RentOrder[];
   user: User | null;
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
   cartProducts: state.cartProducts,
+  rentOrders: state.rentOrders,
   user: state.user
   
 });
@@ -125,7 +143,8 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   removeProduct:(id) => {dispatch(removeProductToChart(id))},
   placeOrder:() => {dispatch(placeOrder())},
-  clearCart: () => (dispatch(clearCart())),
+  clearCart: () => {dispatch(clearCart())},
+  removeRentOrder:(rentOrderId) => {dispatch(removeRentOrder(rentOrderId))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartPage);

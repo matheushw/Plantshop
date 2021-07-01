@@ -10,7 +10,8 @@ export const price = css`
 `;
 
 export const productImage = css `
-  width: 200px;
+  height: 120px;
+
 `;
 
 export const rentButton = css `
@@ -19,4 +20,9 @@ export const rentButton = css `
   background-color: rgb(92, 182, 3);
   border: none;
   border-radius: 10px;
+`;
+
+export const description = css `
+  max-width: 250px;
+  white-space: normal !important;
 `;

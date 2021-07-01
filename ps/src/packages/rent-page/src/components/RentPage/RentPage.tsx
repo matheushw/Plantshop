@@ -1,16 +1,101 @@
-import React from 'react'
-import RentProduct from '../RentProduct';
+import React, { ReactNode } from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { ApplicationState, ProductModel } from '../../../../../store/types';
+import RentProductList from '../RentProductsList';
+import ReactNotification, { store } from 'react-notifications-component';
+import * as styles from './styles';
+import { NotificationType } from '../utils';
+export interface RentPageProps{
+  products: ProductModel[];
+}
 
-export interface RentPageProps{}
+const RentPage: React.FC<RentPageProps> = ( props ) => {
+  const [showNotification, setShowNotification] = useState<NotificationType>(NotificationType.NONE);
 
-const RentPage: React.FC<RentPageProps> = () => {
+  useEffect(()=>{
+    if(showNotification === NotificationType.FAILED){
+      store.addNotification({
+        title: "Data inválida",
+        message: " ",
+        type: "warning",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false
+        }
+      })
+    } else if(showNotification === NotificationType.SUCCESSFUL) {
+      store.addNotification({
+        title: "Produto alugado com sucesso!",
+        message: " ",
+        type: "success",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false
+        }
+      })
+    }
+    setShowNotification(NotificationType.NONE);
+  }, [showNotification]);
+
+  const splitProducts = (products: ProductModel[]) => {
+    const productsMap: Map<string, ProductModel[]> = new Map();
+    products.forEach((product) => {
+      if (productsMap.has(product.type)){
+        const typeList: ProductModel[] = productsMap.get(product.type)!;
+        typeList.push(product);
+        productsMap.set(product.type, typeList);
+      } else {
+        productsMap.set(product.type, [product]);
+      }
+    });
+
+    return productsMap;
+  }
+
+  const renderProductTypeList = (products:Map<string, ProductModel[]>) => {
+    const lists: ReactNode[] = [];
+
+    products.forEach((productsType, title) => {
+      lists.push(<RentProductList setShowNotification={setShowNotification} title={title} products={productsType} />);
+    });
+
+    return (
+      <>
+        {lists}
+      </>
+    )
+  }
+
   return(
-    <RentProduct 
-      productName={"Planta X"} 
-      imgUrl={"https://multimidia.gazetadopovo.com.br/media/info/2017/201710/plantas-problemas-saudavel.png"} 
-      description={"A planta X é ótima para a casa, proporcionando... "} 
-      price={"19.99"}/>
+    <div className={styles.page}>
+      <h1>Aluguel</h1>
+      <ReactNotification />
+      {renderProductTypeList(splitProducts(props.products))}
+    </div>
   );
 }
 
-export default RentPage;
+interface DispatchProps {}
+
+interface StateProps{
+  products: ProductModel[];
+}
+
+const mapStateToProps = (state: ApplicationState): StateProps => ({
+  products: state.products,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RentPage);

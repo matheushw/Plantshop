@@ -12,7 +12,7 @@ export interface ChartProductProps{
 
 const ChartProduct: React.FC<ChartProductProps> = ({ name, price, img, id, quantity, removeProduct }) => {
   return(
-   <div>
+   <div className={styles.productContainer}>
      <img src={img} alt="" className={styles.productImage}/>
      <h3 className={styles.productName}>{name}</h3>
      <h3 className={styles.productQuantity}>{"Quantidade: " + quantity}</h3>

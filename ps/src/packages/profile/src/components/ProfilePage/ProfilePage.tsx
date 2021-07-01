@@ -1,17 +1,19 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ApplicationState, Order , User} from '../../../../../store/types';
+import { ApplicationState, Order , RentOrder, User} from '../../../../../store/types';
 import PurchaseInfo from '../PurchaseInfo';
 import * as styles from './styles'
 import { editUser } from '../../../../../store/actions';
 import { useForm } from '../../../../useForm';
 import {useHistory} from 'react-router';
+import RentInfo from '../RentInfo';
 //import userEvent from '@testing-library/user-event';
 
 export interface ProfilePageProps{
   orders: Order[],
   user: User,
   allUsers: User[],
+	rentedProducts: RentOrder[],
   editUserInfo: (name: string, address: string, phoneNumber: string, email: string, id: string
     ) => void,
 }
@@ -23,6 +25,12 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
       <PurchaseInfo number = {(idx+1)} date = {order.date} price = {order.total} productsOrders={order.productsOrders} status={order.status} />
     );
   }
+
+	const renderRentedproduct = (rentedProduct: RentOrder, idx: number) => {
+		return (
+			<RentInfo rentOrder={rentedProduct} />
+		);
+	}
   //Edit Profile
   const history = useHistory();
 	
@@ -114,7 +122,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
         <h1> Meus pedidos</h1>
     </div>
     {props.orders.map(renderOrders)}
-      
+    {props.rentedProducts.map(renderRentedproduct)}
     </div>
     
   );
@@ -129,12 +137,14 @@ interface StateProps{
   orders: Order[];
   user: User;
   allUsers: User[];
+	rentedProducts: RentOrder[];
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
   orders: state.orders,
   user: state.user!,
-  allUsers: state.usersList
+  allUsers: state.usersList,
+  rentedProducts: state.rentedProducts
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({

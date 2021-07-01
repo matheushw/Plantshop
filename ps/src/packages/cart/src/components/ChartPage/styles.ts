@@ -12,5 +12,5 @@ export const productDisplay = css `
 `;
 
 export const productList = css `
-  display: flex;
+  /* margin: 30px; */
 `;
