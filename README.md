@@ -107,6 +107,30 @@ Besides that, we will test all major functionalities, including:
 
 ## Test Results
 
+### Login Page
+
+![Página de Login](https://imgur.com/3EZtl1U.png)
+
+#### Error in Login
+![Página de Erro em Login](https://imgur.com/oXShH54.png)
+
+#### Success in Login
+![Página de Sucesso em Login](https://imgur.com/LowlzLK.png)
+
+### Register Page
+
+![Página de Cadastro](https://imgur.com/8tar1t1.png)
+
+#### Success in Register
+![Página de Sucesso em Cadastro](https://imgur.com/t58Cz2a.png)
+
+### Log Out
+
+After logged in, an icon for loggin out will appear in the far right in the nav bar:
+
+![Log Out](https://imgur.com/B9EtDYw.png)
+
+
 ## Build Procedures
 
 ### Software
