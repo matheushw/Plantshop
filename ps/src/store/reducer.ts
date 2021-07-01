@@ -123,8 +123,7 @@ const reducer = (state = initialState, action: ApplicationAction) => {
 					phoneNumber: action.phoneNumber,
 					role: 'user',
 				}
-				draft.user = user;
-				draft.usersList.push(draft.user); 
+				draft.usersList.push(user); 
 			});
 		case "addInventory":
 			return produce(state, draft => {
