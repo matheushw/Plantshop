@@ -1,44 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
 # Web Development Project 
 Professor Dilvan de Abreu Moreira  
 SCC0219 - Intro to Web Development
@@ -50,6 +9,7 @@ Matheus Barcellos de Castro Cunha - **11208238**
 
 # Plant Shop 🌱🌼💐 
 The website was designed to be a plant e-commerce. Here users will be able to find any plant they want, being it flowers, pots, bouquets or house plants. It's also possible to rent flowers for a special ocasion. 
+
 ## Requirements
 * The system will have 2 types of users: Clients and Administrators:
   * Administrators are responsible for registering/managing administrators, customers, and products/services provided. The application already comes with an account admin with password admin.
@@ -72,7 +32,7 @@ Our website is running at https://plantshop.club/
 ![Diagrama de fluxo](https://i.imgur.com/mlaWlqZ.png)
 
 ### Data storage
-Our project will store all users data such as password, email, name, phone number and address in a specific database. The products info will also be stored in a dedicated database. 
+Our project will store all users data such as password, email, name, phone number and address in a specific database. The products info will also be stored in a dedicated database.
 
 ### Limitations
 In this phase of the project, the application is being saved **locally** so it's only possible to simulate the server database functionality for a **single client**.
@@ -114,7 +74,7 @@ In this page users will be able to schedule a flower rent, the rents will appear
 
 
 ## Comments About the Code
-Our entire website is curentily built using HTML5, CSS3 and React. For managing the state of the application, we used Redux.
+Our entire website is curentily built using HTML5, CSS3 and React. For managing the state of the application, we used Redux. We have chosen to use Typescript integration with React since we believe that typing our variables, functions, etc. would avoid headaches related to the project size.  
 
 ## Test Plan
 
@@ -269,8 +229,47 @@ After running the installation procedures, run the following inside the ps folde
 
     $ serve build
 
-Now you will have a node instance running at http://localhost:5000!
+Now you will have a node instance running at http://localhost:3000!
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Problems
+No problems.
 
 ## Comments
+Our group never had to deal with such a big project like this one. Also, we have never developed with React.
