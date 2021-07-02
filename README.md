@@ -190,6 +190,11 @@ After logged in, an icon for loggin out will appear in the far right in the nav 
 #### Register new administrator
 ![Add admin](https://imgur.com/TItgmfX.png)
 
+### Rent Flower
+![Rent_page](https://imgur.com/undefined.png)
+![Rent_notification](https://imgur.com/MxPDVpn.png)
+![Profile_page_rent](https://imgur.com/OeoC32h.png)
+
 ## Build Procedures
 
 ### Software
