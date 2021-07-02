@@ -35,40 +35,36 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
   const history = useHistory();
 	
 	const initialState = {
-	  	user: props.user,
+		user: props.user,
 	}
 
-  async function editProfileCallback(){
-    const input = JSON.parse(JSON.stringify(values))
-    let fs = document.getElementsByTagName("fieldset")[0];
-	let eb = document.getElementById("editButton");
-	if(eb !== null && fs !== null){
-		if(eb.innerHTML === "Editar"){
-			eb.innerHTML = "Salvar mudanças"
-			fs.disabled = false	
-		}else{
-			eb.innerHTML = "Editar"
-			props.editUserInfo(input.name ? input.name : props.user.name , input.address ? input.address:props.user.address, input.phoneNumber ? input.phoneNumber:props.user.phoneNumber, input.email ? input.email:props.user.email, props.user.id)
-			fs.disabled = true
+	async function editProfileCallback(){
+		const input = JSON.parse(JSON.stringify(values))
+		let fs = document.getElementsByTagName("fieldset")[0];
+		let eb = document.getElementById("editButton");
+		if(eb !== null && fs !== null){
+			if(eb.innerHTML === "Editar"){
+				eb.innerHTML = "Salvar mudanças"
+				fs.disabled = false	
+			}else{
+				eb.innerHTML = "Editar"
+				props.editUserInfo(input.name ? input.name : props.user.name , input.address ? input.address:props.user.address, input.phoneNumber ? input.phoneNumber:props.user.phoneNumber, input.email ? input.email:props.user.email, props.user.id)
+				fs.disabled = true
+			}
+			history.push('./profile')
 		}
-		history.push('./profile')
 	}
-	//props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password)
-    //console.log(input.email + input.password)
-    // go to home
-  }
 
-  const { onChange, onSubmit, values} = useForm(editProfileCallback, initialState); 
+	const { onChange, onSubmit, values} = useForm(editProfileCallback, initialState); 
 
-
-  return (
-    <div>
-	<div className={styles.infoDisplay}>
-      <h1>Perfil</h1>
-      <h2> Dados da conta de {props.user.name}</h2>
-      <form onSubmit={onSubmit}>
+	return (
+		<div>
+		<div className={styles.infoDisplay}>
+		<h1>Perfil</h1>
+		<h2> Dados da conta de {props.user.name}</h2>
+		<form onSubmit={onSubmit}>
 			<fieldset disabled={true}>
-        		<div>
+			<div>
 				<label>
 					<br/>
 					Nome: <br/> <input 
@@ -77,7 +73,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 					id="name" 
 					onChange={onChange} 
 					defaultValue={props.user.name}
-          			required/> 
+					required/> 
 					<br/><br/>
 				</label>
 				<label>
@@ -88,7 +84,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 					defaultValue={props.user.address}
 					onChange={onChange}
 					required/><br/>
-            		<br/>
+					<br/>
 				</label>
 				<label>
 					Telefone: <br/> <input 
@@ -98,7 +94,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 					defaultValue={props.user.phoneNumber}
 					onChange={onChange}
 					required/><br/>
-            		<br/>
+					<br/>
 				</label>
 				<label>
 					Email: <br/> <input 
@@ -108,15 +104,15 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 					defaultValue={props.user.email}
 					onChange={onChange}
 					required/><br/>
-            		<br/>
+					<br/>
 				</label>
-				</div>
-      			</fieldset>
-		  	<label>
+			</div>
+			</fieldset>
+			<label>
 			<button id="editButton" type="submit">Editar</button>
 			</label>
-        </form>
-    </div>
+		</form>
+		</div>
 
 	<div className={styles.purchaseList}>
         <h1> Meus pedidos</h1>

@@ -12,20 +12,20 @@ export interface PotPageProps {
 
 const PotPage: React.FC<PotPageProps> = (props) => {
 
-  const splitProducts = (products: ProductModel[]) => {
-    const productsMap: Map<string, ProductModel[]> = new Map();
-    products.forEach((product) => {
-      if (productsMap.has(product.type)){
-        const typeList: ProductModel[] = productsMap.get(product.type)!;
-        typeList.push(product);
-        productsMap.set(product.type, typeList);
-      } else {
-        productsMap.set(product.type, [product]);
-      }
-    });
+	const splitProducts = (products: ProductModel[]) => {
+		const productsMap: Map<string, ProductModel[]> = new Map();
+		products.forEach((product) => {
+			if (productsMap.has(product.type)){
+				const typeList: ProductModel[] = productsMap.get(product.type)!;
+				typeList.push(product);
+				productsMap.set(product.type, typeList);
+			} else {
+				productsMap.set(product.type, [product]);
+			}
+		});
 
-    return productsMap;
-  };
+    	return productsMap;
+  	};
 
     const titleType = (type:string) => {
         switch(type){
@@ -41,6 +41,7 @@ const PotPage: React.FC<PotPageProps> = (props) => {
                 return '';
         };
     };
+
     const renderProductTypeList = (products:Map<string, ProductModel[]>, type:string) => {
         if(products.has(type)){
             return <ProductList products={products.get(type)!} title={titleType(type)} />  
@@ -60,7 +61,7 @@ const PotPage: React.FC<PotPageProps> = (props) => {
 interface DispatchProps {}
 
 const mapStateToProps = (state: ApplicationState): PotPageProps => ({
-  products: state.products,
+  	products: state.products,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});

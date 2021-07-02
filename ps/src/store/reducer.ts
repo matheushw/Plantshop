@@ -219,6 +219,32 @@ const reducer = (state = initialState, action: ApplicationAction) => {
         }
         draft.products.push(product);
       });
+    case "minusProductInCart":
+      return produce(state, draft => {
+        if(state.cartProducts.has(action.id)){
+          const selectedProduct = state.cartProducts.get(action.id)!;
+          if(selectedProduct.quantity === 1){
+            draft.cartProducts.delete(action.id);
+          }else if(selectedProduct.quantity > 1){
+            draft.cartProducts.set(action.id, {...selectedProduct, quantity: selectedProduct.quantity - 1})
+          }
+        }
+      });
+    case "plusProductInCart":
+      return produce(state, draft => {
+        state.products.forEach(product => {
+          if(state.cartProducts.has(action.id)){
+            const selectedProduct = state.cartProducts.get(action.id)!;
+            if(product.id === action.id && product.quantity - selectedProduct.quantity > 0){
+              draft.cartProducts.set(action.id, {...selectedProduct, quantity: selectedProduct.quantity + 1})
+            }
+          }
+        });
+      });
+    case "logOut":
+      return produce(state, draft => {
+        draft.user = null;
+      });
     default:
       return state;
   }

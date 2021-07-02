@@ -7,25 +7,25 @@ import { ApplicationState, ProductModel } from '../../../../../store/types';
 import * as styles from '../styles';
 
 export interface PlantPageProps {
-  products: ProductModel[]
+  	products: ProductModel[]
 }
 
 const PlantPage: React.FC<PlantPageProps> = (props) => {
 
-  const splitProducts = (products: ProductModel[]) => {
-    const productsMap: Map<string, ProductModel[]> = new Map();
-    products.forEach((product) => {
-      if (productsMap.has(product.type)){
-        const typeList: ProductModel[] = productsMap.get(product.type)!;
-        typeList.push(product);
-        productsMap.set(product.type, typeList);
-      } else {
-        productsMap.set(product.type, [product]);
-      }
-    });
+	const splitProducts = (products: ProductModel[]) => {
+		const productsMap: Map<string, ProductModel[]> = new Map();
+		products.forEach((product) => {
+			if (productsMap.has(product.type)){
+				const typeList: ProductModel[] = productsMap.get(product.type)!;
+				typeList.push(product);
+				productsMap.set(product.type, typeList);
+			} else {
+				productsMap.set(product.type, [product]);
+			}
+		});
 
-    return productsMap;
-  };
+		return productsMap;
+	};
 
     const titleType = (type:string) => {
         switch(type){
@@ -60,7 +60,7 @@ const PlantPage: React.FC<PlantPageProps> = (props) => {
 interface DispatchProps {}
 
 const mapStateToProps = (state: ApplicationState): PlantPageProps => ({
-  products: state.products,
+  	products: state.products,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});

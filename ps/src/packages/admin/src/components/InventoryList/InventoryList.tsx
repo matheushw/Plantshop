@@ -6,29 +6,29 @@ import * as styles from './styles'
 import ManageArrow from '../../../../../base-components/ManageArrow';
 
 export interface InventoryListProps{
-  title: string;
-  products: ProductModel[];
+	title: string;
+	products: ProductModel[];
 }
 
 const InventoryList: React.FC <InventoryListProps> = (props) => {
 
-  const renderProduct = (product: ProductModel, idx:number) => {
-      return (<InventoryItem product={product} key={idx}/>);
-  }
+	const renderProduct = (product: ProductModel, idx:number) => {
+		return (<InventoryItem product={product} key={idx}/>);
+	}
 
-  return(
-    <div>
-      <h2>{props.title}</h2>
-      <ul className={styles.productList}>
-        <ScrollMenu
-          data={props.products.map(renderProduct)}
-          arrowLeft={<ManageArrow direction="left" />}
-          arrowRight={<ManageArrow direction="right" />}
-          alignCenter={false}
-        />
-      </ul>
-    </div>
-  );
+	return(
+		<div>
+		<h2>{props.title}</h2>
+		<ul className={styles.productList}>
+			<ScrollMenu
+			data={props.products.map(renderProduct)}
+			arrowLeft={<ManageArrow direction="left" />}
+			arrowRight={<ManageArrow direction="right" />}
+			alignCenter={false}
+			/>
+		</ul>
+		</div>
+	);
 }
 
 export default InventoryList;

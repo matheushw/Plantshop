@@ -3,27 +3,27 @@ import { Action } from 'redux';
 // Login
 
 export interface ProductModel {
-  id: string;
-  img: string;
-  name: string;
-  price: string;
-  quantity: number;
-  type: string;
-  description: string;
+	id: string;
+	img: string;
+	name: string;
+	price: string;
+	quantity: number;
+	type: string;
+	description: string;
 }
 
 export interface ProductOrder {
-  id: string;
-  name: string;
-  price: string;
-  quantity: number;
+	id: string;
+	name: string;
+	price: string;
+	quantity: number;
 }
 
 export interface Order {
-  productsOrders: ProductOrder [];
-  date: string;
-  total: string;
-  status: string;
+	productsOrders: ProductOrder [];
+	date: string;
+	total: string;
+	status: string;
 }
 
 export interface RentOrder {
@@ -39,17 +39,17 @@ export interface RentOrder {
 }
 
 export interface User {
-  id: string;
-  name: string;
-  address: string;
-  phoneNumber: string;
-  email: string;
-  password: string;
-  role: string;
+	id: string;
+	name: string;
+	address: string;
+	phoneNumber: string;
+	email: string;
+	password: string;
+	role: string;
 }
 
 export interface LoadingState {
-  user: boolean;
+  	user: boolean;
 }
 
 export interface ApplicationState {
@@ -64,26 +64,37 @@ export interface ApplicationState {
 }
 
 export interface LoadUsersRequest extends Action {
-  type: 'loadUsersRequest';
+  	type: 'loadUsersRequest';
 }
 
 export interface LoadUsersSuccess extends Action {
-  type: 'loadUsersSuccess';
-  user: User;
+	type: 'loadUsersSuccess';
+	user: User;
 }
 
 export interface LoadUsersError extends Action {
-  type: 'loadUsersError';
+  	type: 'loadUsersError';
 }
 
 export interface AddProductToChart extends Action {
-  type: 'addProductToChart';
-  product: ProductModel;
+	type: 'addProductToChart';
+	product: ProductModel;
 }
 export interface RemoveProductToChart extends Action {
-  type: 'removeProductToChart';
+	type: 'removeProductToChart';
+	id: string;
+}
+
+export interface MinusProductInCart extends Action{
+	type: 'minusProductInCart';
+	id: string;
+}
+
+export interface PlusProductInCart extends Action{
+  type: 'plusProductInCart';
   id: string;
 }
+
 export interface PlaceOrder extends Action {
   type: 'placeOrder';
 }
@@ -141,22 +152,26 @@ export interface EditUser extends Action {
 }
 
 export interface AddAdmin extends Action {
-  type: 'addAdmin';
-  name: User["name"];
+	type: 'addAdmin';
+	name: User["name"];
 	address: User["address"];
-  phoneNumber: User["phoneNumber"];
+	phoneNumber: User["phoneNumber"];
 	email: User["email"];
-  password: User["password"];
+	password: User["password"];
 }
 
 export interface RegisterProduct extends Action {
-  type: 'registerProduct';
-  img: string;
-  name: string;
-  price: string;
-  quantity: number;
-  category: string;
-  description: string;
+	type: 'registerProduct';
+	img: string;
+	name: string;
+	price: string;
+	quantity: number;
+	category: string;
+	description: string;
+}
+
+export interface LogOut extends Action {
+	type: 'logOut';
 }
 
 export type ApplicationAction = 
@@ -176,4 +191,7 @@ export type ApplicationAction =
 | RentProduct
 | AddAdmin 
 | RegisterProduct
-| RemoveRentOrder;
+| RemoveRentOrder
+| LogOut
+| MinusProductInCart
+| PlusProductInCart;

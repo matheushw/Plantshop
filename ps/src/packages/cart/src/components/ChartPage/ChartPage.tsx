@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Link } from 'react-router-dom'
-import { clearCart, placeOrder, removeProductToChart, removeRentOrder } from '../../../../../store/actions'
+import { clearCart, minusProductInCart, placeOrder, plusProductInCart, removeProductToChart, removeRentOrder } from '../../../../../store/actions'
 import { ApplicationState, ProductModel, RentOrder, User} from '../../../../../store/types'
 import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
@@ -17,6 +17,8 @@ export interface ChartPageProps{
   rentOrders: RentOrder[];
   removeProduct: (id: string) => void;
   removeRentOrder: (rentOrderId: number) => void;
+  minusProduct: (id: string) => void;
+	plusProduct: (id: string) => void;
   placeOrder: () => void;
   clearCart: () => void;
 }
@@ -87,6 +89,8 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
           quantity={cartProduct.quantity}
           id={cartProduct.id} 
           removeProduct={props.removeProduct} 
+          minusProduct={props.minusProduct}
+          plusProduct={props.plusProduct}
         />);
     });
 
@@ -122,6 +126,8 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
 
 interface DispatchProps {
   removeProduct: (id: string) => void;
+  minusProduct: (id: string) => void;
+	plusProduct: (id: string) => void;
   removeRentOrder: (rentOrderId: number) => void;
   placeOrder: () => void;
   clearCart: () => void;
@@ -144,6 +150,8 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   removeProduct:(id) => {dispatch(removeProductToChart(id))},
   placeOrder:() => {dispatch(placeOrder())},
   clearCart: () => {dispatch(clearCart())},
+  minusProduct: (id) => {dispatch(minusProductInCart(id))},
+  plusProduct: (id) => {dispatch(plusProductInCart(id))},
   removeRentOrder:(rentOrderId) => {dispatch(removeRentOrder(rentOrderId))}
 });
 

@@ -16,7 +16,7 @@ const RentInfo: React.FC<RentInfoProps> = ( props ) => {
             <h3>Data de inicio do aluguel: {dateAsString(props.rentOrder.startDate!)} </h3>
             <h3>Data de fim do aluguel: {dateAsString(props.rentOrder.endDate!)} </h3>
             <h3>Produto: {props.rentOrder.name}</h3>
-            <h3>Preço total: {props.rentOrder.total}</h3>                
+            <h3>Preço total: R${props.rentOrder.total}</h3>                
           </ul>
       </div>
     </div>

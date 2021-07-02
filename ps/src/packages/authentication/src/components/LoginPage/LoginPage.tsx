@@ -68,7 +68,6 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 			}, 2000);
 		}
 		console.log(input.email + input.password)
-		// go to home
 	};
 
 	const { onChange, onSubmit, values} = useForm(loginUserCallback, initialState); 
