@@ -1,8 +1,7 @@
 import express, { json } from "express";
 import { uri } from "./database/config.js";
 import mongoose from "mongoose";
-// import  routes from "./routes"
-// export const uri = "mongodb://localhost:27017/$seu_banco";
+import { routes } from "./routes.js"
 class App {
   constructor() {
     this.express = express();
@@ -25,7 +24,7 @@ class App {
   }
 
   routes() {
-    // this.express.use(require("./routes"));
+    this.express.use(routes);
   }
 }
 export default new App().express;
