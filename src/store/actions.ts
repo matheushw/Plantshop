@@ -1,138 +1,331 @@
-import { User, LoadUsersRequest, LogInUser, SignUpUser, EditUser, LoadUsersSuccess, LoadUsersError, AddProductToChart, ProductModel, RemoveProductToChart, PlaceOrder, ClearCart, AddInventory, RemoveInventory, RemoveProduct, AddAdmin, RegisterProduct, RentProduct, RentOrder, RemoveRentOrder, MinusProductInCart, PlusProductInCart, LogOut } from './types';
+import { Action } from 'redux';
+import { ActionTypes } from './actionTypes';
+import { ProductModel, RentOrder, User } from './types';
 
-export const loadUsersRequest = (): LoadUsersRequest => ({
-  	type: 'loadUsersRequest',
-});
+// Authentication
+export interface LoadUsersRequest extends Action {
+  type: ActionTypes.LOAD_USER_REQUEST;
+	email: string;
+	password: string;
+}
 
-export const loadUsersSuccess = (user: User): LoadUsersSuccess => ({
-	type: 'loadUsersSuccess',
-	user,
-});
+export interface LoadUsersSuccess extends Action {
+	type: ActionTypes.LOAD_USER_SUCCESS;
+	user: User;
+}
 
-export const loadUsersError = (): LoadUsersError => ({
-  	type: 'loadUsersError',
-});
+export interface LoadUsersError extends Action {
+  type: ActionTypes.LOAD_USER_ERROR;
+}
 
-export const addProductToChart = (product: ProductModel): AddProductToChart => ({
-	type: 'addProductToChart',
-	product,
-});
+export interface LogInUserRequest extends Action {
+  type: ActionTypes.LOGIN_USER_REQUEST;
+  user: User;
+}
 
-export const removeProductToChart = (id: string): RemoveProductToChart => ({
-	type: 'removeProductToChart',
-	id,
-});
+export interface LogInUserSuccess extends Action {
+  type: ActionTypes.LOGIN_USER_SUCCESS;
+}
 
-export const minusProductInCart = (id: string) : MinusProductInCart => ({
-	type: 'minusProductInCart',
-	id,
-});
+export interface LogInUserError extends Action {
+  type: ActionTypes.LOGIN_USER_ERROR;
+}
 
-export const plusProductInCart = (id: string) : PlusProductInCart => ({
-	type: 'plusProductInCart',
-	id,
-});
+//Shopping Cart
+export interface AddProductToChartRequest extends Action {
+	type: ActionTypes.ADD_PRODUCT_TO_CART_REQUEST;
+	product: ProductModel;
+}
 
-export const placeOrder = (): PlaceOrder => ({
-  	type: 'placeOrder',
-});
+export interface AddProductToChartSuccess extends Action {
+	type: ActionTypes.ADD_PRODUCT_TO_CART_SUCCESS;
+}
 
-export const clearCart = (): ClearCart => ({
-  	type: 'clearCart',
-});
+export interface AddProductToChartError extends Action {
+	type: ActionTypes.ADD_PRODUCT_TO_CART_ERROR;
+}
 
-export const removeRentOrder = (orderId: number): RemoveRentOrder => ({
-  type: 'removeRentOrder',
-	orderId,
-});
+export interface RemoveProductFromCartRequest extends Action {
+	type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_RQUEST;
+	id: string;
+}
 
-export const logInUser = (user: User): LogInUser => ({
-	type: 'logInUser',
-	user
-});
+export interface RemoveProductFromCartSuccess extends Action {
+	type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_SUCCESS;
+}
 
-export const addInventory = (productId: string): AddInventory => ({
-	type: 'addInventory',
-	productId
-});
+export interface RemoveProductFromCartError extends Action {
+	type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_ERROR;
+}
 
-export const removeInventory = (productId: string): RemoveInventory => ({
-	type: 'removeInventory',
-	productId
-});
+export interface MinusProductInCartRequest extends Action{
+	type: ActionTypes.MINUS_PRODUCT_IN_CART_REQUEST;
+	id: string;
+}
 
-export const removeProduct = (productId: string): RemoveProduct => ({
-	type: 'removeProduct',
-	productId
-});
+export interface MinusProductInCartSuccess extends Action{
+	type: ActionTypes.MINUS_PRODUCT_IN_CART_SUCCESS;
+}
 
-export const rentProduct = (rentOrder: RentOrder): RentProduct => ({
-  type: 'rentProduct',
-  rentOrder
-});
+export interface MinusProductInCartError extends Action{
+	type: ActionTypes.MINUS_PRODUCT_IN_CART_ERROR;
+}
 
-export const signUpUser = (
-	name: User["name"], 
-	address: User["address"],
-	phoneNumber: User["phoneNumber"], 
-	email: User["email"], 
-	password: User["password"]
-): SignUpUser => ({
-	type: 'signUpUser',
-	name,
-	address,
-	phoneNumber,
-	email,
-	password
-});
+export interface PlusProductInCartRequest extends Action{
+  type: ActionTypes.PLUS_PRODUCT_IN_CHART_REQUEST;
+  id: string;
+}
 
-export const editUser = (
-	name: User["name"], 
-	address: User["address"],
-	phoneNumber: User["phoneNumber"], 
-	email: User["email"], 
-  id: User["id"]
-): EditUser => ({
-	type: 'editUser',
-	name,
-	address,
-	phoneNumber,
-	email,
-  id
-});
+export interface PlusProductInCartSuccess extends Action{
+  type: ActionTypes.PLUS_PRODUCT_IN_CHART_SUCCESS;
+}
 
-export const addAdmin = (
-	name: User["name"], 
-	address: User["address"],
-	phoneNumber: User["phoneNumber"], 
-	email: User["email"], 
-	password: User["password"]
-): AddAdmin => ({
-	type: 'addAdmin',
-	name,
-	address,
-	phoneNumber,
-	email,
-	password
-});
+export interface PlusProductInCartError extends Action{
+  type: ActionTypes.PLUS_PRODUCT_IN_CHART_ERROR;
+}
 
-export const registerProduct = (
-	img: string,
-	name: string,
-	price: string,
-	quantity: number,
-	category: string,
-	description: string
-) : RegisterProduct => ({
-	type: 'registerProduct',
-	img,
-	name,
-	price,
-	quantity,
-	category,
-	description
-});
+export interface PlaceOrderRequest extends Action {
+  type: ActionTypes.PLACE_ORDER_REQUEST;
+}
 
-export const logOut = () : LogOut => ({
-	type: 'logOut',
-});
+export interface PlaceOrderSuccess extends Action {
+  type: ActionTypes.PLACE_ORDER_SUCCESS;
+}
+
+export interface PlaceOrderError extends Action {
+  type: ActionTypes.PLACE_ORDER_ERROR;
+}
+
+export interface ClearProductInCartRequest extends Action {
+  type: ActionTypes.CLEAR_PRODUCT_IN_CART_REQUEST;
+}
+
+export interface ClearProductInCartSuccess extends Action {
+  type: ActionTypes.CLEAR_PRODUCT_IN_CART_SUCCESS;
+}
+
+export interface ClearProductInCartError extends Action {
+  type: ActionTypes.CLEAR_PRODUCT_IN_CART_ERROR;
+}
+
+// Order Management
+export interface RemoveRentOrderRequest extends Action {
+  type: ActionTypes.REMOVE_RENT_ORDER_REQUEST;
+  orderId: number;
+}
+
+export interface RemoveRentOrderSuccess extends Action {
+  type: ActionTypes.REMOVE_RENT_ORDER_SUCCESS;
+}
+
+export interface RemoveRentOrderError extends Action {
+  type: ActionTypes.REMOVE_RENT_ORDER_ERROR;
+}
+
+
+// Inventory
+export interface AddInventoryRequest extends Action {
+  type: ActionTypes.ADD_INVENTORY_REQUEST;
+  productId: string;
+}
+
+export interface AddInventorySuccess extends Action {
+  type: ActionTypes.ADD_INVENTORY_SUCCESS;
+}
+
+export interface AddInventoryError extends Action {
+  type: ActionTypes.ADD_INVENTORY_ERROR;
+}
+
+export interface RemoveInventoryRequest extends Action {
+  type: ActionTypes.REMOVE_INVENTORY_REQUEST;
+  productId: string;
+}
+
+export interface RemoveInventorySuccess extends Action {
+  type: ActionTypes.REMOVE_INVENTORY_SUCCESS;
+}
+
+export interface RemoveInventoryError extends Action {
+  type: ActionTypes.REMOVE_INVENTORY_ERROR;
+}
+
+export interface RemoveProductRequest extends Action {
+  type: ActionTypes.REMOVE_PRODUCT_REQUEST;
+  productId: string;
+}
+
+export interface RemoveProductSuccess extends Action {
+  type: ActionTypes.REMOVE_PRODUCT_SUCCESS;
+}
+
+export interface RemoveProductError extends Action {
+  type: ActionTypes.REMOVE_PRODUCT_ERROR;
+}
+
+export interface RentProductRequest extends Action {
+  type: ActionTypes.RENT_PRODUCT_REQUEST;
+  rentOrder: RentOrder;
+}
+
+export interface RentProductSuccess extends Action {
+  type: ActionTypes.RENT_PRODUCT_SUCCESS;
+}
+
+export interface RentProductError extends Action {
+  type: ActionTypes.RENT_PRODUCT_ERROR;
+}
+
+export interface SignUpUserRequest extends Action {
+  type: ActionTypes.SING_UP_USER_REQUEST;
+  name: User["name"];
+	address: User["address"];
+  phoneNumber: User["phoneNumber"];
+	email: User["email"];
+  password: User["password"];
+}
+
+export interface SignUpUserSuccess extends Action {
+  type: ActionTypes.SING_UP_USER_SUCCESS;
+}
+
+export interface SignUpUserError extends Action {
+  type: ActionTypes.SING_UP_USER_ERROR;
+}
+
+export interface EditUserRequest extends Action {
+  type: ActionTypes.EDIT_USER_REQUEST;
+  name: User["name"];
+	address: User["address"];
+  phoneNumber: User["phoneNumber"];
+	email: User["email"];
+  id: User["id"];
+}
+
+
+//User managment
+export interface EditUserSuccess extends Action {
+  type: ActionTypes.EDIT_USER_SUCCESS;
+}
+
+export interface EditUserError extends Action {
+  type: ActionTypes.EDIT_USER_ERROR;
+}
+
+export interface AddAdminRequest extends Action {
+	type: ActionTypes.ADD_ADMIN_REQUEST;
+	name: User["name"];
+	address: User["address"];
+	phoneNumber: User["phoneNumber"];
+	email: User["email"];
+	password: User["password"];
+}
+
+export interface AddAdminSuccess extends Action {
+	type: ActionTypes.ADD_ADMIN_SUCCESS;
+}
+
+export interface AddAdminError extends Action {
+	type: ActionTypes.ADD_ADMIN_ERROR;
+}
+
+export interface RegisterProductRequest extends Action {
+	type: ActionTypes.REGISTER_PRODUCT_REQUEST;
+  img: string;
+	name: string;
+	price: string;
+	quantity: number;
+	category: string;
+	description: string;
+}
+
+export interface RegisterProductSuccess extends Action {
+	type: ActionTypes.REGISTER_PRODUCT_SUCCESS;
+}
+
+export interface RegisterProductError extends Action {
+	type: ActionTypes.REGISTER_PRODUCT_ERROR;
+}
+
+export interface LogOutRequest extends Action {
+	type: ActionTypes.LOG_OUT_REQUEST;
+}
+
+export interface LogOutSuccess extends Action {
+	type: ActionTypes.LOG_OUT_SUCCESS;
+}
+export interface LogOutError extends Action {
+	type: ActionTypes.LOG_OUT_ERROR;
+}
+
+export interface LoadAllProductsRequest extends Action {
+  type: ActionTypes.LOAD_ALL_PRODUCTS_REQUEST;
+}
+
+export interface LoadAllProductsSuccess extends Action {
+  type: ActionTypes.LOAD_ALL_PRODUCTS_SUCCESS;
+  products: ProductModel[];
+}
+
+export interface LoadAllProductsError extends Action {
+  type: ActionTypes.LOAD_ALL_PRODUCTS_ERROR;
+}
+
+export type ApplicationAction = 
+| LoadUsersRequest 
+| LoadUsersSuccess 
+| LoadUsersError 
+| AddProductToChartRequest 
+| AddProductToChartSuccess 
+| AddProductToChartError 
+| RemoveProductFromCartRequest 
+| RemoveProductFromCartSuccess 
+| RemoveProductFromCartError 
+| LogInUserRequest 
+| LogInUserSuccess 
+| LogInUserError 
+| SignUpUserRequest 
+| SignUpUserSuccess 
+| SignUpUserError 
+| PlaceOrderRequest 
+| PlaceOrderSuccess 
+| PlaceOrderError 
+| ClearProductInCartRequest 
+| ClearProductInCartSuccess 
+| ClearProductInCartError 
+| EditUserRequest 
+| EditUserSuccess 
+| EditUserError 
+| AddInventoryRequest 
+| AddInventorySuccess 
+| AddInventoryError 
+| RemoveInventoryRequest 
+| RemoveInventorySuccess 
+| RemoveInventoryError 
+| RemoveProductRequest 
+| RemoveProductSuccess 
+| RemoveProductError 
+| RentProductRequest
+| RentProductSuccess
+| RentProductError
+| AddAdminRequest 
+| AddAdminSuccess 
+| AddAdminError 
+| RegisterProductRequest
+| RegisterProductSuccess
+| RegisterProductError
+| RemoveRentOrderRequest
+| RemoveRentOrderSuccess
+| RemoveRentOrderError
+| LogOutRequest
+| LogOutSuccess
+| LogOutError
+| MinusProductInCartRequest
+| MinusProductInCartSuccess
+| MinusProductInCartError
+| PlusProductInCartRequest
+| PlusProductInCartSuccess
+| PlusProductInCartError
+| LoadAllProductsRequest
+| LoadAllProductsSuccess
+| LoadAllProductsError;

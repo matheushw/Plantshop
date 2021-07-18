@@ -1,7 +1,7 @@
 import React from 'react'
 import * as styles from './styles'
 import { ApplicationState, User } from '../../../../../store/types';
-import { addAdmin} from '../../../../../store/actions';
+import { addAdminRequest } from '../../../../../store/actionCreators';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
@@ -132,7 +132,7 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	registerAdmin:(name, address, phoneNumber, email, password) => {dispatch(addAdmin(name, address, phoneNumber, email, password))}
+	registerAdmin:(name, address, phoneNumber, email, password) => {dispatch(addAdminRequest(name, address, phoneNumber, email, password))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddAdminPage);

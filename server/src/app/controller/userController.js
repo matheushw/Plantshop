@@ -7,8 +7,8 @@ class UserController {
     return res.json(data);
   }
   async index(req, res) {
-    const email = req.params.email;
-    const password = req.params.password;
+    const email = req.query.email;
+    const password = req.query.password;
     const data = await User.find(
       {
         email: email,
@@ -16,7 +16,7 @@ class UserController {
       }
     );
 
-    return res.json(data);
+    return res.json(data[0]);
   }
 }
 

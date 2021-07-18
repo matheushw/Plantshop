@@ -4,7 +4,7 @@ import  ManageButton  from '../../../../../base-components/ManageButton';
 import * as styles from './styles'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { addInventory, removeInventory, removeProduct } from '../../../../../store/actions';
+import { addInventoryRequest, removeInventoryRequest, removeProductRequest } from '../../../../../store/actionCreators';
 
 export interface InventoryItemProps{
 	product: ProductModel;
@@ -43,9 +43,9 @@ interface StateProps{}
 const mapStateToProps = (state: ApplicationState): StateProps => ({});
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  addInventory: (productId: string) => {dispatch(addInventory(productId))},
-  removeInventory: (productId: string) => {dispatch(removeInventory(productId))},
-  removeProduct: (productId: string) => {dispatch(removeProduct(productId))},
+  addInventory: (productId: string) => {dispatch(addInventoryRequest(productId))},
+  removeInventory: (productId: string) => {dispatch(removeInventoryRequest(productId))},
+  removeProduct: (productId: string) => {dispatch(removeProductRequest(productId))},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InventoryItem);

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { ApplicationState, ProductModel } from '../../../../../store/types';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { addProductToChart } from '../../../../../store/actions';
+import { addProductToChartRequest } from '../../../../../store/actionCreators';
 import ReactNotification, { store } from 'react-notifications-component'
 
 export interface DetailProductPageProps {
@@ -69,7 +69,7 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  	addProduct:(product) => {dispatch(addProductToChart(product))},
+  	addProduct:(product) => {dispatch(addProductToChartRequest(product))},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailProductPage);

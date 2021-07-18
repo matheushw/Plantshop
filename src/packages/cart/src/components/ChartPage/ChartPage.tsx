@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Link } from 'react-router-dom'
-import { clearCart, minusProductInCart, placeOrder, plusProductInCart, removeProductToChart, removeRentOrder } from '../../../../../store/actions'
+import { clearProductInCartRequest, minusProductInCartRequest, placeOrderRequest, plusProductInCartRequest, removeProductFromCartRequest, removeRentOrderRequest } from '../../../../../store/actionCreators'
 import { ApplicationState, ProductModel, RentOrder, User} from '../../../../../store/types'
 import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
@@ -147,12 +147,12 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  removeProduct:(id) => {dispatch(removeProductToChart(id))},
-  placeOrder:() => {dispatch(placeOrder())},
-  clearCart: () => {dispatch(clearCart())},
-  minusProduct: (id) => {dispatch(minusProductInCart(id))},
-  plusProduct: (id) => {dispatch(plusProductInCart(id))},
-  removeRentOrder:(rentOrderId) => {dispatch(removeRentOrder(rentOrderId))}
+  removeProduct:(id) => {dispatch(removeProductFromCartRequest(id))},
+  placeOrder:() => {dispatch(placeOrderRequest())},
+  clearCart: () => {dispatch(clearProductInCartRequest())},
+  minusProduct: (id) => {dispatch(minusProductInCartRequest(id))},
+  plusProduct: (id) => {dispatch(plusProductInCartRequest(id))},
+  removeRentOrder:(rentOrderId) => {dispatch(removeRentOrderRequest(rentOrderId))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartPage);

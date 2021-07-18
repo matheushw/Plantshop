@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { dateDiffInDays } from '../../../../../base-components/utils';
-import { rentProduct } from '../../../../../store/actions';
+import { rentProductRequest } from '../../../../../store/actionCreators';
 import { ApplicationState, ProductModel, RentOrder } from '../../../../../store/types';
 import { NotificationType } from '../utils';
 import * as styles from './styles'
@@ -105,7 +105,7 @@ interface StateProps{}
 const mapStateToProps = (state: ApplicationState): StateProps => ({});
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  rentProduct: (rentOrder: RentOrder) => dispatch(rentProduct(rentOrder))
+  rentProduct: (rentOrder: RentOrder) => dispatch(rentProductRequest(rentOrder))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RentProduct);

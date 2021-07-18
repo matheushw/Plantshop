@@ -5,7 +5,7 @@ import { Dispatch } from 'redux'
 import { ApplicationState, User } from '../../store/types'
 import * as styles from './styles'
 import ManageButton from '../ManageButton'
-import { clearCart, logOut } from '../../store/actions'
+import { clearProductInCartRequest, logOutRequest } from '../../store/actionCreators'
 
 export interface NavigationProps{
 	user: User | null;
@@ -60,8 +60,8 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	logOut: () => {dispatch(logOut())},
-	clearCart: () => {dispatch(clearCart())}
+	logOut: () => {dispatch(logOutRequest())},
+	clearCart: () => {dispatch(clearProductInCartRequest())}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

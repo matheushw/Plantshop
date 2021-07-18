@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom"
 import * as styles from './styles'
 import { ApplicationState, User } from '../../../../../store/types';
-import { signUpUser} from '../../../../../store/actions';
+import { signUpUserRequest } from '../../../../../store/actionCreators';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
@@ -136,7 +136,7 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	registerUser:(name, address, phoneNumber, email, password) => {dispatch(signUpUser(name, address, phoneNumber, email, password))}
+	registerUser:(name, address, phoneNumber, email, password) => {dispatch(signUpUserRequest(name, address, phoneNumber, email, password))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

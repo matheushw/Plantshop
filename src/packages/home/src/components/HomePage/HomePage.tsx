@@ -7,9 +7,14 @@ import { ApplicationState, ProductModel } from '../../../../../store/types';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import * as styles from './styles';
 import ManageArrow from '../../../../../base-components/ManageArrow';
+import { loadAllProductsRequest } from '../../../../../store/actionCreators';
+import { useEffect } from 'react';
 
 export interface HomePageProps {
   	products: ProductModel[],
+		allProductsLoading: boolean,
+		allProductsError: boolean,
+		loadAllProducts: () => void,
 }
 
 const HomePage: React.FC<HomePageProps> = (props) => {
@@ -63,6 +68,10 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 		);
 	}
 
+	if(!props.allProductsError && !props.allProductsLoading && props.products.length === 0){
+		props.loadAllProducts();
+	}
+
 	return (
 		<div className={styles.homePage}>
 			<h1> Promoções </h1>
@@ -77,12 +86,24 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 	);
 };
 
-interface DispatchProps {}
+interface DispatchProps {
+	loadAllProducts:() => void;
+}
 
-const mapStateToProps = (state: ApplicationState): HomePageProps => ({
+interface StateProps {
+	products: ProductModel[];
+	allProductsLoading: boolean;
+	allProductsError: boolean;
+}
+
+const mapStateToProps = (state: ApplicationState): StateProps => ({
+		allProductsLoading: state.error.allProducts,
+		allProductsError: state.loading.allProducts,
   	products: state.products
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({});
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+	loadAllProducts:() => {dispatch(loadAllProductsRequest())},
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

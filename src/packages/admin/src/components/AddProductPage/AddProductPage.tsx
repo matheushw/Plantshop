@@ -1,7 +1,7 @@
 import React from 'react'
 import * as styles from './styles'
 import { ApplicationState } from '../../../../../store/types';
-import { registerProduct} from '../../../../../store/actions';
+import { registerProductRequest } from '../../../../../store/actionCreators';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
@@ -150,7 +150,7 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({});
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
     addProduct:(img, name, price, quantity, category, description) => 
-    {dispatch(registerProduct(img, name, price, quantity, category, description))}
+    {dispatch(registerProductRequest(img, name, price, quantity, category, description))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProductPage);

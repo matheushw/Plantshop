@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { ApplicationState, Order , RentOrder, User} from '../../../../../store/types';
 import PurchaseInfo from '../PurchaseInfo';
 import * as styles from './styles'
-import { editUser } from '../../../../../store/actions';
+import { editUserRequest } from '../../../../../store/actionCreators';
 import { useForm } from '../../../../useForm';
 import {useHistory} from 'react-router';
 import RentInfo from '../RentInfo';
@@ -144,7 +144,7 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  editUserInfo:(name, address, phoneNumber, email, id) => {dispatch(editUser(name, address, phoneNumber, email, id))}
+  editUserInfo:(name, address, phoneNumber, email, id) => {dispatch(editUserRequest(name, address, phoneNumber, email, id))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

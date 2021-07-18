@@ -1,7 +1,8 @@
 import express, { json } from "express";
 import { uri } from "./database/config.js";
 import mongoose from "mongoose";
-import { routes } from "./routes.js"
+import { routes } from "./routes.js";
+import cors from "cors";
 class App {
   constructor() {
     this.express = express();
@@ -21,10 +22,13 @@ class App {
 
   middlewares() {
     this.express.use(json());
+    this.express.use(cors());
   }
 
   routes() {
     this.express.use(routes);
   }
+
+
 }
 export default new App().express;
