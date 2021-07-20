@@ -5,7 +5,7 @@ const endPoint = "http://localhost:3001";
 
 class ApiRequester {
 
-  public static authenticate = async (email: string, password: string) => {
+  public static authenticateUser = async (email: string, password: string) => {
     try{
       const response = await axios(endPoint + "/user", {
         method: 'get',
@@ -14,7 +14,6 @@ class ApiRequester {
           password: password
         }
       });
-
       const user: User = {
         address: response.data['address'],
         email: response.data['email'],
@@ -27,6 +26,33 @@ class ApiRequester {
 
       return user;
     } catch(error) {
+      throw error;
+    }
+  }
+
+  public static registerUser = async (
+    name: string,
+    address: string,
+    phoneNumber: string,
+    email: string,
+    password: string) => {
+    try{
+      const response = await axios(endPoint + "/user", {
+        method: 'post',
+        params: {
+          name: name,
+          address: address,
+          phoneNumber: phoneNumber,
+          email: email,
+          password: password
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      console.log(response.data); 
+      return response;
+    } catch (error) {
       throw error;
     }
   }

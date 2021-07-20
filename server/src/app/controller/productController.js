@@ -2,7 +2,7 @@ import Product from "../model/product.js";
 
 class ProductController {
   async store(req, res) {
-    const data = await Product.create(req.body);
+    const data = Product.create(req.body);
     
     return res.json(data);
   }

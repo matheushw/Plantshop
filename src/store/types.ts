@@ -52,11 +52,16 @@ export interface ApplicationState {
   loading: {
 		user: boolean,
 		allProducts: boolean,
+		signUp: boolean,
 	};
 	error: {
 		user: boolean,
 		allProducts: boolean,
+		signUp: boolean,
 	};
+  success: {
+    signUp: boolean,
+  }
   user: User | null;
   products: ProductModel[];
   cartProducts: Map<string, ProductModel>;

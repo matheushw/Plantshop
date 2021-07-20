@@ -230,11 +230,11 @@ export const rentProductError = (): RentProductError=> ({
 });
 
 export const signUpUserRequest = (
-  name: User["name"], 
-  address: User["address"],
-  phoneNumber: User["phoneNumber"], 
-  email: User["email"], 
-  password: User["password"]
+  name: string, 
+  address: string,
+  phoneNumber: string, 
+  email: string, 
+  password: string
 ): SignUpUserRequest => ({
   type: ActionTypes.SING_UP_USER_REQUEST,
   name,

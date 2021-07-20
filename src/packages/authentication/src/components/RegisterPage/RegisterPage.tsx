@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import * as styles from './styles'
 import { ApplicationState, User } from '../../../../../store/types';
@@ -12,8 +12,11 @@ import 'react-notifications-component/dist/theme.css';
 
 
 export interface RegisterPageProps {
-  	user: User | null,
+  user: User | null,
 	allUsers: User[],
+	userError: boolean,
+	userLoading: boolean,
+	userSuccess: boolean,
 	registerUser: (name: string, address: string, phoneNumber: string, email: string, password: string) => void,
 }
 
@@ -28,13 +31,12 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 		password: '',
 	};
 
-	async function registerUserCallback(){
-		const input = JSON.parse(JSON.stringify(values))
-		props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password)
-		store.addNotification({
-			title: "Registrado com sucesso! Por favor, faça login.",
+	useEffect(() => {
+		if(props.userError){
+			store.addNotification({
+			title: "Email já cadastrado, por favor utilize outro!",
 			message: " ",
-			type: "success",
+			type: "danger",
 			insert: "top",
 			container: "top-left",
 			animationIn: ["animate__animated", "animate__fadeIn"],
@@ -43,11 +45,31 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 				duration: 2000,
 				onScreen: false
 			}
-		});
-		setTimeout(function (){
-			history.push('/login-page')
-		}, 2000);
-		
+			});
+			setTimeout(() => {}, 2000);
+		} else if(props.userSuccess){ // success
+			store.addNotification({
+				title: "Registrado com sucesso! Por favor, faça login.",
+				message: " ",
+				type: "success",
+				insert: "top",
+				container: "top-left",
+				animationIn: ["animate__animated", "animate__fadeIn"],
+				animationOut: ["animate__animated", "animate__fadeOut"],
+				dismiss: {
+					duration: 2000,
+					onScreen: false
+				}
+			})
+			setTimeout(function (){
+				history.push('/login-page')
+			}, 2000);
+		}
+	}, []);
+
+	async function registerUserCallback(){
+		const input = JSON.parse(JSON.stringify(values))
+		props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password)
 	};
 
 	const { onChange, onSubmit, values} = useForm(registerUserCallback, initialState); 
@@ -127,11 +149,17 @@ interface DispatchProps {
 
 interface StateProps {
 	user: User | null;
-	allUsers: User[],
+	userError: boolean;
+	userLoading: boolean;
+	userSuccess: boolean;
+	allUsers: User[];
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
   user: state.user,
+  userError: state.error.signUp,
+	userLoading: state.loading.signUp,
+	userSuccess: state.success.signUp,
   allUsers: state.usersList,
 });
 

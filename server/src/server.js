@@ -3,10 +3,10 @@ import { uri } from "./database/config.js";
 import mongoose from "mongoose";
 import { routes } from "./routes.js";
 import cors from "cors";
+
 class App {
   constructor() {
     this.express = express();
-
     this.database();
     this.middlewares();
     this.routes();
@@ -15,9 +15,8 @@ class App {
       console.log(`Sua API REST está funcionando na porta 3001 `)
     );
   }
-
   database() {
-    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
   }
 
   middlewares() {

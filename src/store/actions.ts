@@ -178,11 +178,11 @@ export interface RentProductError extends Action {
 
 export interface SignUpUserRequest extends Action {
   type: ActionTypes.SING_UP_USER_REQUEST;
-  name: User["name"];
-	address: User["address"];
-  phoneNumber: User["phoneNumber"];
-	email: User["email"];
-  password: User["password"];
+  name: string;
+	address: string;
+  phoneNumber: string;
+	email: string;
+  password: string;
 }
 
 export interface SignUpUserSuccess extends Action {

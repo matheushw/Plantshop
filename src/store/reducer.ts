@@ -9,10 +9,15 @@ export const initialState: ApplicationState = {
   loading: {
     user: false,
     allProducts: false,
+    signUp: false,
   },
   error: {
     user: false,
     allProducts: false,
+    signUp: false,
+  },
+  success: {
+    signUp: false,
   },
   user: null,
   products: [],
@@ -54,7 +59,7 @@ const reducer = (state = initialState, action: ApplicationAction) => {
         draft.error.allProducts = false;
         draft.products = action.products;
       });
-    case ActionTypes.LOAD_ALL_PRODUCTS_SUCCESS:
+    case ActionTypes.LOAD_ALL_PRODUCTS_ERROR:
       return produce(state, draft => {
         draft.loading.allProducts = false;
         draft.error.allProducts = true;
@@ -154,21 +159,24 @@ const reducer = (state = initialState, action: ApplicationAction) => {
     //   return produce(state, draft => {
     //     draft.user = action.user;
     //   });
-    // case "signUpUser":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     const user: User = {
-    //         id: (state.usersList.length).toString(),
-    //         email: action.email,
-    //         password: action.password,
-    //         name: action.name,
-    //         address: action.address,
-    //         phoneNumber: action.phoneNumber,
-    //         role: 'user',
-    //     }
-    //     draft.user = user;
-    //     draft.usersList.push(draft.user); 
-    //   });
+    case ActionTypes.SING_UP_USER_REQUEST:
+      return produce(state, draft => {
+        draft.loading.signUp = true;
+        draft.error.signUp = false;
+        draft.success.signUp = false;
+      });
+    case ActionTypes.SING_UP_USER_SUCCESS:
+      return produce(state, draft => {
+        draft.loading.signUp = false;
+        draft.error.signUp = false;
+        draft.success.signUp = true; 
+      });
+    case ActionTypes.SING_UP_USER_ERROR:
+      return produce(state, draft => {
+        draft.loading.signUp = false;
+        draft.error.signUp = true;
+        draft.success.signUp = false;
+      });
     // case "addInventory":
     // case ActionTypes.:
     //   return produce(state, draft => {
