@@ -21,7 +21,7 @@ class ApiRequester {
         name: response.data['name'],
         password: response.data['password'],
         phoneNumber: response.data['phoneNumber'],
-        role:response.data['role'],
+        admin: response.data['admin'],
       }
 
       return user;
@@ -44,13 +44,13 @@ class ApiRequester {
           address: address,
           phoneNumber: phoneNumber,
           email: email,
-          password: password
+          password: password,
+          admin: false
         },
         headers: {
           'Content-Type': 'application/json'
         },
       });
-      console.log(response.data); 
       return response;
     } catch (error) {
       throw error;

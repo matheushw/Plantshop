@@ -2,13 +2,12 @@ import User from "../model/user.js";
 
 class UserController {
   async store(req, res) {
-    const emailExists = await User.findOne({ email: req.query.email });
-    if(emailExists){
-      return res.json(emailExists);
+    try{
+      const data = await User.create(req.query);
+      return res.json(data);
+    }catch(error){
+      return res.status(404).send();
     }
-    const data = await User.create(req.body);
-    console.log(data);
-    return res.json(data);
   }
   async index(req, res) {
     const email = req.query.email;

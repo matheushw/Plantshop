@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.13.3",
+    "mongoose-beautiful-unique-validation": "^7.1.1",
     "validator": "^13.6.0"
   }
 }

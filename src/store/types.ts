@@ -41,7 +41,7 @@ export interface User {
 	phoneNumber: string;
 	email: string;
 	password: string;
-	role: string;
+	admin: boolean;
 }
 
 export interface LoadingState {
@@ -52,15 +52,15 @@ export interface ApplicationState {
   loading: {
 		user: boolean,
 		allProducts: boolean,
-		signUp: boolean,
+		signUp: boolean
 	};
 	error: {
 		user: boolean,
 		allProducts: boolean,
-		signUp: boolean,
+		signUp: boolean
 	};
   success: {
-    signUp: boolean,
+    signUp: boolean
   }
   user: User | null;
   products: ProductModel[];

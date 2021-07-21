@@ -9,15 +9,15 @@ export const initialState: ApplicationState = {
   loading: {
     user: false,
     allProducts: false,
-    signUp: false,
+    signUp: false
   },
   error: {
     user: false,
     allProducts: false,
-    signUp: false,
+    signUp: false
   },
   success: {
-    signUp: false,
+    signUp: false
   },
   user: null,
   products: [],
@@ -35,7 +35,6 @@ const reducer = (state = initialState, action: ApplicationAction) => {
     case ActionTypes.LOAD_USER_REQUEST:
       return produce(state, draft => {
         draft.loading.user = true;
-        draft.error.user = false;
       });
       case ActionTypes.LOAD_USER_SUCCESS:
         return produce(state, draft => {
@@ -47,6 +46,11 @@ const reducer = (state = initialState, action: ApplicationAction) => {
       return produce(state, draft => {
         draft.loading.user = false;
         draft.error.user = true;
+      });
+    case ActionTypes.LOAD_USER_RESET:
+      return produce(state, draft => {
+        draft.loading.user = false;
+        draft.error.user = false;
       });
     case ActionTypes.LOAD_ALL_PRODUCTS_REQUEST:
       return produce(state, draft => {
@@ -159,22 +163,28 @@ const reducer = (state = initialState, action: ApplicationAction) => {
     //   return produce(state, draft => {
     //     draft.user = action.user;
     //   });
-    case ActionTypes.SING_UP_USER_REQUEST:
+    case ActionTypes.SIGN_UP_USER_REQUEST:
       return produce(state, draft => {
         draft.loading.signUp = true;
         draft.error.signUp = false;
         draft.success.signUp = false;
       });
-    case ActionTypes.SING_UP_USER_SUCCESS:
+    case ActionTypes.SIGN_UP_USER_SUCCESS:
       return produce(state, draft => {
         draft.loading.signUp = false;
         draft.error.signUp = false;
         draft.success.signUp = true; 
       });
-    case ActionTypes.SING_UP_USER_ERROR:
+    case ActionTypes.SIGN_UP_USER_ERROR:
       return produce(state, draft => {
         draft.loading.signUp = false;
         draft.error.signUp = true;
+        draft.success.signUp = false;
+      });
+    case ActionTypes.SIGN_UP_USER_RESET:
+      return produce(state, draft => {
+        draft.loading.signUp = false;
+        draft.error.signUp = false;
         draft.success.signUp = false;
       });
     // case "addInventory":
@@ -291,22 +301,29 @@ const reducer = (state = initialState, action: ApplicationAction) => {
     //       }
     //     });
     //   });
-    // case ActionTypes.LOG_OUT_REQUEST:
-    //   return produce(state, draft => {
-    //     draft.loading = true;
-    //     draft.user = null;
-    //   });
-    // case ActionTypes.LOG_OUT_SUCCESS:
-    //   return produce(state, draft => {
-    //     draft.loading = false;
-    //     draft.user = null;
-    //   });
-    // case ActionTypes.LOG_OUT_ERROR:
-    //   return produce(state, draft => {
-    //     draft.loading = false;
-    //     draft.error = true;
-    //     draft.user = null;
-    //   });
+    case ActionTypes.LOG_OUT_REQUEST:
+      return produce(state, draft => {
+        draft.loading.user = false;
+        draft.error.user = false;
+        draft.user = null;
+      });
+  //  case ActionTypes.LOG_OUT_SUCCESS:
+  //    return produce(state, draft => {
+  //      draft.loading.logOut = false;
+  //      draft.success.logOut = true;
+  //      draft.user = null;
+  //    });
+  //  case ActionTypes.LOG_OUT_ERROR:
+  //    return produce(state, draft => {
+  //      draft.loading.logOut = false;
+  //      draft.error.logOut = true;
+  //    });
+  //  case ActionTypes.LOG_OUT_RESET:
+  //    return produce(state, draft => {
+  //      draft.loading.logOut = false;
+  //      draft.success.logOut = false;
+  //      draft.error.logOut = false;
+  //    })
     default:
       return state;
   }

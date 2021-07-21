@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 //import bcrypt from "bcrypt";
+import beautifyUnique from "mongoose-beautiful-unique-validation";
 import validator from "validator";
 
 const UserSchema = new mongoose.Schema(
@@ -27,6 +28,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Enter a password'],
       minLength: [6, 'Password should be at least six characters.']
+    },
+    admin: {
+      type: Boolean,
+      required: true
     }
   },
   {
@@ -34,17 +39,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-var handleE11000 = function(error, res, next) {
-  if (error.name === 'MongoError' && error.code === 11000) {
-    next(new Error('There was a duplicate key error'));
-  } else {
-    next();
-  }
-};
-
-UserSchema.post('save', handleE11000);
-UserSchema.post('update', handleE11000);
-UserSchema.post('insertMany', handleE11000);
-UserSchema.post('create', handleE11000);
+UserSchema.plugin(beautifyUnique);
 
 export default mongoose.model("User", UserSchema);

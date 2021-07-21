@@ -18,14 +18,13 @@ import {
   LoadAllProductsRequest, 
   LoadAllProductsSuccess, 
   LoadUsersError, 
-  LoadUsersRequest, 
+  LoadUsersRequest,
+  LoadUsersReset, 
   LoadUsersSuccess, 
   LogInUserError, 
   LogInUserRequest, 
   LogInUserSuccess, 
-  LogOutError, 
   LogOutRequest, 
-  LogOutSuccess, 
   MinusProductInCartError, 
   MinusProductInCartRequest, 
   MinusProductInCartSuccess, 
@@ -55,7 +54,8 @@ import {
   RentProductSuccess, 
   SignUpUserError, 
   SignUpUserRequest, 
-  SignUpUserSuccess 
+  SignUpUserSuccess,
+  SignUpUserReset
 } from "./actions";
 import { ActionTypes } from "./actionTypes";
 import { ProductModel, RentOrder, User } from "./types";
@@ -73,6 +73,10 @@ export const loadUsersSuccess = (user: User): LoadUsersSuccess => ({
 
 export const loadUsersError = (): LoadUsersError => ({
   type: ActionTypes.LOAD_USER_ERROR,
+});
+
+export const loadUsersReset = (): LoadUsersReset => ({
+  type: ActionTypes.LOAD_USER_RESET,
 });
 
 export const addProductToChartRequest = (product: ProductModel): AddProductToChartRequest => ({
@@ -236,7 +240,7 @@ export const signUpUserRequest = (
   email: string, 
   password: string
 ): SignUpUserRequest => ({
-  type: ActionTypes.SING_UP_USER_REQUEST,
+  type: ActionTypes.SIGN_UP_USER_REQUEST,
   name,
   address,
   phoneNumber,
@@ -245,11 +249,15 @@ export const signUpUserRequest = (
 });
 
 export const signUpUserSuccess = (): SignUpUserSuccess => ({
-  type: ActionTypes.SING_UP_USER_SUCCESS,
+  type: ActionTypes.SIGN_UP_USER_SUCCESS,
 });
 
 export const signUpUserError = (): SignUpUserError => ({
-  type: ActionTypes.SING_UP_USER_ERROR,
+  type: ActionTypes.SIGN_UP_USER_ERROR,
+});
+
+export const signUpUserReset = (): SignUpUserReset => ({
+  type: ActionTypes.SIGN_UP_USER_RESET,
 });
 
 export const editUserRequest = (
@@ -325,14 +333,6 @@ export const registerProductError = () : RegisterProductError => ({
 
 export const logOutRequest = () : LogOutRequest => ({
   type: ActionTypes.LOG_OUT_REQUEST,
-});
-
-export const logOutSuccess = () : LogOutSuccess => ({
-  type: ActionTypes.LOG_OUT_SUCCESS,
-});
-
-export const logOutError = () : LogOutError => ({
-  type: ActionTypes.LOG_OUT_ERROR,
 });
 
 export const loadAllProductsRequest = () : LoadAllProductsRequest => ({

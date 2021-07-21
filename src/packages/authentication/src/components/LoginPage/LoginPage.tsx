@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import * as styles from './styles'
 import { ApplicationState, User } from '../../../../../store/types';
-import { loadUsersRequest } from '../../../../../store/actionCreators';
+import { loadUsersRequest, loadUsersReset } from '../../../../../store/actionCreators';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
@@ -15,33 +15,34 @@ export interface LoginPageProps{
 	userError: boolean,
 	userLoading: boolean,
 	allUsers: User[],
-	addUser: (email: string, password:string) => void,
+	logIn: (email: string, password: string) => void,
+  logInReset: () => void
 }
 
 const LoginPage: React.FC<LoginPageProps> = (props) => {
 	const history = useHistory();
+
 	const initialState = {
 		email: '',
 		password: '',
 	};
 
 	useEffect(() => {
-		if(props.userError){
+		if ( props.userError ) { // Error: not logged in
 			store.addNotification({
-			title: "Email ou senha errados!",
-			message: " ",
-			type: "danger",
-			insert: "top",
-			container: "top-left",
-			animationIn: ["animate__animated", "animate__fadeIn"],
-			animationOut: ["animate__animated", "animate__fadeOut"],
-			dismiss: {
-				duration: 2000,
-				onScreen: false
-			}
+        title: "Email ou senha errados!",
+        message: " ",
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false
+        }
 			});
-			setTimeout(() => {}, 2000);
-		} else if(!props.userError && !props.userLoading && props.user){ // success
+		} else if ( !props.userError && !props.userLoading && props.user ) { // Success: logged in
 			store.addNotification({
 				title: "Você fez login",
 				message: " ",
@@ -54,16 +55,19 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 					duration: 2000,
 					onScreen: false
 				}
-			})
+			});
 			setTimeout(function (){
-				history.push('/')
+				history.push('/');
 			}, 2000);
+      
+      // Reseting loading and error for logIn
+      props.logInReset();
 		}
-	}, [props.userError, props.userLoading]);
+	});
 
 	async function loginUserCallback(){
-		const input = JSON.parse(JSON.stringify(values))
-		props.addUser(input.email, input.password);
+		const input = JSON.parse(JSON.stringify(values));
+		props.logIn(input.email, input.password);
 	};
 
 	const { onChange, onSubmit, values} = useForm(loginUserCallback, initialState); 
@@ -109,7 +113,8 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 }
 
 interface DispatchProps {
-	addUser: (email: string, password:string) => void;
+	logIn: (email: string, password: string) => void;
+  logInReset: () => void;
 }
 
 interface StateProps {
@@ -127,7 +132,8 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	addUser:(email, password) => {dispatch(loadUsersRequest(email, password))}
+	logIn:(email, password) => {dispatch(loadUsersRequest(email, password))},
+  logInReset: () => {dispatch(loadUsersReset())}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
