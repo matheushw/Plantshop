@@ -5,7 +5,7 @@ import { ActionTypes } from './actionTypes';
 import ApiRequester from './apiRequester'
 import { RentOrder } from './types';
 
-// worker Saga: will be fired on USER_FETCH_REQUESTED actions
+// Worker Saga: will be fired on USER_FETCH_REQUESTED actions
 
 function* fetchUser(action: LoadUsersRequest) : any {
   try {
@@ -18,10 +18,10 @@ function* fetchUser(action: LoadUsersRequest) : any {
 
 function* signUpUserSagas(action: SignUpUserRequest) : any {
   try {
-    const user = yield call(ApiRequester.registerUser, action.name, action.address, action.phoneNumber, action.email, action.password);
-    console.log(user);
-    yield put(signUpUserSuccess());
+    const response = yield call(ApiRequester.registerUser, action.name, action.address, action.phoneNumber, action.email, action.password);
+    yield put(response.status === 404 ? signUpUserError() : signUpUserSuccess());
   } catch (e) {
+    console.log("error")
     yield put(signUpUserError());
   }
 }
@@ -79,10 +79,11 @@ function* mySaga() {
   yield all([
     takeLatest(ActionTypes.LOAD_USER_REQUEST, fetchUser),
     takeLatest(ActionTypes.LOAD_ALL_PRODUCTS_REQUEST, loadAllProductsSagas),
-    takeLatest(ActionTypes.SING_UP_USER_REQUEST, signUpUserSagas),
+    takeLatest(ActionTypes.SIGN_UP_USER_REQUEST, signUpUserSagas),
     takeLatest(ActionTypes.PLACE_PURCHASE_ORDER_REQUEST, placePurchaseOrderSagas),
     takeLatest(ActionTypes.PLACE_RENT_ORDERS_REQUEST, placeRentOrdersSagas),
-    takeLatest(ActionTypes.LOAD_ALL_ORDERS_REQUEST, loadAllOrdersSagas)
+    takeLatest(ActionTypes.LOAD_ALL_ORDERS_REQUEST, loadAllOrdersSagas),
+    takeLatest(ActionTypes.SIGN_UP_USER_REQUEST, signUpUserSagas),
   ]);
 }
 

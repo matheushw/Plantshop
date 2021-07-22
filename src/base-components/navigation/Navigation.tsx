@@ -5,11 +5,11 @@ import { Dispatch } from 'redux'
 import { ApplicationState, User } from '../../store/types'
 import * as styles from './styles'
 import ManageButton from '../ManageButton'
-import { clearProductInCartRequest, logOutRequest } from '../../store/actionCreators'
+import { clearProductInCartRequest, logOutRequest} from '../../store/actionCreators'
 
 export interface NavigationProps{
 	user: User | null;
-	logOut: () => void
+	logOut: () => void;
 	clearCart: () => void;
 }
 
@@ -35,8 +35,8 @@ const Navigation: React.FC<NavigationProps> = (props) => {
 			  </div>
 			  <div>
 			  	<Link className={styles.iconButton} to="/chart-page"><span className="material-icons-outlined" > shopping_cart </span></Link>
-			  	{props.user?.role === "admin" && <Link className={styles.iconButton} to="/admin-page"><span className="material-icons-outlined"> account_circle </span> </Link>}
-			  	{props.user?.role === "user" && <Link className={styles.iconButton} to="/profile"><span className="material-icons-outlined"> account_circle </span> </Link>}
+			  	{props.user?.admin === true && <Link className={styles.iconButton} to="/admin-page"><span className="material-icons-outlined"> account_circle </span> </Link>}
+			  	{props.user?.admin === false && <Link className={styles.iconButton} to="/profile"><span className="material-icons-outlined"> account_circle </span> </Link>}
 			  	{props.user === null && <Link to="/login-page"><ManageButton text={"Login/Cadastro"} /> </Link>}
 			  	{props.user !== null && <Link to="/login-page"><span onClick={logOut} className="material-icons-outlined"> logout </span></Link>}
 			  </div>

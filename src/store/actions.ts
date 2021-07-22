@@ -21,6 +21,9 @@ export interface LoadUsersError extends Action {
 export interface LoadUsersLocalStorage extends Action {
   type: ActionTypes.LOAD_USERS_LOCAL_STORAGE;
 }
+export interface LoadUsersReset extends Action {
+  type: ActionTypes.LOAD_USER_RESET;
+}
 
 export interface LogInUserRequest extends Action {
   type: ActionTypes.LOGIN_USER_REQUEST;
@@ -187,7 +190,7 @@ export interface RentProductError extends Action {
 }
 
 export interface SignUpUserRequest extends Action {
-  type: ActionTypes.SING_UP_USER_REQUEST;
+  type: ActionTypes.SIGN_UP_USER_REQUEST;
   name: string;
 	address: string;
   phoneNumber: string;
@@ -196,11 +199,15 @@ export interface SignUpUserRequest extends Action {
 }
 
 export interface SignUpUserSuccess extends Action {
-  type: ActionTypes.SING_UP_USER_SUCCESS;
+  type: ActionTypes.SIGN_UP_USER_SUCCESS;
 }
 
 export interface SignUpUserError extends Action {
-  type: ActionTypes.SING_UP_USER_ERROR;
+  type: ActionTypes.SIGN_UP_USER_ERROR;
+}
+
+export interface SignUpUserReset extends Action {
+  type: ActionTypes.SIGN_UP_USER_RESET;
 }
 
 export interface EditUserRequest extends Action {
@@ -212,8 +219,7 @@ export interface EditUserRequest extends Action {
   id: User["id"];
 }
 
-
-//User managment
+//User management
 export interface EditUserSuccess extends Action {
   type: ActionTypes.EDIT_USER_SUCCESS;
 }
@@ -259,13 +265,6 @@ export interface RegisterProductError extends Action {
 
 export interface LogOutRequest extends Action {
 	type: ActionTypes.LOG_OUT_REQUEST;
-}
-
-export interface LogOutSuccess extends Action {
-	type: ActionTypes.LOG_OUT_SUCCESS;
-}
-export interface LogOutError extends Action {
-	type: ActionTypes.LOG_OUT_ERROR;
 }
 
 export interface LoadAllProductsRequest extends Action {
@@ -319,6 +318,7 @@ export type ApplicationAction =
 | LoadUsersSuccess 
 | LoadUsersError 
 | LoadUsersLocalStorage
+| LoadUsersReset
 | AddProductToChartRequest 
 | AddProductToChartSuccess 
 | AddProductToChartError 
@@ -335,6 +335,7 @@ export type ApplicationAction =
 | PlacePurchaseOrderSuccess 
 | PlacePurchaseOrderError 
 | PlacePurchaseOrderNotAsked 
+| SignUpUserReset
 | ClearProductInCartRequest 
 | ClearProductInCartSuccess 
 | ClearProductInCartError 
@@ -363,8 +364,6 @@ export type ApplicationAction =
 | RemoveRentOrderSuccess
 | RemoveRentOrderError
 | LogOutRequest
-| LogOutSuccess
-| LogOutError
 | MinusProductInCartRequest
 | MinusProductInCartSuccess
 | MinusProductInCartError

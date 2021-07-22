@@ -2,14 +2,13 @@ import React, { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import * as styles from './styles'
 import { ApplicationState, User } from '../../../../../store/types';
-import { signUpUserRequest } from '../../../../../store/actionCreators';
+import { signUpUserRequest, signUpUserReset } from '../../../../../store/actionCreators';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
 import {useHistory} from 'react-router';
 import ReactNotification, { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
-
 
 export interface RegisterPageProps {
   user: User | null,
@@ -18,6 +17,7 @@ export interface RegisterPageProps {
 	userLoading: boolean,
 	userSuccess: boolean,
 	registerUser: (name: string, address: string, phoneNumber: string, email: string, password: string) => void,
+  registerUserReset: () => void
 }
 
 const RegisterPage: React.FC<RegisterPageProps> = (props) => {
@@ -32,23 +32,25 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 	};
 
 	useEffect(() => {
-		if(props.userError){
-			store.addNotification({
-			title: "Email já cadastrado, por favor utilize outro!",
-			message: " ",
-			type: "danger",
-			insert: "top",
-			container: "top-left",
-			animationIn: ["animate__animated", "animate__fadeIn"],
-			animationOut: ["animate__animated", "animate__fadeOut"],
-			dismiss: {
-				duration: 2000,
-				onScreen: false
-			}
+		if ( props.userError ) { // Error: user not registered	
+
+      store.addNotification({
+        title: "Email já cadastrado, por favor utilize outro!",
+        message: " ",
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false
+        }
 			});
-			setTimeout(() => {}, 2000);
-		} else if(props.userSuccess){ // success
-			store.addNotification({
+
+		} else if ( props.userSuccess ) { // Success: user registered
+			
+      store.addNotification({
 				title: "Registrado com sucesso! Por favor, faça login.",
 				message: " ",
 				type: "success",
@@ -60,17 +62,21 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 					duration: 2000,
 					onScreen: false
 				}
-			})
+			});
 			setTimeout(function (){
-				history.push('/login-page')
+				history.push('/login-page');
 			}, 2000);
+
+      // Reseting loading, error adn success for signUp
+      props.registerUserReset();
+
 		}
-	}, []);
+	});
 
 	async function registerUserCallback(){
-		const input = JSON.parse(JSON.stringify(values))
-		props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password)
-	};
+		const input = JSON.parse(JSON.stringify(values));
+		props.registerUser(input.name, input.address, input.phoneNumber, input.email, input.password);
+  };
 
 	const { onChange, onSubmit, values} = useForm(registerUserCallback, initialState); 
 
@@ -145,6 +151,7 @@ interface DispatchProps {
 		name: string, address: string, phoneNumber: string, email: string, password: string
 		) 
 		=> void;
+  registerUserReset: () => void;
 }
 
 interface StateProps {
@@ -160,11 +167,12 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
   userError: state.error.signUp,
 	userLoading: state.loading.signUp,
 	userSuccess: state.success.signUp,
-  allUsers: state.usersList,
+  allUsers: state.usersList
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	registerUser:(name, address, phoneNumber, email, password) => {dispatch(signUpUserRequest(name, address, phoneNumber, email, password))}
+	registerUser:(name, address, phoneNumber, email, password) => {dispatch(signUpUserRequest(name, address, phoneNumber, email, password))},
+  registerUserReset: () => { dispatch(signUpUserReset()) }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

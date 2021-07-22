@@ -41,7 +41,7 @@ export interface User {
 	phoneNumber: string;
 	email: string;
 	password: string;
-	role: string;
+	admin: boolean;
 }
 
 export interface LoadingState {
