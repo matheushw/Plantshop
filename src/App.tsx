@@ -15,8 +15,32 @@ import FlowerPage from "./packages/category/src/components/flowerPage/FlowerPage
 import BouquetPage from "./packages/category/src/components/bouquetPage/BouquetPage";
 import VasePage from "./packages/category/src/components/potPage/PotPage";
 import AddProductPage from "./packages/admin/src/components/AddProductPage";
+import { useEffect } from "react";
+import { loadAllProductsRequest, loadUsersRequest } from "./store/actionCreators";
+import { connect } from "react-redux";
+import React from "react";
+import { ApplicationState } from "./store/types";
+import { Dispatch } from "redux";
 
-function App() {
+interface AppProps {
+	loadUsers: (email: string, password: string) => void;
+	loadAllProducts: () => void;
+}
+
+const App: React.FC<AppProps> = (props) => {
+
+	useEffect(() => {
+		const email = localStorage.getItem('@plantshop/email');
+		const password = localStorage.getItem('@plantshop/password');
+
+		if(email && password){
+			props.loadUsers(email, password);
+		}
+		
+		props.loadAllProducts();
+	}, []);
+
+
 	return (
 	<div className="App">
 	<Router>
@@ -43,5 +67,18 @@ function App() {
 	);
 }
 
-export default App;
+interface DispatchProps {
+  loadUsers: (email: string, password: string) => void;
+	loadAllProducts: () => void;
+}
 
+interface StateProps{}
+
+const mapStateToProps = (state: ApplicationState): StateProps => ({});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  loadUsers: (email: string, password: string) => {dispatch(loadUsersRequest(email, password))},
+  loadAllProducts: () => {dispatch(loadAllProductsRequest())},
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

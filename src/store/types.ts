@@ -16,7 +16,7 @@ export interface ProductOrder {
 }
 
 export interface Order {
-	productsOrders: ProductOrder [];
+	productsOrders: ProductOrder[];
 	date: string;
 	total: string;
 	status: string;
@@ -48,20 +48,28 @@ export interface LoadingState {
   	user: boolean;
 }
 
+export interface PossibleStates {
+	loadAllOrders: boolean,
+	placeRentOrders: boolean,
+	placePurchaseOrder: boolean,
+	user: boolean,
+	allProducts: boolean,
+	signUp: boolean,
+}
+
+export const initialPossibleState: PossibleStates = {
+	loadAllOrders: false,
+	placeRentOrders: false,
+	placePurchaseOrder: false,
+	user: false,
+	allProducts: false,
+	signUp: false,
+}
+
 export interface ApplicationState {
-  loading: {
-		user: boolean,
-		allProducts: boolean,
-		signUp: boolean,
-	};
-	error: {
-		user: boolean,
-		allProducts: boolean,
-		signUp: boolean,
-	};
-  success: {
-    signUp: boolean,
-  }
+  loading: PossibleStates,
+	error: PossibleStates,
+  success: PossibleStates,
   user: User | null;
   products: ProductModel[];
   cartProducts: Map<string, ProductModel>;

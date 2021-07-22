@@ -1,8 +1,6 @@
 import { css } from '@emotion/css'
 
 export const purchaseDisplay = css `
-  width: 45vw; 
-  float: right;
   padding: 10px;
   font-family: 'Bitter', serif;
   margin: 10px;

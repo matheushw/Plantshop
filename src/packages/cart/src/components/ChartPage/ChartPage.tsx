@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { Link } from 'react-router-dom'
-import { clearProductInCartRequest, minusProductInCartRequest, placeOrderRequest, plusProductInCartRequest, removeProductFromCartRequest, removeRentOrderRequest } from '../../../../../store/actionCreators'
-import { ApplicationState, ProductModel, RentOrder, User} from '../../../../../store/types'
+import { clearProductInCartRequest, minusProductInCartRequest, placePurchaseOrderNotAsked, placePurchaseOrderRequest, placeRentOrdersNotAsked, placeRentOrdersRequest, plusProductInCartRequest, removeProductFromCartRequest, removeRentOrderRequest } from '../../../../../store/actionCreators'
+import { ApplicationState, Order, PossibleStates, ProductModel, ProductOrder, RentOrder, User} from '../../../../../store/types'
 import ChartProduct  from '../ChartProduct/ChartProduct'
 import * as styles from './styles'
 import ReactNotification, { store } from 'react-notifications-component'
@@ -10,20 +10,35 @@ import 'react-notifications-component/dist/theme.css'
 import ChartRent from '../ChartRent/ChartRent'
 import ProductList from '../ProductList'
 import { ReactElement } from 'react'
+import { useEffect } from 'react'
 
 export interface ChartPageProps{
   user: User | null;
   cartProducts: Map<string, ProductModel>;
   rentOrders: RentOrder[];
+  loadings: PossibleStates;
+  errors: PossibleStates;
+  success: PossibleStates;
   removeProduct: (id: string) => void;
   removeRentOrder: (rentOrderId: number) => void;
   minusProduct: (id: string) => void;
 	plusProduct: (id: string) => void;
-  placeOrder: () => void;
+  placePurchaseOrder:(user: User, order: Order) => void;
+  placePurchaseNotAsked:() => void;
+  placeRentOrders:(rentOrders: RentOrder[], user: User) => void;
+  placeRentNotAsked:() => void;
   clearCart: () => void;
 }
 
 const ChartPage: React.FC<ChartPageProps> = (props) => {
+
+  useEffect(() => {
+    if(props.success.placePurchaseOrder){
+      props.placePurchaseNotAsked();
+    } else if (props.success.placeRentOrders){
+      props.placeRentNotAsked();
+    }
+  }, [props.success]);
 
   const getFinalPrice = () => {
     let finalPrice: number = 0.0;
@@ -37,10 +52,57 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
     return finalPrice;
   }
 
-  const placeOrder = () => {
+  const placePurchaseOrder = () => {
 
-    props.placeOrder();
-    props.clearCart();
+    if(props.cartProducts.size !== 0){
+      let totalPrice: number = 0;
+      let productsOrders: ProductOrder[] = [];
+      
+      props.cartProducts.forEach((product) => {
+        totalPrice += parseFloat(product.price) * product.quantity;
+
+        const newProductOrder: ProductOrder = {
+          id: product.id, 
+          name: product.name, 
+          price: product.price, 
+          quantity: product.quantity
+        }
+
+        // draft.products.forEach((value, idx) => {
+        //   if(value.id === product.id){
+        //     draft.products[idx].quantity -= product.quantity;
+        //   }
+        // })
+
+        productsOrders.push(newProductOrder);
+      });
+      
+      var day = new Date();
+      var dd = day.getDate().toString();
+      var mm = (day.getMonth()+1).toString();
+      var yyyy = (day.getFullYear()).toString();
+      if(parseInt(dd) < 10){
+        dd = '0' + dd;
+      } 
+      if(parseInt(mm)<10){
+        mm = '0' + mm;
+      } 
+
+      const newOrder: Order = {
+        productsOrders: productsOrders,
+        date: dd + "/" + mm + "/" + yyyy,
+        total: totalPrice.toFixed(2),
+        status: "Preparando para envio!",
+      }
+
+      props.placePurchaseOrder(props.user!, newOrder);
+    }
+
+    if(props.rentOrders.length !== 0) {
+      props.placeRentOrders(props.rentOrders, props.user!);
+    }
+
+    // props.clearCart();
 
     store.addNotification({
       title: "Pedido feito com sucesso!",
@@ -116,7 +178,7 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
       {(props.cartProducts.size !== 0 || props.rentOrders.length !== 0) &&
         <div>
           <Link to="/"><button>Continuar comprando</button></Link>
-          {props.user !== null && <button onClick={placeOrder}>Finalizar compra</button>}
+          {props.user !== null && <button onClick={placePurchaseOrder}>Finalizar compra</button>}
           {props.user === null && <button onClick={notifyLogin}>Finalizar compra</button>}
         </div>
       }
@@ -129,11 +191,17 @@ interface DispatchProps {
   minusProduct: (id: string) => void;
 	plusProduct: (id: string) => void;
   removeRentOrder: (rentOrderId: number) => void;
-  placeOrder: () => void;
+  placePurchaseOrder:(user: User, order: Order) => void;
+  placeRentOrders:(rentOrders: RentOrder[], user: User) => void;
+  placePurchaseNotAsked:() => void;
+  placeRentNotAsked:() => void;
   clearCart: () => void;
 }
 
 interface StateProps{
+  loadings: PossibleStates;
+  errors: PossibleStates;
+  success: PossibleStates;
   cartProducts: Map<string, ProductModel>;
   rentOrders: RentOrder[];
   user: User | null;
@@ -142,17 +210,23 @@ interface StateProps{
 const mapStateToProps = (state: ApplicationState): StateProps => ({
   cartProducts: state.cartProducts,
   rentOrders: state.rentOrders,
-  user: state.user
+  user: state.user,
+  loadings: state.loading,
+  errors: state.error,
+  success: state.success
   
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   removeProduct:(id) => {dispatch(removeProductFromCartRequest(id))},
-  placeOrder:() => {dispatch(placeOrderRequest())},
+  placePurchaseOrder:(user: User, order: Order)  => {dispatch(placePurchaseOrderRequest(user, order))},
   clearCart: () => {dispatch(clearProductInCartRequest())},
+  placeRentOrders:(rentOrders: RentOrder[], user: User) => {dispatch(placeRentOrdersRequest(rentOrders, user))},
   minusProduct: (id) => {dispatch(minusProductInCartRequest(id))},
   plusProduct: (id) => {dispatch(plusProductInCartRequest(id))},
-  removeRentOrder:(rentOrderId) => {dispatch(removeRentOrderRequest(rentOrderId))}
+  removeRentOrder:(rentOrderId) => {dispatch(removeRentOrderRequest(rentOrderId))},
+  placePurchaseNotAsked:() => {dispatch(placePurchaseOrderNotAsked())},
+  placeRentNotAsked:() => {dispatch(placeRentOrdersNotAsked())}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChartPage);

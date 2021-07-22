@@ -32,7 +32,7 @@ const RentPage: React.FC<RentPageProps> = ( props ) => {
       })
     } else if(showNotification === NotificationType.SUCCESSFUL) {
       store.addNotification({
-        title: "Produto alugado com sucesso!",
+        title: "Aluguel adicionado ao carrinho!",
         message: " ",
         type: "success",
         insert: "top",

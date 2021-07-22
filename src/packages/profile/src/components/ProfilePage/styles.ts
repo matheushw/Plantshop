@@ -1,19 +1,39 @@
 import { css } from '@emotion/css'
 
 export const purchaseList = css`
-  width: 45vw; 
-  float: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   padding: 10px;
   font-family: 'Bitter', serif;
   margin: 10px;
+  height: 100%;
+  
+  flex: 1;
+  
+  > h1{
+    margin: 0px;
+  }
+
+  > div{
+    overflow-y: auto;
+    height: 100%;
+    width: 100%;
+    
+  }
 `;
 
 export const infoDisplay = css `
-  width: 45vw; 
-  float: left;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
   padding: 10px;
   margin: 10px;
   font-family: 'Bitter', serif;
+  > h1{
+    margin: 0px;
+  }
   h2{color: rgb(92, 182, 3)}
   fieldset{
     border: 0 none;
@@ -40,5 +60,15 @@ export const infoDisplay = css `
     }
     
   } 
+`;
+
+export const profilePageWrapper = css`
+  display: flex;
+  height: 85vh;
+`;
+
+export const infos = css`
+  overflow-y: auto;
+  height: 100%;
 `;
 

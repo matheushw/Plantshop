@@ -7,7 +7,6 @@ class UserController {
       return res.json(emailExists);
     }
     const data = await User.create(req.body);
-    console.log(data);
     return res.json(data);
   }
   async index(req, res) {

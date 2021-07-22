@@ -19,7 +19,6 @@ const PurchaseInfo: React.FC<PurchaseInfoProps> = ( {number, date, price, produc
     }
 
 	return(
-		<div>
 		<div className={styles.purchaseDisplay}>
 			<h2>Pedido {number}</h2>
 			<ul>
@@ -31,7 +30,6 @@ const PurchaseInfo: React.FC<PurchaseInfoProps> = ( {number, date, price, produc
 				<h3> Preço total: R${price}</h3>         
 				<h3> Status: {status}</h3>         
 			</ul>
-		</div>
 		</div>
 	);
 }

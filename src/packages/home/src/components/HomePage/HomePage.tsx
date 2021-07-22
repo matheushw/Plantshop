@@ -12,9 +12,6 @@ import { useEffect } from 'react';
 
 export interface HomePageProps {
   	products: ProductModel[],
-		allProductsLoading: boolean,
-		allProductsError: boolean,
-		loadAllProducts: () => void,
 }
 
 const HomePage: React.FC<HomePageProps> = (props) => {
@@ -68,10 +65,6 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 		);
 	}
 
-	if(!props.allProductsError && !props.allProductsLoading && props.products.length === 0){
-		props.loadAllProducts();
-	}
-
 	return (
 		<div className={styles.homePage}>
 			<h1> Promoções </h1>
@@ -86,24 +79,17 @@ const HomePage: React.FC<HomePageProps> = (props) => {
 	);
 };
 
-interface DispatchProps {
-	loadAllProducts:() => void;
-}
+interface DispatchProps {}
 
 interface StateProps {
 	products: ProductModel[];
-	allProductsLoading: boolean;
-	allProductsError: boolean;
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
-		allProductsLoading: state.error.allProducts,
-		allProductsError: state.loading.allProducts,
   	products: state.products
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	loadAllProducts:() => {dispatch(loadAllProductsRequest())},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

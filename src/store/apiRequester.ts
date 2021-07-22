@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProductModel, User } from "./types";
+import { Order, ProductModel, ProductOrder, RentOrder, User } from "./types";
 
 const endPoint = "http://localhost:3001";
 
@@ -50,7 +50,6 @@ class ApiRequester {
           'Content-Type': 'application/json'
         },
       });
-      console.log(response.data); 
       return response;
     } catch (error) {
       throw error;
@@ -74,6 +73,73 @@ class ApiRequester {
       });
 
       return products;
+    } catch(error) {
+      throw error;
+    }
+  }
+  
+  public static getAllPurchaseOrders = async (user: User) => {
+    try{
+      const response = await axios(endPoint + "/purchaseOrderGroup", {
+        method: 'get',
+        params: {
+          userId: user.id
+        }
+      });
+      return response;
+    } catch(error) {
+      throw error;
+    }
+  }
+  
+  public static getAllRentOrders = async (user: User) => {
+    try{
+      const response = await axios(endPoint + "/rentOrders", {
+        method: 'get',
+        params: {
+          userId: user.id
+        }
+      });
+      return response;
+    } catch(error) {
+      throw error;
+    }
+  }
+
+  public static placePurchaseOrder = async (user: User, order: Order) => {
+    try{
+      const orderDTO = {...order, userId: user.id};
+      const response = await axios(endPoint + "/purchaseOrderGroup", {
+        method: 'post',
+        data: orderDTO,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response;
+    } catch(error) {
+      throw error;
+    }
+  }
+
+  public static placeRentOrders = async (user: User, orders: RentOrder[]) => {
+    try{
+      const orderDTO = orders.map((order)=> (
+        {
+          ...order, 
+          startDate:order.startDate?.getTime(), 
+          endDate:order.endDate?.getTime(), 
+          userId: user.id
+        }
+      ));
+      const response = await axios(endPoint + "/rentOrders", {
+        method: 'post',
+        data: orderDTO,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response;
     } catch(error) {
       throw error;
     }

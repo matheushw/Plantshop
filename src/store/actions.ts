@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { ActionTypes } from './actionTypes';
-import { ProductModel, RentOrder, User } from './types';
+import { Order, ProductModel, ProductOrder, RentOrder, User } from './types';
 
 // Authentication
 export interface LoadUsersRequest extends Action {
@@ -16,6 +16,10 @@ export interface LoadUsersSuccess extends Action {
 
 export interface LoadUsersError extends Action {
   type: ActionTypes.LOAD_USER_ERROR;
+}
+
+export interface LoadUsersLocalStorage extends Action {
+  type: ActionTypes.LOAD_USERS_LOCAL_STORAGE;
 }
 
 export interface LogInUserRequest extends Action {
@@ -46,16 +50,16 @@ export interface AddProductToChartError extends Action {
 }
 
 export interface RemoveProductFromCartRequest extends Action {
-	type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_RQUEST;
+	type: ActionTypes.REMOVE_PRODUCT_FROM_CART_RQUEST;
 	id: string;
 }
 
 export interface RemoveProductFromCartSuccess extends Action {
-	type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_SUCCESS;
+	type: ActionTypes.REMOVE_PRODUCT_FROM_CART_SUCCESS;
 }
 
 export interface RemoveProductFromCartError extends Action {
-	type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_ERROR;
+	type: ActionTypes.REMOVE_PRODUCT_FROM_CART_ERROR;
 }
 
 export interface MinusProductInCartRequest extends Action{
@@ -72,28 +76,34 @@ export interface MinusProductInCartError extends Action{
 }
 
 export interface PlusProductInCartRequest extends Action{
-  type: ActionTypes.PLUS_PRODUCT_IN_CHART_REQUEST;
+  type: ActionTypes.PLUS_PRODUCT_IN_CART_REQUEST;
   id: string;
 }
 
 export interface PlusProductInCartSuccess extends Action{
-  type: ActionTypes.PLUS_PRODUCT_IN_CHART_SUCCESS;
+  type: ActionTypes.PLUS_PRODUCT_IN_CART_SUCCESS;
 }
 
 export interface PlusProductInCartError extends Action{
-  type: ActionTypes.PLUS_PRODUCT_IN_CHART_ERROR;
+  type: ActionTypes.PLUS_PRODUCT_IN_CART_ERROR;
 }
 
-export interface PlaceOrderRequest extends Action {
-  type: ActionTypes.PLACE_ORDER_REQUEST;
+export interface PlacePurchaseOrderRequest extends Action {
+  user: User,
+  order: Order,
+  type: ActionTypes.PLACE_PURCHASE_ORDER_REQUEST;
 }
 
-export interface PlaceOrderSuccess extends Action {
-  type: ActionTypes.PLACE_ORDER_SUCCESS;
+export interface PlacePurchaseOrderSuccess extends Action {
+  type: ActionTypes.PLACE_PURCHASE_ORDER_SUCCESS;
 }
 
-export interface PlaceOrderError extends Action {
-  type: ActionTypes.PLACE_ORDER_ERROR;
+export interface PlacePurchaseOrderError extends Action {
+  type: ActionTypes.PLACE_PURCHASE_ORDER_ERROR;
+}
+
+export interface PlacePurchaseOrderNotAsked extends Action {
+  type: ActionTypes.PLACE_PURCHASE_ORDER_NOT_ASKED;
 }
 
 export interface ClearProductInCartRequest extends Action {
@@ -271,10 +281,44 @@ export interface LoadAllProductsError extends Action {
   type: ActionTypes.LOAD_ALL_PRODUCTS_ERROR;
 }
 
+export interface PlaceRentOrdersRequest extends Action {
+  type: ActionTypes.PLACE_RENT_ORDERS_REQUEST;
+  rentOrders: RentOrder[],
+  user: User,
+}
+
+export interface PlaceRentOrdersSuccess extends Action {
+  type: ActionTypes.PLACE_RENT_ORDERS_SUCCESS;
+}
+
+export interface PlaceRentOrdersError extends Action {
+  type: ActionTypes.PLACE_RENT_ORDERS_ERROR;
+}
+
+export interface PlaceRentOrdersNotAsked extends Action {
+  type: ActionTypes.PLACE_RENT_ORDERS_NOT_ASKED;
+}
+
+export interface LoadAllOrdersRequest extends Action {
+  type: ActionTypes.LOAD_ALL_ORDERS_REQUEST;
+  user: User;
+}
+
+export interface LoadAllOrdersSuccess extends Action {
+  type: ActionTypes.LOAD_ALL_ORDERS_SUCCESS;
+  purchaseOrders: Order[];
+  rentOrders: RentOrder[];
+}
+
+export interface LoadAllOrdersError extends Action {
+  type: ActionTypes.LOAD_ALL_ORDERS_ERROR;
+}
+
 export type ApplicationAction = 
 | LoadUsersRequest 
 | LoadUsersSuccess 
 | LoadUsersError 
+| LoadUsersLocalStorage
 | AddProductToChartRequest 
 | AddProductToChartSuccess 
 | AddProductToChartError 
@@ -287,9 +331,10 @@ export type ApplicationAction =
 | SignUpUserRequest 
 | SignUpUserSuccess 
 | SignUpUserError 
-| PlaceOrderRequest 
-| PlaceOrderSuccess 
-| PlaceOrderError 
+| PlacePurchaseOrderRequest 
+| PlacePurchaseOrderSuccess 
+| PlacePurchaseOrderError 
+| PlacePurchaseOrderNotAsked 
 | ClearProductInCartRequest 
 | ClearProductInCartSuccess 
 | ClearProductInCartError 
@@ -328,4 +373,11 @@ export type ApplicationAction =
 | PlusProductInCartError
 | LoadAllProductsRequest
 | LoadAllProductsSuccess
-| LoadAllProductsError;
+| LoadAllProductsError
+| LoadAllOrdersRequest
+| LoadAllOrdersSuccess
+| LoadAllOrdersError
+| PlaceRentOrdersRequest
+| PlaceRentOrdersSuccess
+| PlaceRentOrdersError
+| PlaceRentOrdersNotAsked;

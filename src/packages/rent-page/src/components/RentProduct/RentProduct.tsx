@@ -71,7 +71,6 @@ const RentProduct: React.FC<RentProductProps> = ( props ) => {
                 props.setShowNotification(NotificationType.SUCCESSFUL);
                 const daysDif = dateDiffInDays(startDate!, endDate!);
                 const priceByDay = parseFloat(props.product.price)/10.0;
-                console.log((priceByDay * 3.0).toFixed(2))
                 const totalPrice = daysDif===0? priceByDay:(priceByDay * daysDif);
                 const rentOrder: RentOrder = {
                   orderId: Math.floor(Math.random() * 100000),

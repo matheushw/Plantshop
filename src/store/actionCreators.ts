@@ -14,10 +14,14 @@ import {
   EditUserError, 
   EditUserRequest, 
   EditUserSuccess, 
+  LoadAllOrdersError, 
+  LoadAllOrdersRequest, 
+  LoadAllOrdersSuccess, 
   LoadAllProductsError, 
   LoadAllProductsRequest, 
   LoadAllProductsSuccess, 
   LoadUsersError, 
+  LoadUsersLocalStorage, 
   LoadUsersRequest, 
   LoadUsersSuccess, 
   LogInUserError, 
@@ -29,9 +33,14 @@ import {
   MinusProductInCartError, 
   MinusProductInCartRequest, 
   MinusProductInCartSuccess, 
-  PlaceOrderError, 
-  PlaceOrderRequest, 
-  PlaceOrderSuccess, 
+  PlacePurchaseOrderError, 
+  PlacePurchaseOrderNotAsked, 
+  PlacePurchaseOrderRequest, 
+  PlacePurchaseOrderSuccess, 
+  PlaceRentOrdersError, 
+  PlaceRentOrdersNotAsked, 
+  PlaceRentOrdersRequest, 
+  PlaceRentOrdersSuccess, 
   PlusProductInCartError, 
   PlusProductInCartRequest, 
   PlusProductInCartSuccess, 
@@ -58,7 +67,7 @@ import {
   SignUpUserSuccess 
 } from "./actions";
 import { ActionTypes } from "./actionTypes";
-import { ProductModel, RentOrder, User } from "./types";
+import { Order, ProductModel, ProductOrder, RentOrder, User } from "./types";
 
 export const loadUsersRequest = (email: string, password: string): LoadUsersRequest => ({
   type: ActionTypes.LOAD_USER_REQUEST,
@@ -75,6 +84,10 @@ export const loadUsersError = (): LoadUsersError => ({
   type: ActionTypes.LOAD_USER_ERROR,
 });
 
+export const loadUsersLocalStorage = (): LoadUsersLocalStorage => ({
+  type: ActionTypes.LOAD_USERS_LOCAL_STORAGE,
+});
+
 export const addProductToChartRequest = (product: ProductModel): AddProductToChartRequest => ({
   type: ActionTypes.ADD_PRODUCT_TO_CART_REQUEST,
   product,
@@ -89,16 +102,16 @@ export const addProductToChartError = (): AddProductToChartError => ({
 });
 
 export const removeProductFromCartRequest = (id: string): RemoveProductFromCartRequest => ({
-  type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_RQUEST,
+  type: ActionTypes.REMOVE_PRODUCT_FROM_CART_RQUEST,
   id,
 });
 
 export const removeProductFromCartSuccess = (): RemoveProductFromCartSuccess => ({
-  type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_SUCCESS
+  type: ActionTypes.REMOVE_PRODUCT_FROM_CART_SUCCESS
 });
 
 export const removeProductFromCartError = (): RemoveProductFromCartError => ({
-  type: ActionTypes.REMOVE_PRODUCT_FROM_CHART_ERROR
+  type: ActionTypes.REMOVE_PRODUCT_FROM_CART_ERROR
 });
 
 export const minusProductInCartRequest = (id: string) : MinusProductInCartRequest => ({
@@ -115,28 +128,34 @@ export const minusProductInCartError = () : MinusProductInCartError => ({
 });
 
 export const plusProductInCartRequest = (id: string) : PlusProductInCartRequest => ({
-  type: ActionTypes.PLUS_PRODUCT_IN_CHART_REQUEST,
+  type: ActionTypes.PLUS_PRODUCT_IN_CART_REQUEST,
   id,
 });
 
 export const plusProductInCartSuccess = () : PlusProductInCartSuccess => ({
-  type: ActionTypes.PLUS_PRODUCT_IN_CHART_SUCCESS,
+  type: ActionTypes.PLUS_PRODUCT_IN_CART_SUCCESS,
 });
 
 export const plusProductInCartError = () : PlusProductInCartError => ({
-  type: ActionTypes.PLUS_PRODUCT_IN_CHART_ERROR,
+  type: ActionTypes.PLUS_PRODUCT_IN_CART_ERROR,
 });
 
-export const placeOrderRequest = (): PlaceOrderRequest => ({
-  type: ActionTypes.PLACE_ORDER_REQUEST,
+export const placePurchaseOrderRequest = (user: User, order: Order): PlacePurchaseOrderRequest => ({
+  user,
+  order,
+  type: ActionTypes.PLACE_PURCHASE_ORDER_REQUEST,
 });
 
-export const placeOrderSuccess = (): PlaceOrderSuccess => ({
-  type: ActionTypes.PLACE_ORDER_SUCCESS,
+export const placePurchaseOrderSuccess = (): PlacePurchaseOrderSuccess => ({
+  type: ActionTypes.PLACE_PURCHASE_ORDER_SUCCESS,
 });
 
-export const placeOrderError = (): PlaceOrderError => ({
-  type: ActionTypes.PLACE_ORDER_ERROR,
+export const placePurchaseOrderError = (): PlacePurchaseOrderError => ({
+  type: ActionTypes.PLACE_PURCHASE_ORDER_ERROR,
+});
+
+export const placePurchaseOrderNotAsked = (): PlacePurchaseOrderNotAsked => ({
+  type: ActionTypes.PLACE_PURCHASE_ORDER_NOT_ASKED,
 });
 
 export const clearProductInCartRequest = (): ClearProductInCartRequest => ({
@@ -346,4 +365,37 @@ export const loadAllProductsSuccess = (products: ProductModel[]) : LoadAllProduc
 
 export const loadAllProductsError = () : LoadAllProductsError => ({
   type: ActionTypes.LOAD_ALL_PRODUCTS_ERROR,
+});
+
+export const placeRentOrdersRequest = (rentOrders: RentOrder[], user:User) : PlaceRentOrdersRequest => ({
+  type: ActionTypes.PLACE_RENT_ORDERS_REQUEST,
+  rentOrders,
+  user
+});
+
+export const placeRentOrdersSuccess = () : PlaceRentOrdersSuccess => ({
+  type: ActionTypes.PLACE_RENT_ORDERS_SUCCESS,
+});
+
+export const placeRentOrdersError = () : PlaceRentOrdersError => ({
+  type: ActionTypes.PLACE_RENT_ORDERS_ERROR,
+});
+
+export const placeRentOrdersNotAsked = () : PlaceRentOrdersNotAsked => ({
+  type: ActionTypes.PLACE_RENT_ORDERS_NOT_ASKED,
+});
+
+export const loadAllOrdersRequest = (user: User) : LoadAllOrdersRequest => ({
+  type: ActionTypes.LOAD_ALL_ORDERS_REQUEST,
+  user
+});
+
+export const loadAllOrdersSuccess = (purchaseOrders: Order[], rentOrders: RentOrder[]) : LoadAllOrdersSuccess => ({
+  type: ActionTypes.LOAD_ALL_ORDERS_SUCCESS,
+  purchaseOrders,
+  rentOrders
+});
+
+export const loadAllOrdersError = () : LoadAllOrdersError => ({
+  type: ActionTypes.LOAD_ALL_ORDERS_ERROR,
 });

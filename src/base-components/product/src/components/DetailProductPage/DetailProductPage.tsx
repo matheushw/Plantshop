@@ -4,13 +4,15 @@ import { useParams } from "react-router-dom";
 import { ApplicationState, ProductModel } from '../../../../../store/types';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { addProductToChartRequest } from '../../../../../store/actionCreators';
+import { addProductToChartRequest, loadAllProductsRequest } from '../../../../../store/actionCreators';
 import ReactNotification, { store } from 'react-notifications-component'
+import { useEffect } from 'react';
 
 export interface DetailProductPageProps {
 	products: ProductModel[];
 	cartProducts: Map<string, ProductModel>;
 	addProduct: (product: ProductModel) => void;
+	loadAllProducts: () => void;
 }
 
 interface ReceivedProps{
@@ -19,8 +21,16 @@ interface ReceivedProps{
 
 const DetailProductPage: React.FC<DetailProductPageProps> = (props) => {
 	const productProps  = useParams<ReceivedProps>();
-	const selectedProduct = props.products.find((product) => product.id === productProps.id);
 	const selectedCartProduct = props.cartProducts.get(productProps.id);
+	let selectedProduct = props.products.find((product) => product.id === productProps.id);
+
+	useEffect(() => {
+		props.loadAllProducts();
+	}, []);
+
+	useEffect(() => {
+		selectedProduct = props.products.find((product) => product.id === productProps.id);
+	}, [props.products]);
 
 	const addProduct = () => {
 		if((selectedCartProduct === undefined || selectedCartProduct!.quantity < selectedProduct!.quantity) && selectedProduct!.quantity > 0){
@@ -42,7 +52,7 @@ const DetailProductPage: React.FC<DetailProductPageProps> = (props) => {
 		}
   }
 
-  	return (
+  	return ( selectedProduct?
 		<div className={styles.product}>
 			<ReactNotification/>
 			<h1>{selectedProduct?.name}</h1>
@@ -51,12 +61,14 @@ const DetailProductPage: React.FC<DetailProductPageProps> = (props) => {
 			{selectedProduct?.description}
 			<h2 className={styles.price}>R${selectedProduct?.price}</h2>
 			<button className={"material-icons-outlined " + styles.cartIcon} onClick={addProduct}> add_shopping_cart </button>
-		</div>
+		</div> :
+		<div></div>
   );
 };
 
 interface DispatchProps {
   	addProduct: (product: ProductModel) => void;
+		loadAllProducts: () => void;
 }
 interface StateProps{
 	products: ProductModel[];
@@ -70,6 +82,7 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   	addProduct:(product) => {dispatch(addProductToChartRequest(product))},
+  	loadAllProducts:() => {dispatch(loadAllProductsRequest())}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailProductPage);

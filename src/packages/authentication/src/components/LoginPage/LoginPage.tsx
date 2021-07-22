@@ -6,7 +6,7 @@ import { loadUsersRequest } from '../../../../../store/actionCreators';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
-import {useHistory} from 'react-router';
+import { useHistory } from 'react-router';
 import ReactNotification, { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 
