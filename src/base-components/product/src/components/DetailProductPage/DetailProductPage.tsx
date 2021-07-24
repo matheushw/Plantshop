@@ -26,7 +26,7 @@ const DetailProductPage: React.FC<DetailProductPageProps> = (props) => {
 
 	useEffect(() => {
 		props.loadAllProducts();
-	}, []);
+	});
 
 	useEffect(() => {
 		selectedProduct = props.products.find((product) => product.id === productProps.id);

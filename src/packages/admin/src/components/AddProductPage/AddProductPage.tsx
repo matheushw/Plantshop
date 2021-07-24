@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import * as styles from './styles'
 import { ApplicationState } from '../../../../../store/types';
-import { registerProductRequest } from '../../../../../store/actionCreators';
+import { addProductRequest, addProductReset } from '../../../../../store/actionCreators';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
@@ -10,17 +10,22 @@ import ReactNotification, { store } from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
 
 export interface AddProductPageProps {
-   addProduct: (
-        img: string,
-        name: string,
-        price: string,
-        quantity: number,
-        category: string,
-        description: string) => void,
+  addProductLoading: boolean,
+  addProductError: boolean,
+  addProductSuccess: boolean,
+  addProduct: (
+    img: string,
+    name: string,
+    price: string,
+    quantity: number,
+    category: string,
+    description: string) => void,
+  addProductReset: () => void,
 }
 
 const AddProductPage: React.FC<AddProductPageProps> = (props) => {
     const history = useHistory();
+    
     const initialState = {
         img: '',
         name: '',
@@ -30,25 +35,50 @@ const AddProductPage: React.FC<AddProductPageProps> = (props) => {
         description: '',
     };
 
+    useEffect(() => {
+      if ( props.addProductError && !props.addProductLoading) { // Error: user not registered	
+  
+        store.addNotification({
+          title: "Já existe um produto com este nome!",
+          message: " ",
+          type: "danger",
+          insert: "top",
+          container: "top-left",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 2000,
+            onScreen: false
+          }
+        });
+  
+      } else if ( props.addProductSuccess ) { // Success: user registered
+        
+        store.addNotification({
+          title: "Produto adicionado com sucesso!",
+          message: " ",
+          type: "success",
+          insert: "top",
+          container: "top-left",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 2000,
+            onScreen: false
+          }
+        })
+        setTimeout(function (){
+          history.push('admin-page')
+        }, 2000);
+  
+        props.addProductReset();
+  
+      }
+    });
+
     async function addProductCallback(){
-        const input = JSON.parse(JSON.stringify(values))
-		props.addProduct(input.image, input.name, input.price, input.quantity, input.category, input.description)
-		store.addNotification({
-			title: "Produto adicionado com sucesso!",
-			message: " ",
-			type: "success",
-			insert: "top",
-			container: "top-left",
-			animationIn: ["animate__animated", "animate__fadeIn"],
-			animationOut: ["animate__animated", "animate__fadeOut"],
-			dismiss: {
-				duration: 2000,
-				onScreen: false
-			}
-		})
-		setTimeout(function (){
-			history.push('admin-page')
-		}, 2000);
+      const input = JSON.parse(JSON.stringify(values));
+		  props.addProduct(input.image, input.name, input.price, input.quantity, input.category, input.description);
     }
     
     const { onChange, onChangeSelect, onSubmit, values} = useForm(addProductCallback, initialState); 
@@ -135,22 +165,32 @@ const AddProductPage: React.FC<AddProductPageProps> = (props) => {
 }
 
 interface DispatchProps{
-    addProduct: (
-        img: string,
-        name: string,
-        price: string,
-        quantity: number,
-        category: string,
-        description: string) => void;
+  addProduct: (
+    img: string,
+    name: string,
+    price: string,
+    quantity: number,
+    category: string,
+    description: string) => void;
+  addProductReset: () => void;
 }
 
-interface StateProps{}
+interface StateProps{
+  addProductLoading: boolean;
+  addProductError: boolean;
+  addProductSuccess: boolean;
+}
 
-const mapStateToProps = (state: ApplicationState): StateProps => ({});
+const mapStateToProps = (state: ApplicationState): StateProps => ({
+  addProductLoading: state.loading.addProduct,
+  addProductError: state.error.addProduct,
+  addProductSuccess: state.success.addProduct
+});
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-    addProduct:(img, name, price, quantity, category, description) => 
-    {dispatch(registerProductRequest(img, name, price, quantity, category, description))}
+  addProduct: (img, name, price, quantity, category, description) => 
+    {dispatch(addProductRequest(img, name, price, quantity, category, description))},
+  addProductReset: () => {dispatch(addProductReset())}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProductPage);

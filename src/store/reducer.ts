@@ -1,10 +1,8 @@
 import produce, { enableMapSet } from 'immer';
 import { mockedUsers } from '../mock-objects/usersList';
-import { products } from '../mock-objects/products';
-import { ApplicationState, User, Order, ProductOrder, ProductModel, initialPossibleState } from './types';
+import { ApplicationState, initialPossibleState } from './types';
 import { ApplicationAction } from './actions';
 import { ActionTypes } from './actionTypes';
-import { loadUsersLocalStorage, loadUsersRequest } from './actionCreators';
 
 export const initialState: ApplicationState = {
   loading: initialPossibleState,
@@ -116,118 +114,19 @@ const reducer = (state = initialState, action: ApplicationAction) => {
           }
         });
       });
-    // case "addProductToChart":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     if(state.cartProducts.has(action.product.id)){
-    //       const selectedProduct = state.cartProducts.get(action.product.id)!;
-    //       draft.cartProducts.set(action.product.id, {...selectedProduct, quantity: selectedProduct.quantity + 1})
-    //     } else {
-    //       draft.cartProducts.set(action.product.id, action.product);
-    //     }
-    //   });
-    // case "removeProductToChart":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     if(state.cartProducts.has(action.id)){
-    //       const selectedProduct = state.cartProducts.get(action.id)!;
-    //       if(selectedProduct.quantity === 1) {
-    //         draft.cartProducts.delete(action.id);
-    //       } else {
-    //         draft.cartProducts.set(action.id, {...selectedProduct, quantity: selectedProduct.quantity - 1})
-    //       }
-    //     }
-    //   });
-    // case "placeOrder":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     if(state.cartProducts.size !== 0){
-    //       let totalPrice: number = 0;
-    //       let productsOrders: ProductOrder[] = [];
-          
-    //       state.cartProducts.forEach((product) => {
-    //         totalPrice += parseFloat(product.price) * product.quantity;
-
-    //         const newProductOrder: ProductOrder = {
-    //           id: product.id, 
-    //           name: product.name, 
-    //           price: product.price, 
-    //           quantity: product.quantity
-    //         }
-
-    //         draft.products.forEach((value, idx) => {
-    //           if(value.id === product.id){
-    //             draft.products[idx].quantity -= product.quantity;
-    //           }
-    //         })
-
-    //         productsOrders.push(newProductOrder);
-    //       });
-          
-    //       var day = new Date();
-    //       var dd = day.getDate().toString();
-    //       var mm = (day.getMonth()+1).toString();
-    //       var yyyy = (day.getFullYear()).toString();
-    //       if(parseInt(dd) < 10){
-    //         dd = '0' + dd;
-    //       } 
-    //       if(parseInt(mm)<10){
-    //         mm = '0' + mm;
-    //       } 
-
-    //       const newOrder: Order = {
-    //         productsOrders: productsOrders,
-    //         date: dd + "/" + mm + "/" + yyyy,
-    //         total: totalPrice.toFixed(2),
-    //         status: "Preparando para envio!",
-    //       }
-
-    //       draft.orders = state.orders;
-    //       draft.orders.push(newOrder);
-    //     }
-
-    //     if(state.rentOrders.length !== 0) {
-    //       draft.rentedProducts = draft.rentedProducts.concat(draft.rentOrders);
-    //     }
-    //   });
-    // case "clearCart":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     draft.cartProducts = new Map();
-    //     draft.rentOrders = [];
-    //   });
-    // case "removeRentOrder":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     draft.rentOrders = [];
-    //     state.rentOrders.forEach((order) => {
-    //       if(order.orderId !== action.orderId) {
-    //         draft.rentOrders.push(order);
-    //       }
-    //     });
-    //   });
-    // case "logInUser":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     draft.user = action.user;
-    //   });
     case ActionTypes.SIGN_UP_USER_REQUEST:
       return produce(state, draft => {
         draft.loading.signUp = true;
-        draft.error.signUp = false;
-        draft.success.signUp = false;
       });
     case ActionTypes.SIGN_UP_USER_SUCCESS:
       return produce(state, draft => {
         draft.loading.signUp = false;
-        draft.error.signUp = false;
         draft.success.signUp = true; 
       });
     case ActionTypes.SIGN_UP_USER_ERROR:
       return produce(state, draft => {
         draft.loading.signUp = false;
         draft.error.signUp = true;
-        draft.success.signUp = false;
       });
     case ActionTypes.SIGN_UP_USER_RESET:
       return produce(state, draft => {
@@ -235,26 +134,46 @@ const reducer = (state = initialState, action: ApplicationAction) => {
         draft.error.signUp = false;
         draft.success.signUp = false;
       });
-    // case "addInventory":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     draft.products.forEach((product, index) => {
-    //       if(product.id === action.productId){
-    //         draft.products[index].quantity++;
-    //       }
-    //     })
-    //   });
-
-    // case "removeInventory":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     draft.products.forEach((product, index) => {
-    //       if(product.id === action.productId){
-    //         draft.products[index].quantity--;
-    //       }
-    //     })
-    //   });
-    // case "rentProduct":
+    case ActionTypes.ADD_INVENTORY_REQUEST:
+      return produce(state, draft => {
+        draft.loading.addInventory = true;
+      });
+    case ActionTypes.ADD_INVENTORY_SUCCESS:
+      return produce(state, draft => {
+        draft.loading.addInventory = false;
+        draft.success.addInventory = true;
+      });
+    case ActionTypes.ADD_INVENTORY_ERROR:
+      return produce(state, draft => {
+        draft.loading.addInventory = false;
+        draft.error.addInventory = true;
+      });
+    case ActionTypes.REMOVE_INVENTORY_REQUEST:
+      return produce(state, draft => {
+        draft.loading.removeInventory = true;
+      });
+    case ActionTypes.REMOVE_INVENTORY_SUCCESS:
+      return produce(state, draft => {
+        draft.loading.removeInventory = false;
+        draft.success.removeInventory = true;
+      });
+    case ActionTypes.REMOVE_INVENTORY_ERROR:
+      return produce(state, draft => {
+        draft.loading.removeInventory = false;
+        draft.error.removeInventory = true;
+      });
+    case ActionTypes.INVENTORY_RESET:
+      return produce(state, draft => {
+        draft.loading.removeInventory = false;
+        draft.success.removeInventory = false;
+        draft.error.removeInventory = false;
+        draft.loading.addInventory = false;
+        draft.success.addInventory = false;
+        draft.error.addInventory = false;
+        draft.loading.removeProduct = false;
+        draft.error.removeProduct = false;
+        draft.success.removeProduct = false;
+      }); 
     case ActionTypes.RENT_PRODUCT_REQUEST:
       return produce(state, draft => {
         draft.rentOrders.push(action.rentOrder);
@@ -298,19 +217,20 @@ const reducer = (state = initialState, action: ApplicationAction) => {
         draft.success.loadAllOrders = false;
         draft.loading.loadAllOrders = false;
       });
-    // case "removeProduct":
-    // case ActionTypes.:
-    //   const newProductsArray: ProductModel[] = [];
-    //   return produce(state, draft => {
-    //     draft.products.forEach((product, index) => {
-    //       if(product.id !== action.productId){
-    //         newProductsArray.push(product);
-    //       }
-    //     })
-
-    //     draft.products = newProductsArray;
-    //   });
-      
+    case ActionTypes.REMOVE_PRODUCT_REQUEST:
+      return produce(state, draft => {
+        draft.loading.removeProduct = true;
+    }); 
+    case ActionTypes.REMOVE_PRODUCT_SUCCESS:
+      return produce(state, draft => {
+        draft.loading.removeProduct = false;
+        draft.success.removeProduct = true;
+    }); 
+    case ActionTypes.REMOVE_PRODUCT_ERROR:
+      return produce(state, draft => {
+        draft.loading.removeProduct = false;
+        draft.error.removeProduct = true;
+    }); 
     // case "editUser":
     // case ActionTypes.:
     //   return produce(state, draft => {
@@ -336,34 +256,7 @@ const reducer = (state = initialState, action: ApplicationAction) => {
     //       }
     //     });
     //   });
-    // case "addAdmin":
-    // case ActionTypes.:
-    //     return produce(state, draft => {
-    //       const admin: User = {
-    //           id: (state.usersList.length).toString(),
-    //           email: action.email,
-    //           password: action.password,
-    //           name: action.name,
-    //           address: action.address,
-    //           phoneNumber: action.phoneNumber,
-    //           role: 'admin',
-    //       }
-    //       draft.usersList.push(admin); 
-    //     });
-    // case "registerProduct":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     const product: ProductModel = {
-    //       id: (state.products.length+1).toString(),
-    //       img: action.img,
-    //       name: action.name,
-    //       price: action.price,
-    //       quantity: action.quantity,
-    //       type: action.category,
-    //       description: action.description,
-    //     }
-    //     draft.products.push(product);
-    //   });
+    
     case ActionTypes.MINUS_PRODUCT_IN_CART_REQUEST:
       return produce(state, draft => {
         if(state.cartProducts.has(action.id)){
@@ -386,69 +279,52 @@ const reducer = (state = initialState, action: ApplicationAction) => {
           }
         });
       });
-    // case ActionTypes.LOG_OUT_REQUEST:
-    //   return produce(state, draft => {
-    //     draft.loading = true;
-    //     draft.user = null;
-    //   });
-    // case ActionTypes.LOG_OUT_SUCCESS:
-    //   return produce(state, draft => {
-    //     draft.loading = false;
-    //     draft.user = null;
-    //   });
-    // case ActionTypes.LOG_OUT_ERROR:
-    //   return produce(state, draft => {
-    //     draft.loading = false;
-    //     draft.error = true;
-    //     draft.user = null;
-    //   });
-    // case "minusProductInCart":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     if(state.cartProducts.has(action.id)){
-    //       const selectedProduct = state.cartProducts.get(action.id)!;
-    //       if(selectedProduct.quantity === 1){
-    //         draft.cartProducts.delete(action.id);
-    //       }else if(selectedProduct.quantity > 1){
-    //         draft.cartProducts.set(action.id, {...selectedProduct, quantity: selectedProduct.quantity - 1})
-    //       }
-    //     }
-    //   });
-    // case "plusProductInCart":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     state.products.forEach(product => {
-    //       if(state.cartProducts.has(action.id)){
-    //         const selectedProduct = state.cartProducts.get(action.id)!;
-    //         if(product.id === action.id && product.quantity - selectedProduct.quantity > 0){
-    //           draft.cartProducts.set(action.id, {...selectedProduct, quantity: selectedProduct.quantity + 1})
-    //         }
-    //       }
-    //     });
-    //   });
+    case ActionTypes.ADD_ADMIN_REQUEST:
+      return produce(state, draft => {
+        draft.loading.addAdmin = true;
+      });
+    case ActionTypes.ADD_ADMIN_SUCCESS:
+      return produce(state, draft => {
+        draft.loading.addAdmin = false;
+        draft.success.addAdmin = true;
+      });
+    case ActionTypes.ADD_ADMIN_ERROR:
+      return produce(state, draft => {
+        draft.loading.addAdmin = false;
+        draft.error.addAdmin = true;
+      });
+    case ActionTypes.ADD_ADMIN_RESET:
+      return produce(state, draft => {
+        draft.loading.addAdmin = false;
+        draft.success.addAdmin = false;
+        draft.error.addAdmin = false;
+      });
+    case ActionTypes.ADD_PRODUCT_REQUEST:
+      return produce(state, draft => {
+        draft.loading.addProduct = true;
+      });
+    case ActionTypes.ADD_PRODUCT_SUCCESS:
+      return produce(state, draft => {
+        draft.loading.addProduct = false;
+        draft.success.addProduct = true;
+      });
+    case ActionTypes.ADD_PRODUCT_ERROR:
+      return produce(state, draft => {
+        draft.loading.addProduct = false;
+        draft.error.addProduct = true;
+      });
+    case ActionTypes.ADD_PRODUCT_RESET:
+      return produce(state, draft => {
+        draft.loading.addProduct = false;
+        draft.error.addProduct = false;
+        draft.success.addProduct = false;
+      });
     case ActionTypes.LOG_OUT_REQUEST:
       return produce(state, draft => {
         draft.loading.user = false;
         draft.error.user = false;
         draft.user = null;
       });
-  //  case ActionTypes.LOG_OUT_SUCCESS:
-  //    return produce(state, draft => {
-  //      draft.loading.logOut = false;
-  //      draft.success.logOut = true;
-  //      draft.user = null;
-  //    });
-  //  case ActionTypes.LOG_OUT_ERROR:
-  //    return produce(state, draft => {
-  //      draft.loading.logOut = false;
-  //      draft.error.logOut = true;
-  //    });
-  //  case ActionTypes.LOG_OUT_RESET:
-  //    return produce(state, draft => {
-  //      draft.loading.logOut = false;
-  //      draft.success.logOut = false;
-  //      draft.error.logOut = false;
-  //    })
     default:
       return state;
   }

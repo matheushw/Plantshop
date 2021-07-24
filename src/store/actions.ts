@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { ActionTypes } from './actionTypes';
-import { Order, ProductModel, ProductOrder, RentOrder, User } from './types';
+import { Order, ProductModel, RentOrder, User } from './types';
 
 // Authentication
 export interface LoadUsersRequest extends Action {
@@ -144,6 +144,7 @@ export interface AddInventoryRequest extends Action {
 
 export interface AddInventorySuccess extends Action {
   type: ActionTypes.ADD_INVENTORY_SUCCESS;
+  product: ProductModel;
 }
 
 export interface AddInventoryError extends Action {
@@ -212,11 +213,11 @@ export interface SignUpUserReset extends Action {
 
 export interface EditUserRequest extends Action {
   type: ActionTypes.EDIT_USER_REQUEST;
-  name: User["name"];
-	address: User["address"];
-  phoneNumber: User["phoneNumber"];
-	email: User["email"];
-  id: User["id"];
+  name: string;
+	address: string;
+  phoneNumber: string;
+	email: string;
+  id: string;
 }
 
 //User management
@@ -230,11 +231,11 @@ export interface EditUserError extends Action {
 
 export interface AddAdminRequest extends Action {
 	type: ActionTypes.ADD_ADMIN_REQUEST;
-	name: User["name"];
-	address: User["address"];
-	phoneNumber: User["phoneNumber"];
-	email: User["email"];
-	password: User["password"];
+	name: string;
+	address: string;
+	phoneNumber: string;
+	email: string;
+	password: string;
 }
 
 export interface AddAdminSuccess extends Action {
@@ -245,8 +246,12 @@ export interface AddAdminError extends Action {
 	type: ActionTypes.ADD_ADMIN_ERROR;
 }
 
-export interface RegisterProductRequest extends Action {
-	type: ActionTypes.REGISTER_PRODUCT_REQUEST;
+export interface AddAdminReset extends Action {
+	type: ActionTypes.ADD_ADMIN_RESET;
+}
+
+export interface AddProductRequest extends Action {
+	type: ActionTypes.ADD_PRODUCT_REQUEST;
   img: string;
 	name: string;
 	price: string;
@@ -255,12 +260,16 @@ export interface RegisterProductRequest extends Action {
 	description: string;
 }
 
-export interface RegisterProductSuccess extends Action {
-	type: ActionTypes.REGISTER_PRODUCT_SUCCESS;
+export interface AddProductSuccess extends Action {
+	type: ActionTypes.ADD_PRODUCT_SUCCESS;
 }
 
-export interface RegisterProductError extends Action {
-	type: ActionTypes.REGISTER_PRODUCT_ERROR;
+export interface AddProductError extends Action {
+	type: ActionTypes.ADD_PRODUCT_ERROR;
+}
+
+export interface AddProductReset extends Action {
+	type: ActionTypes.ADD_PRODUCT_RESET;
 }
 
 export interface LogOutRequest extends Action {
@@ -313,6 +322,10 @@ export interface LoadAllOrdersError extends Action {
   type: ActionTypes.LOAD_ALL_ORDERS_ERROR;
 }
 
+export interface InventoryReset extends Action {
+  type: ActionTypes.INVENTORY_RESET;
+}
+
 export type ApplicationAction = 
 | LoadUsersRequest 
 | LoadUsersSuccess 
@@ -357,9 +370,11 @@ export type ApplicationAction =
 | AddAdminRequest 
 | AddAdminSuccess 
 | AddAdminError 
-| RegisterProductRequest
-| RegisterProductSuccess
-| RegisterProductError
+| AddAdminReset
+| AddProductRequest
+| AddProductSuccess
+| AddProductError
+| AddProductReset
 | RemoveRentOrderRequest
 | RemoveRentOrderSuccess
 | RemoveRentOrderError
@@ -379,4 +394,11 @@ export type ApplicationAction =
 | PlaceRentOrdersRequest
 | PlaceRentOrdersSuccess
 | PlaceRentOrdersError
-| PlaceRentOrdersNotAsked;
+| PlaceRentOrdersNotAsked
+| AddInventoryRequest
+| AddInventorySuccess
+| AddInventoryError
+| RemoveInventoryRequest
+| RemoveInventorySuccess
+| RemoveInventoryError
+| InventoryReset;

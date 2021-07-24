@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Order, ProductModel, ProductOrder, RentOrder, User } from "./types";
+import { Order, ProductModel, RentOrder, User } from "./types";
 
 const endPoint = "http://localhost:3001";
 
@@ -46,6 +46,112 @@ class ApiRequester {
           email: email,
           password: password,
           admin: false
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static addAdmin = async (
+    name: string,
+    address: string,
+    phoneNumber: string,
+    email: string,
+    password: string) => {
+    try{
+      const response = await axios(endPoint + "/user", {
+        method: 'post',
+        params: {
+          name: name,
+          address: address,
+          phoneNumber: phoneNumber,
+          email: email,
+          password: password,
+          admin: true
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static addProduct = async (
+    name: string,
+    category: string,
+    quantity: number,
+    img: string,
+    price: string,
+    description: string) => {
+    try{
+      const response = await axios(endPoint + "/product", {
+        method: 'post',
+        params: {
+          name: name,
+          type: category,
+          quantity: quantity,
+          img: img,
+          price: price,
+          description: description
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static removeProduct = async ( productId: string ) => {
+    try{
+      const response = await axios(endPoint + "/product", {
+        method: 'delete',
+        params: {
+          _id: productId
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static addInventory = async (productId: string) => {
+    try {
+      const response = await axios(endPoint + "/product/plus", {
+        method: 'post',
+        params: {
+          _id : productId
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static removeInventory = async (productId: string) => {
+    try {
+      const response = await axios(endPoint + "/product/minus", {
+        method: 'post',
+        params: {
+          _id : productId
         },
         headers: {
           'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import * as styles from './styles'
 import { ApplicationState, User } from '../../../../../store/types';
-import { addAdminRequest } from '../../../../../store/actionCreators';
+import { addAdminRequest, addAdminReset } from '../../../../../store/actionCreators';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { useForm } from '../../../../useForm';
@@ -11,9 +11,13 @@ import 'react-notifications-component/dist/theme.css';
 
 
 export interface AddAdminPageProps {
-  	user: User | null,
-	allUsers: User[],
-	registerAdmin: (name: string, address: string, phoneNumber: string, email: string, password: string) => void,
+  user: User | null,
+  allUsers: User[],
+  addAdminError: boolean,
+	addAdminLoading: boolean,
+	addAdminSuccess: boolean,
+	addAdmin: (name: string, address: string, phoneNumber: string, email: string, password: string) => void,
+	addAdminReset: () => void
 }
 
 const AddAdminPage: React.FC<AddAdminPageProps> = (props) => {
@@ -27,25 +31,51 @@ const AddAdminPage: React.FC<AddAdminPageProps> = (props) => {
 		password: '',
 	};
 
+  useEffect(() => {
+		if ( props.addAdminError && !props.addAdminLoading ) { // Error: user not registered	
+
+      store.addNotification({
+        title: "Email já cadastrado, por favor utilize outro!",
+        message: " ",
+        type: "danger",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false
+        }
+			});
+
+		} else if ( props.addAdminSuccess ) { // Success: user registered
+			
+      store.addNotification({
+        title: "Administrador adicionado com sucesso!",
+        message: " ",
+        type: "success",
+        insert: "top",
+        container: "top-left",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 2000,
+          onScreen: false
+        }
+      })
+      setTimeout(function (){
+        history.push('admin-page')
+      }, 2000);
+
+      // Reseting loading, error adn success for signUp
+      props.addAdminReset();
+
+		}
+	});
+
 	async function addAdminCallback(){
-		const input = JSON.parse(JSON.stringify(values))
-		props.registerAdmin(input.name, input.address, input.phoneNumber, input.email, input.password)
-		store.addNotification({
-			title: "Administrador adicionado com sucesso!",
-			message: " ",
-			type: "success",
-			insert: "top",
-			container: "top-left",
-			animationIn: ["animate__animated", "animate__fadeIn"],
-			animationOut: ["animate__animated", "animate__fadeOut"],
-			dismiss: {
-				duration: 2000,
-				onScreen: false
-			}
-		})
-		setTimeout(function (){
-			history.push('admin-page')
-		}, 2000);
+		const input = JSON.parse(JSON.stringify(values));
+		props.addAdmin(input.name, input.address, input.phoneNumber, input.email, input.password);
 	}
 
 	const { onChange, onSubmit, values} = useForm(addAdminCallback, initialState); 
@@ -115,24 +145,32 @@ const AddAdminPage: React.FC<AddAdminPageProps> = (props) => {
 }
 
 interface DispatchProps {
-	registerAdmin: (
+	addAdmin: (
 		name: string, address: string, phoneNumber: string, email: string, password: string
 		) 
 		=> void;
+	addAdminReset: () => void;
 }
 
 interface StateProps {
-	user: User | null
-	allUsers: User[]
+	user: User | null;
+	allUsers: User[];
+  addAdminError: boolean;
+	addAdminLoading: boolean;
+	addAdminSuccess: boolean;
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
-  	user: state.user,
-  	allUsers: state.usersList,
+  user: state.user,
+  allUsers: state.usersList,
+  addAdminError: state.error.addAdmin,
+	addAdminLoading: state.loading.addAdmin,
+	addAdminSuccess: state.success.addAdmin,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-	registerAdmin:(name, address, phoneNumber, email, password) => {dispatch(addAdminRequest(name, address, phoneNumber, email, password))}
+	addAdmin:(name, address, phoneNumber, email, password) => {dispatch(addAdminRequest(name, address, phoneNumber, email, password))},
+  addAdminReset: () => {dispatch(addAdminReset())}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddAdminPage);

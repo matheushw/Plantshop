@@ -7,8 +7,6 @@ import { ApplicationState, ProductModel } from '../../../../../store/types';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import * as styles from './styles';
 import ManageArrow from '../../../../../base-components/ManageArrow';
-import { loadAllProductsRequest } from '../../../../../store/actionCreators';
-import { useEffect } from 'react';
 
 export interface HomePageProps {
   	products: ProductModel[],

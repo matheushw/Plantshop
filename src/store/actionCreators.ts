@@ -1,6 +1,7 @@
 import { 
   AddAdminError, 
   AddAdminRequest, 
+  AddAdminReset,
   AddAdminSuccess, 
   AddInventoryError, 
   AddInventoryRequest, 
@@ -43,9 +44,10 @@ import {
   PlusProductInCartError, 
   PlusProductInCartRequest, 
   PlusProductInCartSuccess, 
-  RegisterProductError, 
-  RegisterProductRequest, 
-  RegisterProductSuccess, 
+  AddProductError, 
+  AddProductRequest, 
+  AddProductSuccess, 
+  AddProductReset,
   RemoveInventoryError, 
   RemoveInventoryRequest, 
   RemoveInventorySuccess, 
@@ -64,10 +66,11 @@ import {
   SignUpUserError, 
   SignUpUserRequest, 
   SignUpUserSuccess,
-  SignUpUserReset
+  SignUpUserReset,
+  InventoryReset
 } from "./actions";
 import { ActionTypes } from "./actionTypes";
-import { Order, ProductModel, ProductOrder, RentOrder, User } from "./types";
+import { Order, ProductModel, RentOrder, User } from "./types";
 
 export const loadUsersRequest = (email: string, password: string): LoadUsersRequest => ({
   type: ActionTypes.LOAD_USER_REQUEST,
@@ -205,8 +208,9 @@ export const addInventoryRequest = (productId: string): AddInventoryRequest => (
     productId
 });
 
-export const addInventorySuccess = (): AddInventorySuccess => ({
+export const addInventorySuccess = (product: ProductModel): AddInventorySuccess => ({
   type: ActionTypes.ADD_INVENTORY_SUCCESS,
+  product
 });
 
 export const addInventoryError = (): AddInventoryError => ({
@@ -231,11 +235,11 @@ export const removeProductRequest = (productId: string): RemoveProductRequest =>
   productId
 });
 
-export const removeProductSuccess = (productId: string): RemoveProductSuccess => ({
+export const removeProductSuccess = (): RemoveProductSuccess => ({
   type: ActionTypes.REMOVE_PRODUCT_SUCCESS,
 });
 
-export const removeProductError = (productId: string): RemoveProductError => ({
+export const removeProductError = (): RemoveProductError => ({
   type: ActionTypes.REMOVE_PRODUCT_ERROR,
 });
 
@@ -250,6 +254,10 @@ export const rentProductSuccess = (): RentProductSuccess => ({
 
 export const rentProductError = (): RentProductError=> ({
   type: ActionTypes.RENT_PRODUCT_ERROR,
+});
+
+export const inventoryReset = (): InventoryReset => ({
+  type: ActionTypes.INVENTORY_RESET,
 });
 
 export const signUpUserRequest = (
@@ -303,11 +311,11 @@ export const editUserError = (): EditUserError => ({
 });
 
 export const addAdminRequest = (
-  name: User["name"], 
-  address: User["address"],
-  phoneNumber: User["phoneNumber"], 
-  email: User["email"], 
-  password: User["password"]
+  name: string, 
+  address: string,
+  phoneNumber: string, 
+  email: string, 
+  password: string
 ): AddAdminRequest => ({
   type: ActionTypes.ADD_ADMIN_REQUEST,
   name,
@@ -325,15 +333,19 @@ export const addAdminError = (): AddAdminError => ({
   type: ActionTypes.ADD_ADMIN_ERROR,
 });
 
-export const registerProductRequest = (
+export const addAdminReset = (): AddAdminReset => ({
+  type: ActionTypes.ADD_ADMIN_RESET,
+});
+
+export const addProductRequest = (
   img: string,
   name: string,
   price: string,
   quantity: number,
   category: string,
   description: string
-) : RegisterProductRequest => ({
-  type: ActionTypes.REGISTER_PRODUCT_REQUEST,
+) : AddProductRequest => ({
+  type: ActionTypes.ADD_PRODUCT_REQUEST,
   img,
   name,
   price,
@@ -342,12 +354,16 @@ export const registerProductRequest = (
   description
 });
 
-export const registerProductSuccess = () : RegisterProductSuccess => ({
-  type: ActionTypes.REGISTER_PRODUCT_SUCCESS,
+export const addProductSuccess = () : AddProductSuccess => ({
+  type: ActionTypes.ADD_PRODUCT_SUCCESS,
 });
 
-export const registerProductError = () : RegisterProductError => ({
-  type: ActionTypes.REGISTER_PRODUCT_ERROR,
+export const addProductError = () : AddProductError => ({
+  type: ActionTypes.ADD_PRODUCT_ERROR,
+});
+
+export const addProductReset = () : AddProductReset => ({
+  type: ActionTypes.ADD_PRODUCT_RESET,
 });
 
 export const logOutRequest = () : LogOutRequest => ({

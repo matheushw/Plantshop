@@ -1,10 +1,11 @@
 import React from 'react';
-import { ApplicationState, ProductModel } from '../../../../../store/types';
+import { ApplicationState, ProductModel} from '../../../../../store/types';
 import  ManageButton  from '../../../../../base-components/ManageButton';
 import * as styles from './styles'
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { addInventoryRequest, removeInventoryRequest, removeProductRequest } from '../../../../../store/actionCreators';
+
 
 export interface InventoryItemProps{
 	product: ProductModel;

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import beautifyUnique from "mongoose-beautiful-unique-validation";
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -16,7 +17,8 @@ const ProductSchema = new mongoose.Schema(
     },
     name: {
       type: String,
-      required: true
+      required: true,
+      unique: [true, 'There is a product with the same name.']
     },
     price: {
       type: String,
@@ -31,5 +33,7 @@ const ProductSchema = new mongoose.Schema(
     timestamps: true
   }
 );
+
+ProductSchema.plugin(beautifyUnique);
 
 export default mongoose.model("Product", ProductSchema);

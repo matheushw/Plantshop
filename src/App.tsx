@@ -38,7 +38,7 @@ const App: React.FC<AppProps> = (props) => {
 		}
 		
 		props.loadAllProducts();
-	}, []);
+	});
 
 
 	return (

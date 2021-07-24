@@ -8,7 +8,6 @@ import { useForm } from '../../../../useForm';
 import {useHistory} from 'react-router';
 import RentInfo from '../RentInfo';
 import { useEffect } from 'react';
-//import userEvent from '@testing-library/user-event';
 
 export interface ProfilePageProps{
   orders: Order[],
@@ -41,7 +40,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 		if(props.user){
 			props.loadAllOrders(props.user);
 		}
-	}, [props.user]);
+	});
 	
 	const initialState = {
 		user: props.user,

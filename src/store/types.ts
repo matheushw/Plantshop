@@ -49,12 +49,17 @@ export interface LoadingState {
 }
 
 export interface PossibleStates {
-	loadAllOrders: boolean,
-	placeRentOrders: boolean,
-	placePurchaseOrder: boolean,
-	user: boolean,
-	allProducts: boolean,
-	signUp: boolean,
+	loadAllOrders: boolean;
+	placeRentOrders: boolean;
+	placePurchaseOrder: boolean;
+	user: boolean;
+	allProducts: boolean;
+	signUp: boolean;
+	addProduct: boolean;
+	removeProduct: boolean;
+	addAdmin: boolean;
+	addInventory: boolean;
+  	removeInventory: boolean
 }
 
 export const initialPossibleState: PossibleStates = {
@@ -64,12 +69,17 @@ export const initialPossibleState: PossibleStates = {
 	user: false,
 	allProducts: false,
 	signUp: false,
+	addProduct: false,
+	removeProduct: false,
+	addAdmin: false,
+	addInventory: false,
+  	removeInventory: false
 }
 
 export interface ApplicationState {
-  loading: PossibleStates,
-	error: PossibleStates,
-  success: PossibleStates,
+  loading: PossibleStates;
+  error: PossibleStates;
+  success: PossibleStates;
   user: User | null;
   products: ProductModel[];
   cartProducts: Map<string, ProductModel>;

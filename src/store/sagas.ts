@@ -1,6 +1,19 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects'
-import { loadAllOrdersError, loadAllOrdersSuccess, loadAllProductsError, loadAllProductsSuccess, loadUsersError, loadUsersSuccess, placePurchaseOrderError, placePurchaseOrderSuccess, placeRentOrdersError, placeRentOrdersSuccess, signUpUserError, signUpUserSuccess } from './actionCreators';
-import { LoadAllOrdersRequest, LoadAllProductsRequest, LoadUsersRequest, PlacePurchaseOrderRequest, PlaceRentOrdersRequest, SignUpUserRequest } from './actions';
+import { 
+  loadAllOrdersError, loadAllOrdersSuccess, 
+  loadAllProductsError, loadAllProductsSuccess, 
+  loadUsersError, loadUsersSuccess, 
+  placePurchaseOrderError, placePurchaseOrderSuccess, 
+  placeRentOrdersError, placeRentOrdersSuccess, 
+  signUpUserError, signUpUserSuccess,
+  addAdminError, addAdminSuccess,
+  addProductError, addProductSuccess,
+  removeProductError, removeProductSuccess,
+  addInventoryError, addInventorySuccess,
+  removeInventoryError, removeInventorySuccess
+
+} from './actionCreators';
+import { LoadAllOrdersRequest, LoadUsersRequest, PlacePurchaseOrderRequest, PlaceRentOrdersRequest, SignUpUserRequest, AddAdminRequest, AddProductRequest, RemoveProductRequest, AddInventoryRequest, RemoveInventoryRequest} from './actions';
 import { ActionTypes } from './actionTypes';
 import ApiRequester from './apiRequester'
 import { RentOrder } from './types';
@@ -21,10 +34,55 @@ function* signUpUserSagas(action: SignUpUserRequest) : any {
     const response = yield call(ApiRequester.registerUser, action.name, action.address, action.phoneNumber, action.email, action.password);
     yield put(response.status === 404 ? signUpUserError() : signUpUserSuccess());
   } catch (e) {
-    console.log("error")
     yield put(signUpUserError());
   }
 }
+
+function* addAdminSagas(action: AddAdminRequest) : any {
+  try {
+    const response = yield call(ApiRequester.addAdmin, action.name, action.address, action.phoneNumber, action.email, action.password);
+    yield put(response.status === 404 ? addAdminError() : addAdminSuccess());
+  } catch (e) {
+    yield put(addAdminError());
+  }
+}
+
+function* addProductSagas(action: AddProductRequest) : any {
+  try {
+    const response = yield call(ApiRequester.addProduct, action.name, action.category, action.quantity, action.img, action.price, action.description);
+    yield put(response === 404 ? addProductError() : addProductSuccess());
+  } catch (e) {
+    yield put(addProductError());
+  }
+}
+
+function* removeProductSagas(action: RemoveProductRequest) : any {
+  try {
+    const response = yield call(ApiRequester.removeProduct, action.productId);
+    yield put(response === 404 ? removeProductError() : removeProductSuccess());
+  } catch (e) {
+    yield put(removeProductError());
+  }
+}
+
+function* addInventorySagas(action: AddInventoryRequest) : any {
+  try {
+    const product = yield call(ApiRequester.addInventory, action.productId);
+    yield put(product === 404 ? addInventoryError() : addInventorySuccess(product));
+  } catch (e) {
+    yield put(addInventoryError());
+  }
+}
+
+function* removeInventorySagas(action: RemoveInventoryRequest) : any {
+  try {
+    const response = yield call(ApiRequester.removeInventory, action.productId);
+    yield put(response === 404 ? removeInventoryError() : removeInventorySuccess());
+  } catch (e) {
+    yield put(removeInventoryError());
+  }
+}
+
 
 function* loadAllProductsSagas() : any {
   try {
@@ -84,6 +142,11 @@ function* mySaga() {
     takeLatest(ActionTypes.PLACE_RENT_ORDERS_REQUEST, placeRentOrdersSagas),
     takeLatest(ActionTypes.LOAD_ALL_ORDERS_REQUEST, loadAllOrdersSagas),
     takeLatest(ActionTypes.SIGN_UP_USER_REQUEST, signUpUserSagas),
+    takeLatest(ActionTypes.ADD_ADMIN_REQUEST, addAdminSagas),
+    takeLatest(ActionTypes.ADD_PRODUCT_REQUEST, addProductSagas),
+    takeLatest(ActionTypes.REMOVE_PRODUCT_REQUEST, removeProductSagas),
+    takeLatest(ActionTypes.ADD_INVENTORY_REQUEST, addInventorySagas),
+    takeLatest(ActionTypes.REMOVE_INVENTORY_REQUEST, removeInventorySagas)
   ]);
 }
 

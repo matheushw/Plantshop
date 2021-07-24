@@ -19,9 +19,16 @@ routes.get("/product/byType", ProductController.getByType);
 
 routes.get("/product", ProductController.getAll);
 
+routes.post("/product/storeAll", ProductController.storeAll);
+
+// Inventory
+routes.post("/product/plus", ProductController.plusQuantity);
+
+routes.post("/product/minus", ProductController.minusQuantity);
+
 routes.post("/product", ProductController.store);
 
-routes.post("/product/storeAll", ProductController.storeAll);
+routes.delete("/product", ProductController.del);
 
 //Rent Order
 routes.get("/rentOrders", RentOrderController.index);
