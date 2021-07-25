@@ -75,7 +75,10 @@ In this page users will be able to schedule a flower rent, the rents will appear
 
 
 ## Comments About the Code
-Our entire website is curentily built using HTML5, CSS3 and React. For managing the state of the application, we used Redux. We have chosen to use Typescript integration with React since we believe that typing our variables, functions, etc. would avoid headaches related to the project size.  
+Our entire website is currently built using HTML5, CSS3 and React. For managing the state of the application, we used Redux. We have chosen to use Typescript integration with React since we believe that typing our variables, functions, etc. would avoid headaches related to the project size. To deal with side-effects we are using sagas, a.k.a. reudx-sagas, especially to make API requests.
+
+Our API is built using Node.js + Express + Mongose. 
+
 
 ## Test Plan
 
