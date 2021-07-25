@@ -111,7 +111,7 @@ Besides that, we will test all major functionalities, including:
   - Adding new administrator
 
 ## Test results
-Please check our wiki for the test results!
+Please check our [wiki](https://github.com/matheushw/Plantshop/wiki/Tests) for the test results!
 
 ## Build Procedures
 Specific build procedures regarding the client side and the server side are inside of their's respective directories.
