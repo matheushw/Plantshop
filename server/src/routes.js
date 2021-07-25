@@ -10,7 +10,7 @@ routes.get("/user", UserController.index);
 
 routes.post("/user", UserController.store);
 
-routes.post("/user/edit", UserController.edit);
+routes.put("/user", UserController.edit);
 
 // Product routes
 routes.get("/product/byId", ProductController.getById);
@@ -24,9 +24,9 @@ routes.get("/product", ProductController.getAll);
 routes.post("/product/storeAll", ProductController.storeAll);
 
 // Inventory
-routes.post("/product/plus", ProductController.plusQuantity);
+routes.put("/product/plus", ProductController.plusQuantity);
 
-routes.post("/product/minus", ProductController.minusQuantity);
+routes.put("/product/minus", ProductController.minusQuantity);
 
 routes.post("/product", ProductController.store);
 

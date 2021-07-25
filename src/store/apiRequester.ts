@@ -64,8 +64,8 @@ class ApiRequester {
     email: string,
     id: string) => {
     try{
-      const response = await axios(endPoint + "/user/edit", {
-        method: 'post',
+      const response = await axios(endPoint + "/user", {
+        method: 'put',
         params: {
           name: name,
           address: address,
@@ -158,7 +158,7 @@ class ApiRequester {
   public static addInventory = async (productId: string) => {
     try {
       const response = await axios(endPoint + "/product/plus", {
-        method: 'post',
+        method: 'put',
         params: {
           _id : productId
         },
@@ -175,7 +175,7 @@ class ApiRequester {
   public static removeInventory = async (productId: string) => {
     try {
       const response = await axios(endPoint + "/product/minus", {
-        method: 'post',
+        method: 'put',
         params: {
           _id : productId
         },
