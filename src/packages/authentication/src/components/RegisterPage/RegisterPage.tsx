@@ -47,7 +47,7 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
           onScreen: false
         }
 			});
-
+			props.registerUserReset();
 		} else if ( props.userSuccess ) { // Success: user registered
 			
       store.addNotification({
@@ -66,11 +66,10 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
 			setTimeout(function (){
 				history.push('/login-page');
 			}, 2000);
-
       // Reseting loading, error adn success for signUp
-      props.registerUserReset();
-
+	  	props.registerUserReset();
 		}
+		
 	}, [props.userError, props.userSuccess]);
 
 	async function registerUserCallback(){

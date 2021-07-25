@@ -42,6 +42,7 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
           onScreen: false
         }
 			});
+			//props.logInReset();
 		} else if ( !props.userError && !props.userLoading && props.user ) { // Success: logged in
 			store.addNotification({
 				title: "Você fez login",
@@ -61,9 +62,9 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
 			}, 2000);
       
       // Reseting loading and error for logIn
-      props.logInReset();
+      //props.logInReset();
 		}
-	}, [props.userError, props.userLoading]);
+	}, [props.userError]);
 
 	async function loginUserCallback(){
 		const input = JSON.parse(JSON.stringify(values));
