@@ -39,13 +39,7 @@ const App: React.FC<AppProps> = (props) => {
 		}
 		props.loadAllProducts();
 	}, []);
-
-  /*useEffect(() => {
-    if(props.userError){
-      props.loadUsersReset();
-    }  
-  }, [props.userError]);
-  */
+	
 	return (
 	<div className="App">
 	<Router>
