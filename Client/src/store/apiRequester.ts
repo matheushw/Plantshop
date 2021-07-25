@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Order, ProductModel, RentOrder, User } from "./types";
 
-const endPoint = "http://localhost:3001";
+const endPoint = "https://api.plantshop.club";
 
 class ApiRequester {
 
