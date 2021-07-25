@@ -204,9 +204,9 @@ After logged in, an icon for loggin out will appear in the far right in the nav 
 We're using the following versions of node and npm:
 
     $ node -v
-    v14.17.3
+    v16.4.2
     $ npm -v
-    v6.14.13
+    7.18.1
 
 Install them using your favorite software, like nvm or your package manager.
 
