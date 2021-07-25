@@ -57,6 +57,32 @@ class ApiRequester {
     }
   }
 
+  public static editUser = async (
+    name: string,
+    address: string,
+    phoneNumber: string,
+    email: string,
+    id: string) => {
+    try{
+      const response = await axios(endPoint + "/user/edit", {
+        method: 'post',
+        params: {
+          name: name,
+          address: address,
+          phoneNumber: phoneNumber,
+          email: email,
+          _id: id
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   public static addAdmin = async (
     name: string,
     address: string,

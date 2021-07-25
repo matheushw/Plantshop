@@ -71,7 +71,7 @@ const AddAdminPage: React.FC<AddAdminPageProps> = (props) => {
       props.addAdminReset();
 
 		}
-	});
+	} ,[props.addAdminError, props.addAdminLoading, props.addAdminSuccess]);
 
 	async function addAdminCallback(){
 		const input = JSON.parse(JSON.stringify(values));

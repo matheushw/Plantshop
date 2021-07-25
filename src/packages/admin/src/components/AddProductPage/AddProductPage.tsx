@@ -74,7 +74,7 @@ const AddProductPage: React.FC<AddProductPageProps> = (props) => {
         props.addProductReset();
   
       }
-    });
+    }, [props.addProductError, props.addProductLoading, props.addProductSuccess]);
 
     async function addProductCallback(){
       const input = JSON.parse(JSON.stringify(values));

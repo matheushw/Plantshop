@@ -14,6 +14,8 @@ export interface ProfilePageProps{
   user: User | null,
   allUsers: User[],
 	rentedProducts: RentOrder[],
+	editSuccess: boolean,
+	editError: boolean,
   editUserInfo: (name: string, address: string, phoneNumber: string, email: string, id: string
     ) => void,
 	loadAllOrders: (user: User) => void,
@@ -40,8 +42,15 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 		if(props.user){
 			props.loadAllOrders(props.user);
 		}
-	});
+	}, [props.user]);
 	
+	useEffect(() => 
+	{
+		if(props.editSuccess){
+			console.log("success");
+		}
+	}, [props.editSuccess, props.editError]);
+
 	const initialState = {
 		user: props.user,
 	}
@@ -153,13 +162,17 @@ interface StateProps{
   user: User;
   allUsers: User[];
 	rentedProducts: RentOrder[];
+	editSuccess: boolean;
+	editError: boolean;
 }
 
 const mapStateToProps = (state: ApplicationState): StateProps => ({
   orders: state.orders,
   user: state.user!,
   allUsers: state.usersList,
-  rentedProducts: state.rentedProducts
+  rentedProducts: state.rentedProducts,
+  editSuccess: state.success.editUser,
+  editError: state.error.editUser
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({

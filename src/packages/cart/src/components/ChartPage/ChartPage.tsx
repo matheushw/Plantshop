@@ -38,7 +38,7 @@ const ChartPage: React.FC<ChartPageProps> = (props) => {
     } else if (props.success.placeRentOrders){
       props.placeRentNotAsked();
     }
-  });
+  }, [props.success]);
 
   const getFinalPrice = () => {
     let finalPrice: number = 0.0;

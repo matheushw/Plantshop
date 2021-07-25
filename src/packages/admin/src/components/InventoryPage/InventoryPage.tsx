@@ -30,7 +30,7 @@ const InventoryPage: React.FC <InventoryPageProps> = (props) => {
       props.loadInventory();
       props.resetInventory();
     }  
-	});
+	}, [props.success.addInventory, props.success.removeInventory, props.success.removeProduct]);
 
 	const splitProducts = (products: ProductModel[]) => {
 		const productsMap: Map<string, ProductModel[]> = new Map();

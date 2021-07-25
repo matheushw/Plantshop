@@ -231,32 +231,20 @@ const reducer = (state = initialState, action: ApplicationAction) => {
         draft.loading.removeProduct = false;
         draft.error.removeProduct = true;
     }); 
-    // case "editUser":
-    // case ActionTypes.:
-    //   return produce(state, draft => {
-    //     draft.usersList = [];
-    //     let edited: boolean = false;
-    //     state.usersList.forEach((user) => {
-    //       if(!edited && user.id === action.id){
-    //         const newUser: User = {
-    //           id: action.id,
-    //           email: action.email,
-    //           password: user.password,
-    //           name: action.name,
-    //           address: action.address,
-    //           phoneNumber: action.phoneNumber,
-    //           role: user.role,
-    //         }
-    //         edited = true;
-    //         draft.user = newUser;
-    //         draft.usersList.push(newUser);
-            
-    //       } else {
-    //         draft.usersList.push(user);
-    //       }
-    //     });
-    //   });
-    
+    case ActionTypes.EDIT_USER_REQUEST:
+      return produce(state, draft => {
+        draft.loading.editUser = true;
+      });
+    case ActionTypes.EDIT_USER_SUCCESS:
+      return produce(state, draft => {
+        draft.loading.editUser = false;
+        draft.success.editUser = true;
+      });
+    case ActionTypes.EDIT_USER_ERROR:
+      return produce(state, draft => {
+        draft.loading.editUser = false;
+        draft.error.editUser = true;
+      });
     case ActionTypes.MINUS_PRODUCT_IN_CART_REQUEST:
       return produce(state, draft => {
         if(state.cartProducts.has(action.id)){

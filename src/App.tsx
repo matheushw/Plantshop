@@ -16,31 +16,36 @@ import BouquetPage from "./packages/category/src/components/bouquetPage/BouquetP
 import VasePage from "./packages/category/src/components/potPage/PotPage";
 import AddProductPage from "./packages/admin/src/components/AddProductPage";
 import { useEffect } from "react";
-import { loadAllProductsRequest, loadUsersRequest } from "./store/actionCreators";
+import { loadAllProductsRequest, loadUsersRequest, loadUsersReset } from "./store/actionCreators";
 import { connect } from "react-redux";
 import React from "react";
 import { ApplicationState } from "./store/types";
 import { Dispatch } from "redux";
 
 interface AppProps {
+  userError: boolean;
 	loadUsers: (email: string, password: string) => void;
 	loadAllProducts: () => void;
+	loadUsersReset: () => void
 }
 
 const App: React.FC<AppProps> = (props) => {
-
-	useEffect(() => {
+  useEffect(() => {
 		const email = localStorage.getItem('@plantshop/email');
 		const password = localStorage.getItem('@plantshop/password');
 
 		if(email && password){
 			props.loadUsers(email, password);
 		}
-		
 		props.loadAllProducts();
-	});
+	}, []);
 
-
+  useEffect(() => {
+    if(props.userError){
+      props.loadUsersReset();
+    }  
+  }, [props.userError]);
+  
 	return (
 	<div className="App">
 	<Router>
@@ -69,16 +74,22 @@ const App: React.FC<AppProps> = (props) => {
 
 interface DispatchProps {
   loadUsers: (email: string, password: string) => void;
+  loadUsersReset: () => void;
 	loadAllProducts: () => void;
 }
 
-interface StateProps{}
+interface StateProps{
+  userError: boolean;
+}
 
-const mapStateToProps = (state: ApplicationState): StateProps => ({});
+const mapStateToProps = (state: ApplicationState): StateProps => ({
+  userError: state.error.user,
+});
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   loadUsers: (email: string, password: string) => {dispatch(loadUsersRequest(email, password))},
   loadAllProducts: () => {dispatch(loadAllProductsRequest())},
+  loadUsersReset: () => {dispatch(loadUsersReset())}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

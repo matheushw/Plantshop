@@ -10,6 +10,8 @@ routes.get("/user", UserController.index);
 
 routes.post("/user", UserController.store);
 
+routes.post("/user/edit", UserController.edit);
+
 // Product routes
 routes.get("/product/byId", ProductController.getById);
 

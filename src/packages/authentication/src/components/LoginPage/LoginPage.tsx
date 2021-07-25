@@ -63,7 +63,7 @@ const LoginPage: React.FC<LoginPageProps> = (props) => {
       // Reseting loading and error for logIn
       props.logInReset();
 		}
-	});
+	}, [props.userError, props.userLoading]);
 
 	async function loginUserCallback(){
 		const input = JSON.parse(JSON.stringify(values));

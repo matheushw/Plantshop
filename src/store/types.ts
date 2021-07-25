@@ -59,7 +59,8 @@ export interface PossibleStates {
 	removeProduct: boolean;
 	addAdmin: boolean;
 	addInventory: boolean;
-  	removeInventory: boolean
+  	removeInventory: boolean;
+	editUser: boolean;
 }
 
 export const initialPossibleState: PossibleStates = {
@@ -73,7 +74,8 @@ export const initialPossibleState: PossibleStates = {
 	removeProduct: false,
 	addAdmin: false,
 	addInventory: false,
-  	removeInventory: false
+  	removeInventory: false,
+	editUser: false
 }
 
 export interface ApplicationState {

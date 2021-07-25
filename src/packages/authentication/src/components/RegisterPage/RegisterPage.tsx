@@ -71,7 +71,7 @@ const RegisterPage: React.FC<RegisterPageProps> = (props) => {
       props.registerUserReset();
 
 		}
-	});
+	}, [props.userError, props.userSuccess]);
 
 	async function registerUserCallback(){
 		const input = JSON.parse(JSON.stringify(values));

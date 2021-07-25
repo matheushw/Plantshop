@@ -10,10 +10,11 @@ import {
   addProductError, addProductSuccess,
   removeProductError, removeProductSuccess,
   addInventoryError, addInventorySuccess,
-  removeInventoryError, removeInventorySuccess
+  removeInventoryError, removeInventorySuccess,
+  editUserError, editUserSuccess
 
 } from './actionCreators';
-import { LoadAllOrdersRequest, LoadUsersRequest, PlacePurchaseOrderRequest, PlaceRentOrdersRequest, SignUpUserRequest, AddAdminRequest, AddProductRequest, RemoveProductRequest, AddInventoryRequest, RemoveInventoryRequest} from './actions';
+import { LoadAllOrdersRequest, LoadUsersRequest, PlacePurchaseOrderRequest, PlaceRentOrdersRequest, SignUpUserRequest, AddAdminRequest, AddProductRequest, RemoveProductRequest, AddInventoryRequest, RemoveInventoryRequest, EditUserRequest} from './actions';
 import { ActionTypes } from './actionTypes';
 import ApiRequester from './apiRequester'
 import { RentOrder } from './types';
@@ -26,6 +27,15 @@ function* fetchUser(action: LoadUsersRequest) : any {
     yield put(user.name === undefined ? loadUsersError() : loadUsersSuccess(user));
   } catch (e) {
     yield put(loadUsersError());
+  }
+}
+
+function* editUserSagas(action: EditUserRequest) : any {
+  try {
+    const response = yield call(ApiRequester.editUser, action.name, action.address, action.phoneNumber, action.email, action.id);
+    yield put(response.status === 404 ? editUserError() : editUserSuccess());
+  } catch (e) {
+    yield put(editUserError());
   }
 }
 
@@ -136,6 +146,7 @@ function* loadAllOrdersSagas(action: LoadAllOrdersRequest) : any {
 function* mySaga() {
   yield all([
     takeLatest(ActionTypes.LOAD_USER_REQUEST, fetchUser),
+    takeLatest(ActionTypes.EDIT_USER_REQUEST, editUserSagas),
     takeLatest(ActionTypes.LOAD_ALL_PRODUCTS_REQUEST, loadAllProductsSagas),
     takeLatest(ActionTypes.SIGN_UP_USER_REQUEST, signUpUserSagas),
     takeLatest(ActionTypes.PLACE_PURCHASE_ORDER_REQUEST, placePurchaseOrderSagas),
