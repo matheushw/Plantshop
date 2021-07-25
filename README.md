@@ -33,9 +33,10 @@ Our website is running at https://plantshop.club/
 
 ### Data storage
 Our project will store all users data such as password, email, name, phone number and address in a specific database. The products info will also be stored in a dedicated database.
+We are using mongodb to store all the data we need. 
 
 ### Limitations
-In this phase of the project, the application is being saved **locally** so it's only possible to simulate the server database functionality for a **single client**.
+Right now, the website is fully functional and is working for several clients.
 
 ### Screens
 #### Homepage
@@ -203,9 +204,9 @@ After logged in, an icon for loggin out will appear in the far right in the nav 
 We're using the following versions of node and npm:
 
     $ node -v
-    v10.24.1
+    v14.17.3
     $ npm -v
-    6.14.12
+    v6.14.13
 
 Install them using your favorite software, like nvm or your package manager.
 
@@ -213,7 +214,6 @@ Install them using your favorite software, like nvm or your package manager.
 
 To install, run the following:
 
-    $ cd ps
     $ npm install
     $ npm run-script build
 
@@ -225,7 +225,7 @@ To run the server you will also need the serve package. To install it, run:
 
 ### Running
 
-After running the installation procedures, run the following inside the ps folder:
+After running the installation procedures, run the following:
 
     $ serve build
 
