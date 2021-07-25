@@ -311,6 +311,8 @@ const reducer = (state = initialState, action: ApplicationAction) => {
       });
     case ActionTypes.LOG_OUT_REQUEST:
       return produce(state, draft => {
+        localStorage.removeItem('@plantshop/email');
+        localStorage.removeItem('@plantshop/password');
         draft.loading.user = false;
         draft.error.user = false;
         draft.user = null;

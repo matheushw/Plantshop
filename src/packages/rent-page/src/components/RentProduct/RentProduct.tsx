@@ -36,7 +36,7 @@ const RentProduct: React.FC<RentProductProps> = ( props ) => {
       <img src={props.product.img} alt={props.product.name} className={styles.productImage}></img>
       <h3>{props.product.name}</h3>
       <p className={styles.description}>{props.product.description}</p>
-      <h2 className={styles.price}>R${props.product.price}/Dia</h2>
+      <h2 className={styles.price}>R${(parseFloat(props.product.price)/10.0).toFixed(2)}/Dia</h2>
       
       <form onSubmit={(event) => event.preventDefault()}>
         <div>
@@ -65,7 +65,7 @@ const RentProduct: React.FC<RentProductProps> = ( props ) => {
         <button 
           className={styles.rentButton} 
           onClick={() => {
-              if(endDate && startDate && startDate > endDate){
+              if(!(endDate && startDate) || (endDate && startDate && startDate >= endDate)){
                 props.setShowNotification(NotificationType.FAILED);
               } else {
                 props.setShowNotification(NotificationType.SUCCESSFUL);

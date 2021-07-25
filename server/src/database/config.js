@@ -1,1 +1,1 @@
-export const uri = "mongodb://fredbr.com:27017/";
+export const uri = "mongodb://node:ukFf5G7fg7Ej@fredbr.com/test";
