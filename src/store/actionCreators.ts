@@ -288,11 +288,11 @@ export const signUpUserReset = (): SignUpUserReset => ({
 });
 
 export const editUserRequest = (
-  name: User["name"], 
-  address: User["address"],
-  phoneNumber: User["phoneNumber"], 
-  email: User["email"], 
-  id: User["id"]
+  name: string, 
+  address: string,
+  phoneNumber: string, 
+  email: string, 
+  id: string
 ): EditUserRequest => ({
   type: ActionTypes.EDIT_USER_REQUEST,
   name,

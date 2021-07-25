@@ -8,10 +8,12 @@ import { useForm } from '../../../../useForm';
 import {useHistory} from 'react-router';
 import RentInfo from '../RentInfo';
 import { useEffect } from 'react';
+import ReactNotification, { store } from 'react-notifications-component';
+
 
 export interface ProfilePageProps{
   orders: Order[],
-  user: User | null,
+  user: User,
   allUsers: User[],
 	rentedProducts: RentOrder[],
 	editSuccess: boolean,
@@ -46,8 +48,39 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 	
 	useEffect(() => 
 	{
+		if(props.editError){
+			store.addNotification({
+				title: "Este email já existe. Tente com outro!",
+				message: " ",
+				type: "danger",
+				insert: "top",
+				container: "top-left",
+				animationIn: ["animate__animated", "animate__fadeIn"],
+				animationOut: ["animate__animated", "animate__fadeOut"],
+				dismiss: {
+				  duration: 2000,
+				  onScreen: false
+				}
+			});
+			setTimeout(function (){
+				window.location.reload();
+			}, 1000);
+			
+		}
 		if(props.editSuccess){
-			console.log("success");
+			store.addNotification({
+				title: "Suas alterações foram salvas!",
+				message: " ",
+				type: "success",
+				insert: "top",
+				container: "top-left",
+				animationIn: ["animate__animated", "animate__fadeIn"],
+				animationOut: ["animate__animated", "animate__fadeOut"],
+				dismiss: {
+					duration: 2000,
+					onScreen: false
+				}
+			});	
 		}
 	}, [props.editSuccess, props.editError]);
 
@@ -78,6 +111,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 
 	return ( props.user &&
 		<div className={styles.profilePageWrapper}>
+			<ReactNotification/>
 			<div className={styles.infoDisplay}>
 				<h1>Perfil</h1>
 
@@ -154,7 +188,7 @@ const ProfilePage: React.FC<ProfilePageProps> = (props) => {
 interface DispatchProps {
   editUserInfo: (name: string, address: string, phoneNumber: string, email: string, id: string
     ) => void,
-	loadAllOrders: (user: User) => void,
+	loadAllOrders: (user: User) => void
 }
 
 interface StateProps{
@@ -177,7 +211,7 @@ const mapStateToProps = (state: ApplicationState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   editUserInfo:(name, address, phoneNumber, email, id) => {dispatch(editUserRequest(name, address, phoneNumber, email, id))},
-	loadAllOrders: (user) => {dispatch(loadAllOrdersRequest(user))}
+	loadAllOrders: (user) => {dispatch(loadAllOrdersRequest(user))},
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

@@ -234,6 +234,8 @@ const reducer = (state = initialState, action: ApplicationAction) => {
     case ActionTypes.EDIT_USER_REQUEST:
       return produce(state, draft => {
         draft.loading.editUser = true;
+        draft.success.editUser = false;
+        draft.error.editUser = false;
       });
     case ActionTypes.EDIT_USER_SUCCESS:
       return produce(state, draft => {

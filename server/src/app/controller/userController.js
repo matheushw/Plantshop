@@ -20,7 +20,7 @@ class UserController {
     try {
       const data = await User.findOneAndUpdate(
         {_id}, 
-        {name: req.query.name, address: req.query.address, phoneNumber: req.query.phoneNumber, email: req.query.email},
+        {name, address, phoneNumber, email},
         { upsert: true, new: true }
       );
       return res.json(data);
