@@ -31,7 +31,7 @@ const AddProductPage: React.FC<AddProductPageProps> = (props) => {
         name: '',
         price: '',
         quantity: 1,
-        category: '',
+        category: 'Planta',
         description: '',
     };
 
@@ -137,7 +137,7 @@ const AddProductPage: React.FC<AddProductPageProps> = (props) => {
                       name="category"
                       onChange={onChangeSelect}
                       required>
-                        <option value="Planta"> Planta </option>
+                        <option selected value="Planta"> Planta </option>
                         <option value="Flor"> Flor</option>
                         <option value="Buque">Buquê</option>
                         <option value="Vaso">Vaso</option>        
